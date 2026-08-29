@@ -17,3 +17,4 @@ header_pages:
 # Build settings
 plugins:
   - jekyll-feed
+# trigger rebuild
