@@ -3,6 +3,8 @@ layout: default
 title: "Welcome to Howler's — The Social Playground for Dogs and Their Humans."
 ---
 
+# Welcome to Howler's — The Social Playground for Dogs and Their Humans.
+
 ## Indoor Lanes • Outdoor Turf • Human Lounge • Enrichment Zones
 
 ### Where dogs run wild and humans kick back.
