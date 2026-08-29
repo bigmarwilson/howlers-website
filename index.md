@@ -8,7 +8,7 @@ title: "Welcome to Howler's — The Social Playground for Dogs and Their Humans.
 ### Where dogs run wild and humans kick back.
 
 <div class="cta-container">
-  <a class="cta-button green" href="/membership">Become a Member</a>
+  <a class="cta-button green" href="{{ site.baseurl }}/membership">Become a Member</a>
   <a class="cta-button gold" href="/services">Plan Your Visit</a>
 </div>
 
