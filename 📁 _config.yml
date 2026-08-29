@@ -2,7 +2,7 @@ title: "Howler's"
 description: "The Social Playground for Dogs and Their Humans."
 theme: minima
 markdown: kramdown
-
+baseurl: "/howlers-website"
 # Navigation
 header_pages:
   - index.md
