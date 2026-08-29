@@ -1,0 +1,18 @@
+title: "Howler's"
+description: "The Social Playground for Dogs and Their Humans."
+theme: minima
+markdown: kramdown
+
+# Navigation
+header_pages:
+  - index.md
+  - about.md
+  - services.md
+  - membership.md
+  - gallery.md
+  - faq.md
+  - contact.md
+
+# Build settings
+plugins:
+  - jekyll-feed
