@@ -11,7 +11,7 @@ title: "Welcome to Howler's — The Social Playground for Dogs and Their Humans.
 
 <div class="cta-container">
   <a class="cta-button green" href="{{ site.baseurl }}/membership">Become a Member</a>
-  <a class="cta-button gold" href="{{ site.baseurl }}/services">Plan Your Visit</a>
+  <a class="cta-button gold" href="{{ site.baseurl }}/services.html">Plan Your Visit</a>
 </div>
 
 ---
