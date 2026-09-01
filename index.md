@@ -46,8 +46,6 @@ title: "Welcome to Howler's — The Social Playground for Dogs and Their Humans.
 
 ---
 
----
-
 ## The Howler’s Experience
 
 A hybrid indoor/outdoor dog park designed for both dogs and humans.  
