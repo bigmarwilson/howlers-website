@@ -29,7 +29,7 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("{{ site.baseurl }}/assets/images/rottweiler-stencil.png");
+  background-image: url("/howlers-website/assets/images/rottweiler-stencil.png");
   background-size: 1500px auto;
   background-repeat: no-repeat;
   background-position: center center;
