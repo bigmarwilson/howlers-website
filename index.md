@@ -1,5 +1,5 @@
 ---
-layout: home
+layout: default
 title: "Welcome to Howler's — The Social Playground for Dogs and Their Humans."
 ---
 
