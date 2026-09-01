@@ -154,3 +154,9 @@ main.content {
   background: transparent !important;
 }
 
+/* Graffiti-style headings */
+h1, h2, h3, .hero h1 {
+  font-family: 'Bangers', sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
