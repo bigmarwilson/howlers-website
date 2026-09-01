@@ -360,3 +360,24 @@ h1, h2, h3, h4, h5, h6,
 .offer-card {
   background: #fff !important;
 }
+
+/* Fix global color override inside graffiti cards */
+.offer-card,
+.offer-card h3,
+.offer-card p {
+  color: #000 !important;
+}
+
+/* Make spray textures visible on dark background */
+.offer-card::before {
+  opacity: 0.35 !important;
+}
+
+.offer-card::after {
+  opacity: 0.45 !important;
+}
+
+/* Ensure graffiti cards stay bright white */
+.offer-card {
+  background: #fff !important;
+}
