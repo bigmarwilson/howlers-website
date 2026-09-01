@@ -30,12 +30,12 @@ body::before {
   width: 100%;
   height: 100%;
   background-image: url("{{ site.baseurl }}/assets/images/rottweiler-stencil.png");
-  background-size: 1500px auto; /* slightly larger for visibility */
+  background-size: 1500px auto;
   background-repeat: no-repeat;
   background-position: center center;
-  opacity: 0.22; /* tuned for #666 gray */
-  pointer-events: none; /* keeps buttons clickable */
-  z-index: -1; /* behind everything */
+  opacity: 0.22;
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* ------------------------------
