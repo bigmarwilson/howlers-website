@@ -76,13 +76,18 @@ body::after {
 
 /* Rottweiler stencil image (keep your existing image path) */
 body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
   background:
     radial-gradient(circle at center,
-      rgba(0, 229, 255, 0.18),
-      transparent 55%),
-    url("/assets/images/rottweiler.png") center center no-repeat;
-  background-size: 520px auto;
-  opacity: 0.75;
+      rgba(0, 229, 255, 0.22),
+      transparent 60%),
+    url("assets/images/rottweiler-stencil.png") center center no-repeat;
+  background-size: 600px auto;
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: -3;
 }
 
 /* Floating neon particles */
