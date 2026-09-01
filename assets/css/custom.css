@@ -149,3 +149,8 @@ footer {
   color: #ccc;
   margin-top: 40px;
 }
+
+main.content {
+  background: transparent !important;
+}
+
