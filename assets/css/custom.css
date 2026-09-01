@@ -160,3 +160,12 @@ h1, h2, h3, .hero h1 {
   letter-spacing: 1px;
   text-transform: uppercase;
 }
+
+/* Force graffiti font on headings */
+h1, h2, h3, h4, h5, h6,
+.hero h1,
+.feature-card h3,
+.cta-container a {
+  font-family: 'Bangers', sans-serif !important;
+}
+
