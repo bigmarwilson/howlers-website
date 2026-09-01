@@ -255,3 +255,62 @@ footer {
   color: #ccc;
   line-height: 1.5;
 }
+
+/* ------------------------------
+   DARK + NEON PREMIUM OFFER SECTION
+------------------------------ */
+
+.offer-section.neon {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.offer-title {
+  font-size: 52px;
+  margin-bottom: 50px;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
+}
+
+.neon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.neon-card {
+  background: #0f0f0f;
+  padding: 32px;
+  border-radius: 14px;
+  border: 2px solid #222;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+/* Neon hover glow */
+.neon-card:hover {
+  transform: translateY(-6px);
+  border-color: #ffcc00;
+  box-shadow: 
+    0 0 12px rgba(255, 204, 0, 0.6),
+    0 0 24px rgba(255, 204, 0, 0.4),
+    0 0 36px rgba(255, 204, 0, 0.2);
+}
+
+.neon-card h3 {
+  font-size: 28px;
+  margin-bottom: 14px;
+  color: #ffcc00;
+  font-weight: 600;
+  text-shadow: 0 0 8px rgba(255, 204, 0, 0.4);
+}
+
+.neon-card p {
+  font-size: 18px;
+  color: #ccc;
+  line-height: 1.5;
+}
