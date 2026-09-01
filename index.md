@@ -16,27 +16,27 @@ title: "Welcome to Howler's — The Social Playground for Dogs and Their Humans.
 
 ## What We Offer
 
-<section class="offer-section">
+<section class="offer-section premium">
   <h2 class="offer-title">What We Offer</h2>
 
-  <div class="offer-grid">
+  <div class="offer-grid premium-grid">
 
-    <div class="offer-card">
+    <div class="offer-card premium-card">
       <h3>Open Play</h3>
       <p>Let your dog run, socialize, and burn energy in a safe, supervised environment.</p>
     </div>
 
-    <div class="offer-card">
+    <div class="offer-card premium-card">
       <h3>Training</h3>
       <p>Positive, effective training programs for puppies, adults, and behavioral needs.</p>
     </div>
 
-    <div class="offer-card">
+    <div class="offer-card premium-card">
       <h3>Events</h3>
       <p>Community meetups, themed parties, breed nights, and creative dog‑owner activities.</p>
     </div>
 
-    <div class="offer-card">
+    <div class="offer-card premium-card">
       <h3>Membership</h3>
       <p>Exclusive perks, discounted services, priority booking, and member‑only events.</p>
     </div>
