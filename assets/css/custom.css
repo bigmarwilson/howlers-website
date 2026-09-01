@@ -56,7 +56,7 @@ body {
    FIXED ROTTWEILER BACKGROUND
    ============================ */
 
-/* Neon cloud BEHIND everything */
+/* Neon cloud behind everything */
 body::before {
   content: "";
   position: fixed;
@@ -71,7 +71,7 @@ body::before {
   mix-blend-mode: screen;
   opacity: 0.45;
   pointer-events: none;
-  z-index: -4;
+  z-index: -3;
 }
 
 /* Rottweiler silhouette ABOVE the cloud */
@@ -84,7 +84,7 @@ body::after {
   background-size: 600px auto;
   opacity: 0.9;
   pointer-events: none;
-  z-index: -3;
+  z-index: -2;
 }
 
 /* Floating neon particles ABOVE the dog */
