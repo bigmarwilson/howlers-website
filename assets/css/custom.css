@@ -203,3 +203,55 @@ footer {
   color: #ccc;
   margin-top: 40px;
 }
+
+/* ------------------------------
+   PREMIUM OFFER SECTION
+------------------------------ */
+
+.offer-section.premium {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.offer-title {
+  font-size: 48px;
+  margin-bottom: 50px;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.premium-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.premium-card {
+  background: #1a1a1a;
+  padding: 32px;
+  border-radius: 14px;
+  border: 1px solid #333;
+  box-shadow: 0 0 20px rgba(0,0,0,0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.premium-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 0 gold;
+}
+
+.premium-card h3 {
+  font-size: 26px;
+  margin-bottom: 14px;
+  color: gold;
+  font-weight: 600;
+}
+
+.premium-card p {
+  font-size: 18px;
+  color: #ccc;
+  line-height: 1.5;
+}
