@@ -16,27 +16,35 @@ title: "Welcome to Howler's — The Social Playground for Dogs and Their Humans.
 
 ## What We Offer
 
-<div class="feature-grid">
-  <div class="feature-card">
-    <h3>Indoor Run Lanes</h3>
-    <p>High‑energy sprint lanes designed for safe, structured fun.</p>
-  </div>
+<section class="offer-section">
+  <h2 class="offer-title">What We Offer</h2>
 
-  <div class="feature-card">
-    <h3>Outdoor K9Grass Yard</h3>
-    <p>Clean, durable turf built for dogs to play, explore, and socialize.</p>
-  </div>
+  <div class="offer-grid">
 
-  <div class="feature-card">
-    <h3>Human Lounge</h3>
-    <p>Patio seating, fire pit, and a cozy coffee bar for humans to relax.</p>
-  </div>
+    <div class="offer-card">
+      <h3>Open Play</h3>
+      <p>Let your dog run, socialize, and burn energy in a safe, supervised environment.</p>
+    </div>
 
-  <div class="feature-card">
-    <h3>Enrichment Zones</h3>
-    <p>Obstacle stations, sensory play, and guided enrichment activities.</p>
+    <div class="offer-card">
+      <h3>Training</h3>
+      <p>Positive, effective training programs for puppies, adults, and behavioral needs.</p>
+    </div>
+
+    <div class="offer-card">
+      <h3>Events</h3>
+      <p>Community meetups, themed parties, breed nights, and creative dog‑owner activities.</p>
+    </div>
+
+    <div class="offer-card">
+      <h3>Membership</h3>
+      <p>Exclusive perks, discounted services, priority booking, and member‑only events.</p>
+    </div>
+
   </div>
-</div>
+</section>
+
+---
 
 ---
 
