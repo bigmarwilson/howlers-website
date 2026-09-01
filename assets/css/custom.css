@@ -52,29 +52,30 @@ body {
   overflow-x: hidden;
 }
 
-/* ---------- ROTTWEILER + NEON CLOUD + PARTICLES ---------- */
+/* ============================
+   FIXED ROTTWEILER BACKGROUND
+   ============================ */
 
-/* Neon cloud BEHIND the dog */
-body::after {
+/* Neon cloud BEHIND everything */
+body::before {
   content: "";
   position: fixed;
   inset: 0;
   background:
     radial-gradient(circle at center,
-      rgba(0, 229, 255, 0.35),
+      rgba(0, 229, 255, 0.25),
       transparent 70%),
     radial-gradient(circle at 60% 40%,
-      rgba(57, 255, 20, 0.28),
+      rgba(57, 255, 20, 0.22),
       transparent 70%);
   mix-blend-mode: screen;
-  opacity: 0.55;
-  animation: neonParticles 26s linear infinite;
+  opacity: 0.45;
   pointer-events: none;
   z-index: -4;
 }
 
-/* Rottweiler silhouette */
-body::before {
+/* Rottweiler silhouette ABOVE the cloud */
+body::after {
   content: "";
   position: fixed;
   inset: 0;
@@ -84,6 +85,22 @@ body::before {
   opacity: 0.9;
   pointer-events: none;
   z-index: -3;
+}
+
+/* Floating neon particles ABOVE the dog */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(0, 229, 255, 0.18) 0, transparent 55%),
+    radial-gradient(circle at 80% 10%, rgba(57, 255, 20, 0.16) 0, transparent 55%),
+    radial-gradient(circle at 20% 80%, rgba(255, 204, 0, 0.14) 0, transparent 55%);
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  animation: neonParticles 26s linear infinite;
+  pointer-events: none;
+  z-index: -2;
 }
 
 /* Floating neon particles ABOVE cloud but BELOW dog */
