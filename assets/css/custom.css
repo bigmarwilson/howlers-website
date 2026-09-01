@@ -6,16 +6,13 @@
 /* ---------- CSS VARIABLES ---------- */
 :root {
   --color-bg-dark: #050608;
-  --color-bg-light: #0f1115;
-  --color-bg-card: #0b0d10;
+  --color-bg-light: #f5f7fb;
 
   --color-gold: #ffcc00;
   --color-neon-green: #39ff14;
   --color-cyan: #00e5ff;
   --color-white: #eaeaea;
   --color-muted: #b0b0b0;
-
-  --color-error: #ff4b4b;
 
   --radius-card: 14px;
   --radius-button: 6px;
@@ -43,7 +40,7 @@ body {
 }
 
 /* ================================
-   BASE LAYOUT (APPLIES TO ALL MODES)
+   BASE LAYOUT
    ================================ */
 
 body {
@@ -55,41 +52,9 @@ body {
   overflow-x: hidden;
 }
 
-/* Main content wrapper (Jekyll layout) */
-.wrapper,
-.site-wrapper,
-.page-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 20px 80px;
-}
+/* ---------- ROTTWEILER + NEON CLOUD + PARTICLES ---------- */
 
-/* ---------- ROTTWEILER BACKGROUND + NEON GLOW ---------- */
-body::before,
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -2;
-}
-
-/* Rottweiler stencil image (keep your existing image path) */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(circle at center,
-      rgba(0, 229, 255, 0.22),
-      transparent 60%),
-    url("assets/images/rottweiler-stencil.png") center center no-repeat;
-  background-size: 600px auto;
-  opacity: 0.85;
-  pointer-events: none;
-  z-index: -3;
-}
-
+/* Neon cloud BEHIND the dog */
 body::after {
   content: "";
   position: fixed;
@@ -108,7 +73,36 @@ body::after {
   z-index: -4;
 }
 
-/* ---------- GLOBAL TYPOGRAPHY ---------- */
+/* Rottweiler silhouette */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    url("assets/images/rottweiler-stencil.png") center center no-repeat;
+  background-size: 600px auto;
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: -3;
+}
+
+/* Floating neon particles ABOVE cloud but BELOW dog */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(0, 229, 255, 0.18) 0, transparent 55%),
+    radial-gradient(circle at 80% 10%, rgba(57, 255, 20, 0.16) 0, transparent 55%),
+    radial-gradient(circle at 20% 80%, rgba(255, 204, 0, 0.14) 0, transparent 55%);
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  animation: neonParticles 26s linear infinite;
+  pointer-events: none;
+  z-index: -2;
+}
+
+/* ---------- TYPOGRAPHY ---------- */
 h1,
 h2,
 h3,
@@ -134,7 +128,6 @@ p {
     color: var(--color-white);
   }
 
-  /* Neon headings */
   h1,
   h2 {
     color: var(--color-white);
@@ -151,7 +144,6 @@ p {
       0 0 18px rgba(57, 255, 20, 0.35);
   }
 
-  /* Links */
   a {
     color: var(--color-gold);
     text-decoration: none;
@@ -165,66 +157,30 @@ p {
       0 0 18px rgba(57, 255, 20, 0.5);
   }
 
-  /* Header / Nav */
-  .site-header,
-  header,
-  .nav-wrapper {
-    background: linear-gradient(
-      to right,
-      rgba(5, 6, 8, 0.98),
-      rgba(10, 12, 16, 0.98)
-    );
+  /* Header */
+  .site-header {
+    background: rgba(5, 6, 8, 0.96);
     border-bottom: 1px solid rgba(255, 204, 0, 0.25);
     box-shadow: 0 0 22px rgba(0, 0, 0, 0.9);
-    position: sticky;
-    top: 0;
-    z-index: 20;
   }
 
-  .site-title,
-  .logo,
-  .brand {
+  .site-title {
     color: var(--color-gold);
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
     text-shadow:
       0 0 12px rgba(255, 204, 0, 0.7),
       0 0 24px rgba(0, 229, 255, 0.4);
   }
 
-  .site-nav a,
-  nav a {
-    padding: 12px 16px;
-    display: inline-block;
-    color: var(--color-white);
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 0.12em;
-  }
-
-  .site-nav a:hover,
-  nav a:hover {
-    color: var(--color-cyan);
-    text-shadow:
-      0 0 10px rgba(0, 229, 255, 0.8),
-      0 0 18px rgba(57, 255, 20, 0.6);
-  }
-
-  /* Hero section */
-  .hero,
-  .home-hero,
-  .page-hero {
-    padding: 90px 20px 70px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+  /* Hero */
+  .hero {
     background-image: linear-gradient(
       135deg,
       rgba(255, 204, 0, 0.12),
       rgba(0, 229, 255, 0.18),
       rgba(57, 255, 20, 0.16)
     );
+    padding: 90px 20px 70px;
+    text-align: center;
     box-shadow: var(--shadow-strong);
   }
 
@@ -238,80 +194,19 @@ p {
     mix-blend-mode: screen;
     opacity: 0.7;
     animation: heroGlow 32s linear infinite;
-    pointer-events: none;
   }
 
-  .hero-title,
-  .home-hero h1 {
-    font-size: 3rem;
-    margin-bottom: 18px;
-  }
-
-  .hero-subtitle,
-  .home-hero p {
-    font-size: 1.1rem;
-    max-width: 640px;
-    margin: 0 auto;
-  }
-
-  /* Section dividers */
-  .section-divider {
-    height: 4px;
-    margin: 40px auto;
-    max-width: 260px;
-    border-radius: 999px;
-    background-image: linear-gradient(
-      to right,
-      var(--color-gold),
-      var(--color-cyan),
-      var(--color-neon-green)
-    );
-    box-shadow:
-      0 0 12px rgba(255, 204, 0, 0.7),
-      0 0 18px rgba(0, 229, 255, 0.6);
-  }
-
-  /* Cards (services, membership, etc.) */
-  .card,
-  .service-card,
-  .membership-card,
-  .offer-card,
-  .neon-card {
-    background: var(--color-bg-card);
+  /* Cards */
+  .card {
+    background: #0b0d10;
     border-radius: var(--radius-card);
-    border: 1px solid rgba(255, 255, 255, 0.06);
     padding: 26px 24px;
     box-shadow: var(--shadow-soft);
-    position: relative;
-    overflow: hidden;
-    transition:
-      transform var(--transition-med),
-      box-shadow var(--transition-med),
-      border-color var(--transition-med);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: var(--transition-med);
   }
 
-  .card::before,
-  .service-card::before,
-  .membership-card::before,
-  .offer-card::before,
-  .neon-card::before {
-    content: "";
-    position: absolute;
-    inset: -40%;
-    background:
-      radial-gradient(circle at 0% 0%, rgba(255, 204, 0, 0.16), transparent 60%),
-      radial-gradient(circle at 100% 100%, rgba(0, 229, 255, 0.18), transparent 60%);
-    mix-blend-mode: screen;
-    opacity: 0.0;
-    transition: opacity var(--transition-med);
-    pointer-events: none;
-  }
-
-  .card:hover,
-  .service-card:hover,
-  .membership-card:hover,
-  .offer-card:hover,
-  .neon-card:hover {
+  .card:hover {
     transform: translateY(-6px);
     border-color: rgba(255, 204, 0, 0.6);
     box-shadow:
@@ -319,88 +214,21 @@ p {
       0 0 26px rgba(0, 229, 255, 0.5);
   }
 
-  .card:hover::before,
-  .service-card:hover::before,
-  .membership-card:hover::before,
-  .offer-card:hover::before,
-  .neon-card:hover::before {
-    opacity: 0.8;
-  }
-
-  .card h3,
-  .service-card h3,
-  .membership-card h3,
-  .offer-card h3,
-  .neon-card h3 {
-    color: var(--color-gold);
-    margin-bottom: 10px;
-    text-shadow:
-      0 0 10px rgba(255, 204, 0, 0.7),
-      0 0 18px rgba(0, 229, 255, 0.4);
-  }
-
-  .card p,
-  .service-card p,
-  .membership-card p,
-  .offer-card p,
-  .neon-card p {
-    color: var(--color-muted);
-  }
-
   /* Buttons */
-  .btn,
-  button,
-  .button,
-  .cta,
-  .hero-cta {
-    display: inline-block;
-    padding: 12px 22px;
-    border-radius: var(--radius-button);
-    border: 2px solid transparent;
+  .btn {
     background-color: rgba(5, 6, 8, 0.95);
     color: var(--color-white);
+    border-radius: var(--radius-button);
+    padding: 12px 22px;
     text-transform: uppercase;
     letter-spacing: 0.14em;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
     box-shadow:
       0 0 12px rgba(0, 0, 0, 0.9),
       0 0 18px rgba(0, 0, 0, 0.7);
-    transition:
-      background-color var(--transition-fast),
-      color var(--transition-fast),
-      box-shadow var(--transition-fast),
-      transform var(--transition-fast);
+    transition: var(--transition-fast);
   }
 
-  .btn::before,
-  button::before,
-  .button::before,
-  .cta::before,
-  .hero-cta::before {
-    content: "";
-    position: absolute;
-    inset: -40%;
-    background-image: linear-gradient(
-      135deg,
-      rgba(255, 204, 0, 0.35),
-      rgba(0, 229, 255, 0.45),
-      rgba(57, 255, 20, 0.35)
-    );
-    opacity: 0.0;
-    mix-blend-mode: screen;
-    transition: opacity var(--transition-fast);
-    pointer-events: none;
-  }
-
-  .btn:hover,
-  button:hover,
-  .button:hover,
-  .cta:hover,
-  .hero-cta:hover {
+  .btn:hover {
     transform: translateY(-2px);
     background-color: rgba(10, 12, 16, 0.98);
     box-shadow:
@@ -408,35 +236,13 @@ p {
       0 0 22px rgba(0, 229, 255, 0.6);
   }
 
-  .btn:hover::before,
-  button:hover::before,
-  .button:hover::before,
-  .cta:hover::before,
-  .hero-cta:hover::before {
-    opacity: 1;
-    animation: buttonPulse 1.8s ease-out infinite;
-  }
-
   /* Footer */
-  .site-footer,
-  footer {
-    background: radial-gradient(circle at top, rgba(0, 229, 255, 0.18), transparent 60%),
-                linear-gradient(to bottom, rgba(5, 6, 8, 0.98), rgba(3, 4, 6, 0.98));
+  .site-footer {
+    background: #050608;
     border-top: 1px solid rgba(255, 204, 0, 0.25);
     padding: 26px 20px 32px;
     text-align: center;
     color: var(--color-muted);
-    box-shadow: 0 -8px 22px rgba(0, 0, 0, 0.9);
-  }
-
-  .site-footer a,
-  footer a {
-    color: var(--color-gold);
-  }
-
-  .site-footer a:hover,
-  footer a:hover {
-    color: var(--color-cyan);
   }
 }
 
@@ -445,17 +251,8 @@ p {
    ================================ */
 @media (prefers-color-scheme: light) {
   body {
-    background-color: #f5f7fb;
+    background-color: var(--color-bg-light);
     color: #111318;
-  }
-
-  body::before {
-    opacity: 0.55;
-    filter: saturate(1.1);
-  }
-
-  body::after {
-    opacity: 0.45;
   }
 
   h1,
@@ -466,102 +263,32 @@ p {
       0 0 18px rgba(0, 229, 255, 0.3);
   }
 
-  h3,
-  h4 {
-    color: var(--color-gold);
-  }
-
   p {
     color: #444955;
   }
 
-  a {
-    color: var(--color-cyan);
-  }
-
-  a:hover {
-    color: var(--color-neon-green);
-    text-shadow:
-      0 0 8px rgba(57, 255, 20, 0.6),
-      0 0 14px rgba(0, 229, 255, 0.5);
-  }
-
-  .site-header,
-  header,
-  .nav-wrapper {
-    background: linear-gradient(
-      to right,
-      rgba(245, 247, 251, 0.96),
-      rgba(232, 236, 244, 0.96)
-    );
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 0 16px rgba(0, 0, 0, 0.12);
-  }
-
-  .site-title,
-  .logo,
-  .brand {
-    color: #111318;
-  }
-
-  .hero,
-  .home-hero,
-  .page-hero {
-    background-image: linear-gradient(
-      135deg,
-      rgba(255, 204, 0, 0.18),
-      rgba(0, 229, 255, 0.22),
-      rgba(57, 255, 20, 0.2)
-    );
-  }
-
-  .card,
-  .service-card,
-  .membership-card,
-  .offer-card,
-  .neon-card {
+  .card {
     background: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.06);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   }
 
-  .card p,
-  .service-card p,
-  .membership-card p,
-  .offer-card p,
-  .neon-card p {
-    color: #444955;
-  }
-
-  .btn,
-  button,
-  .button,
-  .cta,
-  .hero-cta {
+  .btn {
     background-color: #111318;
     color: #f5f7fb;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
   }
 
-  .site-footer,
-  footer {
+  .site-footer {
     background: #111318;
     color: #d0d4dd;
   }
 }
 
 /* ================================
-   SECTION-BASED NEON VARIATIONS
+   SECTION VARIATIONS
    ================================ */
 
-/* Example: services section */
-.section-services,
-.services {
-  margin-top: 40px;
-}
-
-.section-services .section-divider,
-.services .section-divider {
+.section-services .section-divider {
   background-image: linear-gradient(
     to right,
     var(--color-cyan),
@@ -569,14 +296,7 @@ p {
   );
 }
 
-/* Example: membership section */
-.section-membership,
-.membership {
-  margin-top: 40px;
-}
-
-.section-membership .section-divider,
-.membership .section-divider {
+.section-membership .section-divider {
   background-image: linear-gradient(
     to right,
     var(--color-gold),
@@ -584,14 +304,7 @@ p {
   );
 }
 
-/* Example: events section */
-.section-events,
-.events {
-  margin-top: 40px;
-}
-
-.section-events .section-divider,
-.events .section-divider {
+.section-events .section-divider {
   background-image: linear-gradient(
     to right,
     var(--color-neon-green),
@@ -604,40 +317,13 @@ p {
    ================================ */
 
 @keyframes neonParticles {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(-12px, 8px, 0);
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-12px, 8px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }
 
 @keyframes heroGlow {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(10px, -8px, 0) scale(1.04);
-  }
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-}
-
-@keyframes buttonPulse {
-  0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.4;
-    transform: scale(1.06);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+  100% { transform: scale(1); }
 }
