@@ -79,7 +79,8 @@ body::after {
   content: "";
   position: fixed;
   inset: 0;
-  background: url("/assets/images/rottweiler-stencil.png") center center no-repeat;
+  background:
+    url("assets/images/rottweiler-stencil.png") center center no-repeat;
   background-size: 1400px auto;
   opacity: 0.08;
   pointer-events: none;
