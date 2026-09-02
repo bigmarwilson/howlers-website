@@ -52,11 +52,11 @@ body {
   overflow-x: hidden;
 }
 
-/* ============================
-   FIXED ROTTWEILER BACKGROUND
-   ============================ */
+/* ==========================================
+   RESTORED WORKING ROTTWEILER BACKGROUND
+   ========================================== */
 
-/* Neon cloud behind everything */
+/* Soft cyan/green neon cloud */
 body::before {
   content: "";
   position: fixed;
@@ -71,52 +71,20 @@ body::before {
   mix-blend-mode: screen;
   opacity: 0.45;
   pointer-events: none;
-  z-index: -3;
+  z-index: -2;
 }
 
-/* Rottweiler silhouette ABOVE the cloud */
+/* Rottweiler silhouette */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   background:
     url("assets/images/rottweiler-stencil.png") center center no-repeat;
-  background-size: 600px auto;
-  opacity: 0.9;
+  background-size: 1400px auto;
+  opacity: 0.08;
   pointer-events: none;
-  z-index: -2;
-}
-
-/* Floating neon particles ABOVE the dog */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(circle at 10% 20%, rgba(0, 229, 255, 0.18) 0, transparent 55%),
-    radial-gradient(circle at 80% 10%, rgba(57, 255, 20, 0.16) 0, transparent 55%),
-    radial-gradient(circle at 20% 80%, rgba(255, 204, 0, 0.14) 0, transparent 55%);
-  mix-blend-mode: screen;
-  opacity: 0.55;
-  animation: neonParticles 26s linear infinite;
-  pointer-events: none;
-  z-index: -2;
-}
-
-/* Floating neon particles ABOVE cloud but BELOW dog */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(circle at 10% 20%, rgba(0, 229, 255, 0.18) 0, transparent 55%),
-    radial-gradient(circle at 80% 10%, rgba(57, 255, 20, 0.16) 0, transparent 55%),
-    radial-gradient(circle at 20% 80%, rgba(255, 204, 0, 0.14) 0, transparent 55%);
-  mix-blend-mode: screen;
-  opacity: 0.55;
-  animation: neonParticles 26s linear infinite;
-  pointer-events: none;
-  z-index: -2;
+  z-index: -1;
 }
 
 /* ---------- TYPOGRAPHY ---------- */
@@ -308,39 +276,4 @@ p {
 .section-services .section-divider {
   background-image: linear-gradient(
     to right,
-    var(--color-cyan),
-    var(--color-neon-green)
-  );
-}
-
-.section-membership .section-divider {
-  background-image: linear-gradient(
-    to right,
-    var(--color-gold),
-    var(--color-cyan)
-  );
-}
-
-.section-events .section-divider {
-  background-image: linear-gradient(
-    to right,
-    var(--color-neon-green),
-    var(--color-gold)
-  );
-}
-
-/* ================================
-   ANIMATIONS
-   ================================ */
-
-@keyframes neonParticles {
-  0% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(-12px, 8px, 0); }
-  100% { transform: translate3d(0, 0, 0); }
-}
-
-@keyframes heroGlow {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.04); }
-  100% { transform: scale(1); }
-}
+    var(--color-c
