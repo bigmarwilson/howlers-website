@@ -1,314 +1,295 @@
-/* ================================
-   HOWLER'S FULL NEON UNIVERSE
-   Dark + Light, auto-switching
-   ================================ */
-
-/* ---------- CSS VARIABLES ---------- */
-:root {
-  --color-bg-dark: #050608;
-  --color-bg-light: #f5f7fb;
-
-  --color-gold: #ffcc00;
-  --color-neon-green: #39ff14;
-  --color-cyan: #00e5ff;
-  --color-white: #eaeaea;
-  --color-muted: #b0b0b0;
-
-  --radius-card: 14px;
-  --radius-button: 6px;
-
-  --shadow-soft: 0 0 18px rgba(0, 0, 0, 0.6);
-  --shadow-strong: 0 0 32px rgba(0, 0, 0, 0.9);
-
-  --transition-fast: 0.18s ease-out;
-  --transition-med: 0.28s ease-out;
-
-  --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-/* ---------- GLOBAL RESET ---------- */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html,
+/* ------------------------------
+   GLOBAL
+------------------------------ */
 body {
   margin: 0;
   padding: 0;
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: #fff;
 }
 
-/* ================================
-   BASE LAYOUT
-   ================================ */
-
-body {
-  font-family: var(--font-main);
-  color: var(--color-white);
-  background-color: var(--color-bg-dark);
-  min-height: 100vh;
-  position: relative;
-  overflow-x: hidden;
+/* Main content wrapper */
+.content {
+  padding: 40px;
 }
 
-/* ==========================================
-   RESTORED WORKING ROTTWEILER BACKGROUND
-   ========================================== */
+a {
+  text-decoration: none;
+}
 
-/* Soft cyan/green neon cloud */
+/* ------------------------------
+   FIXED BACKGROUND STENCIL
+------------------------------ */
 body::before {
   content: "";
   position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(circle at center,
-      rgba(0, 229, 255, 0.25),
-      transparent 70%),
-    radial-gradient(circle at 60% 40%,
-      rgba(57, 255, 20, 0.22),
-      transparent 70%);
-  mix-blend-mode: screen;
-  opacity: 0.45;
-  pointer-events: none;
-  z-index: -2;
-}
-
-/* Rottweiler silhouette */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background:
-    url("assets/images/rottweiler-stencil.png") center center no-repeat;
-  background-size: 1400px auto;
-  opacity: 0.08;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/howlers-website/assets/images/rottweiler-stencil.png");
+  background-size: 1500px auto;
+  background-repeat: no-repeat;
+  background-position: center center;
+  opacity: 0.22;
   pointer-events: none;
   z-index: -1;
 }
 
-/* ---------- TYPOGRAPHY ---------- */
-h1,
-h2,
-h3,
-h4 {
-  margin: 0 0 18px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+/* ------------------------------
+   HERO SECTION
+------------------------------ */
+.hero {
+  text-align: center;
+  padding: 80px 20px;
+  background: #222;
+}
+
+.hero h1 {
+  font-size: 48px;
+  color: gold;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 20px;
+  color: #ccc;
+}
+
+/* ------------------------------
+   CTA BUTTONS
+------------------------------ */
+.cta-container {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.cta-button {
+  padding: 15px 30px;
+  margin: 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 18px;
+  display: inline-block;
+}
+
+.cta-button.green {
+  background: #2ecc71;
+  color: #000;
+}
+
+.cta-button.gold {
+  background: gold;
+  color: #000;
+}
+
+/* ------------------------------
+   FOOTER
+------------------------------ */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #000;
+  color: #ccc;
+  margin-top: 40px;
+}
+
+main.content {
+  background: transparent !important;
+}
+
+/* ------------------------------
+   GRAFFITI HEADINGS
+------------------------------ */
+h1, h2, h3, .hero h1 {
+  font-family: 'Bangers', sans-serif;
+  letter-spacing: 1px;
   text-transform: uppercase;
 }
 
-p {
-  margin: 0 0 14px;
-  color: var(--color-muted);
-  line-height: 1.6;
+h1, h2, h3, h4, h5, h6,
+.hero h1,
+.feature-card h3,
+.cta-container a {
+  font-family: 'Bangers', sans-serif !important;
 }
 
-/* ================================
-   DARK MODE NEON
-   ================================ */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: var(--color-bg-dark);
-    color: var(--color-white);
-  }
-
-  h1,
-  h2 {
-    color: var(--color-white);
-    text-shadow:
-      0 0 12px rgba(255, 204, 0, 0.55),
-      0 0 24px rgba(0, 229, 255, 0.35);
-  }
-
-  h3,
-  h4 {
-    color: var(--color-gold);
-    text-shadow:
-      0 0 10px rgba(255, 204, 0, 0.5),
-      0 0 18px rgba(57, 255, 20, 0.35);
-  }
-
-  a {
-    color: var(--color-gold);
-    text-decoration: none;
-    transition: color var(--transition-fast), text-shadow var(--transition-fast);
-  }
-
-  a:hover {
-    color: var(--color-cyan);
-    text-shadow:
-      0 0 10px rgba(0, 229, 255, 0.7),
-      0 0 18px rgba(57, 255, 20, 0.5);
-  }
-
-  /* Header */
-  .site-header {
-    background: rgba(5, 6, 8, 0.96);
-    border-bottom: 1px solid rgba(255, 204, 0, 0.25);
-    box-shadow: 0 0 22px rgba(0, 0, 0, 0.9);
-  }
-
-  .site-title {
-    color: var(--color-gold);
-    text-shadow:
-      0 0 12px rgba(255, 204, 0, 0.7),
-      0 0 24px rgba(0, 229, 255, 0.4);
-  }
-
-  /* Hero */
-  .hero {
-    background-image: linear-gradient(
-      135deg,
-      rgba(255, 204, 0, 0.12),
-      rgba(0, 229, 255, 0.18),
-      rgba(57, 255, 20, 0.16)
-    );
-    padding: 90px 20px 70px;
-    text-align: center;
-    box-shadow: var(--shadow-strong);
-  }
-
-  .hero::before {
-    content: "";
-    position: absolute;
-    inset: -40%;
-    background:
-      radial-gradient(circle at 20% 0%, rgba(255, 204, 0, 0.18), transparent 60%),
-      radial-gradient(circle at 80% 100%, rgba(0, 229, 255, 0.22), transparent 60%);
-    mix-blend-mode: screen;
-    opacity: 0.7;
-    animation: heroGlow 32s linear infinite;
-  }
-
-  /* Cards */
-  .card {
-    background: #0b0d10;
-    border-radius: var(--radius-card);
-    padding: 26px 24px;
-    box-shadow: var(--shadow-soft);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    transition: var(--transition-med);
-  }
-
-  .card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(255, 204, 0, 0.6);
-    box-shadow:
-      0 0 18px rgba(255, 204, 0, 0.6),
-      0 0 26px rgba(0, 229, 255, 0.5);
-  }
-
-  /* Buttons */
-  .btn {
-    background-color: rgba(5, 6, 8, 0.95);
-    color: var(--color-white);
-    border-radius: var(--radius-button);
-    padding: 12px 22px;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    box-shadow:
-      0 0 12px rgba(0, 0, 0, 0.9),
-      0 0 18px rgba(0, 0, 0, 0.7);
-    transition: var(--transition-fast);
-  }
-
-  .btn:hover {
-    transform: translateY(-2px);
-    background-color: rgba(10, 12, 16, 0.98);
-    box-shadow:
-      0 0 16px rgba(255, 204, 0, 0.7),
-      0 0 22px rgba(0, 229, 255, 0.6);
-  }
-
-  /* Footer */
-  .site-footer {
-    background: #050608;
-    border-top: 1px solid rgba(255, 204, 0, 0.25);
-    padding: 26px 20px 32px;
-    text-align: center;
-    color: var(--color-muted);
-  }
+/* ------------------------------
+   GRAFFITI HEADER
+------------------------------ */
+.site-header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: #ffffffee;
+  backdrop-filter: blur(6px);
+  border-bottom: 2px solid #000;
+  z-index: 999;
 }
 
-/* ================================
-   LIGHT MODE NEON
-   ================================ */
-@media (prefers-color-scheme: light) {
-  body {
-    background-color: var(--color-bg-light);
-    color: #111318;
-  }
-
-  h1,
-  h2 {
-    color: #111318;
-    text-shadow:
-      0 0 10px rgba(255, 204, 0, 0.4),
-      0 0 18px rgba(0, 229, 255, 0.3);
-  }
-
-  p {
-    color: #444955;
-  }
-
-  .card {
-    background: #ffffff;
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  }
-
-  .btn {
-    background-color: #111318;
-    color: #f5f7fb;
-  }
-
-  .site-footer {
-    background: #111318;
-    color: #d0d4dd;
-  }
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-/* ================================
-   SECTION VARIATIONS
-   ================================ */
-
-.section-services .section-divider {
-  background-image: linear-gradient(
-    to right,
-    var(--color-cyan),
-    var(--color-neon-green)
-  );
+.logo a {
+  font-family: 'Bangers', sans-serif;
+  font-size: 32px;
+  color: #000;
+  text-decoration: none;
+  letter-spacing: 1px;
+  position: relative;
 }
 
-.section-membership .section-divider {
-  background-image: linear-gradient(
-    to right,
-    var(--color-gold),
-    var(--color-cyan)
-  );
+.logo a::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: url("/howlers-website/assets/images/spray-underline.png") repeat-x;
+  opacity: 0.8;
 }
 
-.section-events .section-divider {
-  background-image: linear-gradient(
-    to right,
-    var(--color-neon-green),
-    var(--color-gold)
-  );
+.nav-links {
+  display: flex;
+  gap: 24px;
 }
 
-/* ================================
-   ANIMATIONS
-   ================================ */
-
-@keyframes neonParticles {
-  0% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(-12px, 8px, 0); }
-  100% { transform: translate3d(0, 0, 0); }
+.nav-links a {
+  font-family: 'Bangers', sans-serif;
+  font-size: 20px;
+  color: #000;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 4px;
 }
 
-@keyframes heroGlow {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.04); }
-  100% { transform: scale(1); }
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+  background: #ffcc00;
+  transition: width 0.25s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.header-cta .cta-button {
+  background: #ffcc00;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-family: 'Bangers', sans-serif;
+  font-size: 20px;
+  color: #000;
+  text-decoration: none;
+  border: 2px solid #000;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.header-cta .cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 4px 0px #000;
+}
+
+/* ------------------------------
+   GRAFFITI CARD GRID
+------------------------------ */
+.offer-section {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.offer-title {
+  font-family: 'Bangers', sans-serif;
+  font-size: 56px;
+  margin-bottom: 40px;
+  color: #000;
+  text-shadow: 0 0 12px rgba(255, 204, 0, 0.6);
+}
+
+.offer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.offer-card {
+  background: #fff !important;
+  padding: 30px;
+  border-radius: 12px;
+  border: 3px solid #000;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Spray-paint border */
+.offer-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/howlers-website/assets/images/spray-underline.png") repeat;
+  opacity: 0.35 !important;
+  z-index: 0;
+}
+
+/* Drip accent */
+.offer-card::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 20%;
+  width: 60px;
+  height: 60px;
+  background: url("/howlers-website/assets/images/spray-underline.png") no-repeat center;
+  background-size: contain;
+  opacity: 0.45 !important;
+  transform: rotate(90deg);
+}
+
+/* Hover effect */
+.offer-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 0 #000;
+}
+
+.offer-card h3 {
+  font-family: 'Bangers', sans-serif;
+  font-size: 32px;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+  color: #000 !important;
+}
+
+.offer-card p {
+  font-family: 'Rubik', sans-serif;
+  font-size: 18px;
+  color: #000 !important;
+  position: relative;
+  z-index: 1;
+}
+
+/* ------------------------------
+   HOMEPAGE WRAPPER
+------------------------------ */
+.home-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
 }
