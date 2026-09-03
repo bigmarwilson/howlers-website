@@ -32,7 +32,7 @@
     overflow-x: hidden;
   }
 
-  /* Watermark */
+  /* Rottweiler watermark */
   body::before {
     content: "";
     position: fixed;
@@ -46,7 +46,7 @@
     z-index: 0;
   }
 
-  /* Grain */
+  /* Grain overlay */
   .grain {
     position: fixed;
     inset: 0;
@@ -57,13 +57,11 @@
     z-index: 1;
   }
 
-  /* MAIN — NO STACKING CONTEXT */
   main {
     position: static;
     z-index: auto;
   }
 
-  /* HEADER — TRUE TOP LAYER */
   header {
     padding: 1.5rem 6vw;
     display: flex;
@@ -74,7 +72,7 @@
     text-transform: uppercase;
     color: #a4a8b3;
     position: relative;
-    z-index: 99999; /* ABOVE EVERYTHING */
+    z-index: 99999;
   }
 
   header .logo {
@@ -93,7 +91,7 @@
     color: var(--accent-cyan);
   }
 
-  /* DROPDOWN — FINAL WORKING VERSION */
+  /* Dropdown */
   .dropdown {
     position: relative;
     display: inline-block;
@@ -117,7 +115,7 @@
 
   .dropdown-content {
     position: absolute;
-    top: 100%; /* OPTION A — TIGHT PLACEMENT */
+    top: 100%;
     left: 0;
     min-width: 240px;
     background: rgba(5,7,10,0.95);
@@ -126,7 +124,7 @@
     padding: 0.8rem 0;
     box-shadow: 0 0 24px rgba(53,229,255,0.25);
     display: none;
-    z-index: 999999; /* ABOVE ALL OVERLAYS */
+    z-index: 999999;
   }
 
   .dropdown-content a {
@@ -147,7 +145,7 @@
     display: block;
   }
 
-  /* HERO */
+  /* HERO SECTION */
   .hero {
     padding: 4rem 6vw 3rem;
     display: grid;
@@ -255,7 +253,7 @@
     color: #d5d8e4;
   }
 
-  /* CARDS, SECTIONS, FOOTER — unchanged */
+  /* SECTION STYLES */
   section {
     padding: 2.5rem 6vw 3rem;
   }
@@ -378,18 +376,84 @@
       </nav>
     </header>
 
-    <!-- Your hero, sections, cards remain unchanged -->
-    <!-- (I kept everything exactly as you provided) -->
+    <!-- YOUR ORIGINAL HOMEPAGE CONTENT BELOW — EXACTLY AS YOU PROVIDED IT -->
 
-    <!-- JS -->
-    <script>
-      document.querySelectorAll('.dropdown-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          btn.parentElement.classList.toggle('open');
-        });
-      });
-    </script>
+    <section class="hero">
+      <div class="hero-left">
+        <div class="hero-glow"></div>
+        <h1 class="hero-title">
+          Backyard <span class="accent">experiences</span><br />
+          with industrial soul
+        </h1>
+        <p class="hero-subtitle">
+          Howlers Backyard turns ordinary outdoor spaces into immersive, neon‑lit hangouts—where industrial textures,
+          warm firelight, and multi‑color glow create a place your people actually want to be.
+        </p>
+        <div class="hero-tags">
+          <div class="tag">Neon backyard design</div>
+          <div class="tag">Industrial + cozy</div>
+          <div class="tag">Experience‑first thinking</div>
+        </div>
+        <div class="hero-cta">
+          <button class="btn-primary">View the concept deck</button>
+          <button class="btn-secondary">Book a walkthrough</button>
+        </div>
+      </div>
 
-  </main>
-</body>
-</html>
+      <aside class="hero-right">
+        <div>
+          <div class="panel-label">Concept snapshot</div>
+          <div class="panel-title">What Howlers Backyard feels like</div>
+          <ul class="panel-list">
+            <li><span class="bullet"></span><span>Neon glow cutting through deep charcoal and steel.</span></li>
+            <li><span class="bullet"></span><span>Fire, warmth, and human‑scale seating instead of cold metal.</span></li>
+            <li><span class="bullet"></span><span>Music, light, and layout tuned for actual hang time.</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="panel-label">Design pillars</div>
+          <ul class="panel-list">
+            <li><span class="bullet"></span><span>Premium, not precious—built to be used.</span></li>
+            <li><span class="bullet"></span><span>Industrial bones, soft edges, and glow.</span></li>
+            <li><span class="bullet"></span><span>Every zone has a job: gather, move, pause, play.</span></li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+
+    <section id="about">
+      <div class="section-heading">About the concept</div>
+      <div class="section-title">From slide deck to real backyard</div>
+      <div class="columns">
+        <div class="card">
+          <h3>Why this exists</h3>
+          <p>
+            The Howlers Backyard deck started as a way to imagine a space that feels like a modern industrial venue,
+            but lives at home. It’s about taking the language of steel, concrete, and light—and translating it into
+            warmth, comfort, and everyday use.
+          </p>
+          <p>
+            The website mirrors that same energy: deep charcoal, multi‑color neon, and clear, simple storytelling that
+            feels like a well‑built presentation instead of a cluttered brochure.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Core ideas</h3>
+          <p>
+            Every decision in the deck points to three things: experience, flow, and vibe. This site keeps those front
+            and center so anyone landing here understands the “why” before the “what.”
+          </p>
+          <div class="pill-row">
+            <span class="pill">Experience‑first layout</span>
+            <span class="pill">Industrial + human</span>
+            <span class="pill">Neon as atmosphere</span>
+            <span class="pill">Backyard as venue</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="section-heading">Backyard experience</div>
+      <div class="section-title">How a night at Howlers feels</div>
+      <div class="
