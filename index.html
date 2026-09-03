@@ -6,14 +6,116 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
-    :root {
-      --bg-charcoal: #0b0d10;
-      --text-offwhite: #f5f5f7;
-      --accent-cyan: #35e5ff;
-      --accent-green: #5bff7a;
-      --accent-pink: #ff5fd1;
-      --accent-orange: #ffb347;
-    }
+  :root {
+    --bg-charcoal: #0b0d10;
+    --text-offwhite: #f5f5f7;
+    --accent-cyan: #35e5ff;
+    --accent-green: #5bff7a;
+    --accent-pink: #ff5fd1;
+    --accent-orange: #ffb347;
+  }
+
+  /* Dropdown container */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Dropdown button */
+  .dropdown-btn {
+    background: none;
+    border: none;
+    color: #a4a8b3;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    margin-left: 1.5rem;
+    transition: color 0.2s ease;
+  }
+
+  .dropdown-btn:hover {
+    color: var(--accent-cyan);
+  }
+
+  /* Dropdown content */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background: rgba(5,7,10,0.95);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 0.8rem 0;
+    min-width: 240px;
+    box-shadow: 0 0 24px rgba(53,229,255,0.25);
+    z-index: 10;
+  }
+
+  .dropdown-content a {
+    display: block;
+    padding: 0.6rem 1rem;
+    color: #d5d8e4;
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+  }
+
+  .dropdown-content a:hover {
+    background: rgba(53,229,255,0.15);
+    color: var(--accent-cyan);
+  }
+
+  .dropdown.open .dropdown-content {
+    display: block;
+  }
+
+
+.dropdown-btn {
+  background: none;
+  border: none;
+  color: #a4a8b3;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  margin-left: 1.5rem;
+  transition: color 0.2s ease;
+}
+
+.dropdown-btn:hover {
+  color: var(--accent-cyan);
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: rgba(5,7,10,0.95);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 0.8rem 0;
+  min-width: 240px;
+  box-shadow: 0 0 24px rgba(53,229,255,0.25);
+  z-index: 10;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 0.6rem 1rem;
+  color: #d5d8e4;
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+}
+
+.dropdown-content a:hover {
+  background: rgba(53,229,255,0.15);
+  color: var(--accent-cyan);
+}
+
+.dropdown.open .dropdown-content {
+  display: block;
+}
+
 
     * {
       box-sizing: border-box;
