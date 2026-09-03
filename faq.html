@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>FAQ • Howlers Backyard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --bg-charcoal: #0b0d10;
+      --text-offwhite: #f5f5f7;
+      --accent-cyan: #35e5ff;
+      --accent-green: #5bff7a;
+      --accent-pink: #ff5fd1;
+      --accent-orange: #ffb347;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #14171d 0, var(--bg-charcoal) 55%, #050608 100%);
+      color: var(--text-offwhite);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Rottweiler watermark */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("assets/images/rottweiler-stencil.png");
+      background-size: 900px auto;
+      background-repeat: no-repeat;
+      background-position: center 20%;
+      opacity: 0.06;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.12;
+      mix-blend-mode: soft-light;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='no'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 1;
+    }
+
+    main {
+      position: relative;
+      z-index: 2;
+    }
+
+    header {
+      padding: 1.5rem 6vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #a4a8b3;
+    }
+
+    header .logo {
+      font-weight: 700;
+      color: var(--text-offwhite);
+    }
+
+    header nav a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      color: #a4a8b3;
+      transition: color 0.2s ease;
+    }
+
+    header nav a:hover {
+      color: var(--accent-cyan);
+    }
+
+    section {
+      padding: 3rem 6vw;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .faq-item {
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .faq-question {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      color: var(--accent-cyan);
+    }
+
+    .faq-answer {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #c3c7d3;
+    }
+
+    footer {
+      padding: 1.8rem 6vw 2.2rem;
+      font-size: 0.8rem;
+      color: #8b90a0;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    footer a {
+      color: #a4a8b3;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--accent-cyan);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grain"></div>
+
+  <main>
+    <header>
+      <div class="logo">HOWLERS BACKYARD</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+    </header>
+
+    <section>
+      <div class="section-title">Frequently Asked Questions</div>
+
+      <div class="faq-item">
+        <div class="faq-question">What is Howlers Backyard?</div>
+        <div class="faq-answer">
+          Howlers Backyard is a neon‑lit, industrial‑inspired outdoor concept designed to transform ordinary yards into immersive hangout spaces with glow, warmth, and atmosphere.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Is this a real build or a concept?</div>
+        <div class="faq-answer">
+          It began as a concept deck — a visual and functional blueprint — but it can be adapted into a real backyard build with the right materials and layout.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Can I customize the lighting colors?</div>
+        <div class="faq-answer">
+          Absolutely. The signature glow uses cyan, green, and subtle pink/orange accents, but the lighting system can be tuned to any palette you prefer.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Does the design work in small yards?</div>
+        <div class="faq-answer">
+          Yes — the zone‑based layout scales up or down. Even compact yards can support fire zones, seating, and glow‑based atmosphere.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Can I see the original concept deck?</div>
+        <div class="faq-answer">
+          A dedicated deck page is coming soon. For now, you can request access through the contact section on the main site.
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <footer>
+    <div>© <span id="year"></span> Howlers Backyard. All rights reserved.</div>
+    <div>Neon‑industrial backyard concept site.</div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
