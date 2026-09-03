@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Concept Deck • Howlers Backyard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    /* Same neon/charcoal theme as your other pages */
+    :root {
+      --bg-charcoal: #0b0d10;
+      --text-offwhite: #f5f5f7;
+      --accent-cyan: #35e5ff;
+      --accent-green: #5bff7a;
+    }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top left, #14171d 0, var(--bg-charcoal) 55%, #050608 100%);
+      color: var(--text-offwhite);
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("assets/images/rottweiler-stencil.png");
+      background-size: 900px auto;
+      background-repeat: no-repeat;
+      background-position: center 20%;
+      opacity: 0.06;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.12;
+      mix-blend-mode: soft-light;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='no'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 1;
+    }
+
+    main {
+      position: relative;
+      z-index: 2;
+      padding: 3rem 6vw;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 1.5rem 6vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #a4a8b3;
+    }
+
+    header .logo {
+      font-weight: 700;
+      color: var(--text-offwhite);
+    }
+
+    header nav a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      color: #a4a8b3;
+    }
+
+    header nav a:hover {
+      color: var(--accent-cyan);
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    iframe {
+      width: 100%;
+      height: 650px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 0 24px rgba(53,229,255,0.45);
+    }
+
+    footer {
+      padding: 1.8rem 6vw 2.2rem;
+      font-size: 0.8rem;
+      color: #8b90a0;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grain"></div>
+
+  <header>
+    <div class="logo">HOWLERS BACKYARD</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact</a>
+      <a href="deck.html">Deck</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="section-title">Concept Deck</div>
+
+    <!-- Paste your OneDrive PowerPoint embed code here -->
+    <!-- Example: -->
+    <iframe src="https://1drv.ms/p/c/e10d80ea6e3666bb/IQSTGSX80L0ySIONKu2hkd_BAbCVn8YSTKng_9SSoUqhMFU?em=2&amp;wdAr=1.7777777777777777" width="476px" height="288px" frameborder="0" title="PowerPoint Viewer">This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe>
+
+  </main>
+
+  <footer>
+    <div>© <span id="year"></span> Howlers Backyard. All rights reserved.</div>
+    <div>Neon‑industrial backyard concept site.</div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
