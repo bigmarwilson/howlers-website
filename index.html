@@ -340,6 +340,47 @@
       padding-top: 2.8rem;
     }
   }
+  .member-portal {
+  position: absolute;
+  right: 5%;
+  top: 70%;
+  width: 280px;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.05);
+  border: 2px solid rgba(53,229,255,0.4);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 20px rgba(53,229,255,0.3);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.member-portal:hover {
+  box-shadow: 0 0 30px rgba(91,255,122,0.6);
+  transform: scale(1.03);
+}
+
+.member-portal h2 {
+  color: #35e5ff;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+}
+
+.member-portal .join-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background: linear-gradient(90deg, #35e5ff, #5bff7a);
+  color: #0b0d10;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+.member-portal .join-btn:hover {
+  background: linear-gradient(90deg, #ff5fd1, #ffb347);
+}
 </style>
 
 </head>
@@ -358,6 +399,16 @@
         <a href="contact.html">Get In Touch</a>
         <a href="deck.html">Vison</a>
         <a href="zones.html">Zones</a>
+<div class="member-portal">
+  <h2>BECOME A MEMBER</h2>
+  <p>Join Howler’s Backyard for unlimited indoor dog park access.</p>
+  <ul>
+    <li><strong>Monthly:</strong> $75 / dog</li>
+    <li><strong>Annual:</strong> $799 / dog</li>
+    <li><strong>Day Pass:</strong> $15</li>
+  </ul>
+  <a href="membership.html" class="join-btn">JOIN NOW</a>
+</div>
 
         <div class="dropdown">
           <button class="dropdown-btn" onclick="this.parentElement.classList.toggle('open')">
