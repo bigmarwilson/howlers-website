@@ -13,21 +13,56 @@ body {
   color: #fff;
   overflow-x: hidden;
 }
-header, footer {
-  width: 100%;
+
+/* Ambient shimmer behind everything */
+.ambient-shimmer {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(circle at 20% 40%, rgba(53,229,255,0.15), transparent 70%),
+              radial-gradient(circle at 80% 60%, rgba(255,95,209,0.15), transparent 70%);
+  background-size: 200% 200%;
+  animation: shimmerFlow 12s ease-in-out infinite;
+  z-index: -2;
+}
+@keyframes shimmerFlow {
+  0% { background-position: 0% 50%; opacity: 0.4; }
+  50% { background-position: 100% 50%; opacity: 0.6; }
+  100% { background-position: 0% 50%; opacity: 0.4; }
+}
+
+/* Rottweiler silhouette watermark */
+.watermark {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: url('rottweiler-silhouette.png') center/contain no-repeat;
+  opacity: 0.05;
+  z-index: -1;
+}
+
+/* ---------- HEADER ---------- */
+header {
+  background: rgba(0,0,0,0.6);
+  border-bottom: 1px solid rgba(53,229,255,0.4);
+  box-shadow: 0 0 15px rgba(53,229,255,0.3);
+  backdrop-filter: blur(6px);
   text-align: center;
   padding: 10px 0;
-  background: transparent;
-  color: #35e5ff;
-  text-shadow: 0 0 8px rgba(53,229,255,0.6);
 }
-header nav a, footer a {
+header h2 {
+  font-size: 1.8em;
+  letter-spacing: 2px;
+  color: #5bff7a;
+  text-shadow: 0 0 10px rgba(91,255,122,0.6);
+}
+header nav a {
   color: #35e5ff;
   text-decoration: none;
   margin: 0 10px;
   transition: color 0.3s ease;
 }
-header nav a:hover, footer a:hover {
+header nav a:hover {
   color: #ff5fd1;
 }
 
@@ -52,29 +87,43 @@ header nav a:hover, footer a:hover {
   color: #5bff7a;
 }
 
-/* ---------- BOOKING GRID ---------- */
-.grid {
+/* ---------- CALENDAR ---------- */
+.calendar-container {
+  text-align: center;
+  margin: 40px auto;
+  width: 80%;
+  max-width: 900px;
+  border: 1px solid rgba(53,229,255,0.3);
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(53,229,255,0.25);
+  padding: 20px;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(6px);
+}
+.calendar-title {
+  color: #5bff7a;
+  text-shadow: 0 0 10px rgba(91,255,122,0.6);
+  margin-bottom: 20px;
+}
+.calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 10px;
-  width: 70%;
-  max-width: 900px;
-  margin-bottom: 40px;
-  position: relative;
 }
-.day-cell {
-  position: relative;
+.calendar-day {
   background: #0b0d10;
   border-radius: 8px;
-  text-align: center;
-  padding: 20px 0;
+  padding: 15px 0;
   cursor: pointer;
-  transition: box-shadow 0.4s ease;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(53,229,255,0.2);
 }
-.day-cell:hover {
-  box-shadow: 0 0 12px rgba(255,95,209,0.45);
+.calendar-day:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255,95,209,0.6);
 }
-.day-dot {
+.calendar-dot {
   position: absolute;
   bottom: 6px;
   right: 6px;
@@ -84,13 +133,12 @@ header nav a:hover, footer a:hover {
   box-shadow: 0 0 6px currentColor;
   animation: dotPulse 3s ease-in-out infinite;
 }
-.day-dot.low { color: #5bff7a; }
-.day-dot.medium { color: #ffb347; }
-.day-dot.high { color: #ff5fd1; }
-.day-dot.booked { color: #35e5ff; }
-
+.calendar-dot.low { color: #5bff7a; }
+.calendar-dot.medium { color: #ffb347; }
+.calendar-dot.high { color: #ff5fd1; }
+.calendar-dot.booked { color: #35e5ff; }
 @keyframes dotPulse {
-  0%, 100% { opacity: 0.6; transform: scale(1); }
+  0%,100% { opacity: 0.6; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.3); }
 }
 
@@ -100,181 +148,64 @@ header nav a:hover, footer a:hover {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: rgba(0,0,0,0.4);
+  background: radial-gradient(circle at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 100%);
   justify-content: center;
   align-items: center;
   z-index: 10;
+  animation: overlayPulse 8s ease-in-out infinite;
+}
+@keyframes overlayPulse {
+  0%,100% { background: radial-gradient(circle at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 100%); }
+  50% { background: radial-gradient(circle at center, rgba(0,0,0,0.7) 0%, rgba(0,0,0,1) 100%); }
 }
 .popup-card {
-  background: #0b0d10;
-  border: 2px solid #35e5ff;
+  position: relative;
+  background: rgba(11,13,16,0.6);
+  border: 2px solid rgba(53,229,255,0.4);
   border-radius: 12px;
-  box-shadow: 0 0 20px rgba(91,255,122,0.5);
+  box-shadow: 0 0 25px rgba(91,255,122,0.5), inset 0 0 20px rgba(53,229,255,0.2);
+  backdrop-filter: blur(12px);
   padding: 30px;
-  width: 300px;
+  width: 340px;
   text-align: center;
   animation: fadeIn 0.6s ease-in;
+  transition: all 0.4s ease;
 }
-.popup-card h2 {
-  color: #5bff7a;
+.popup-card:hover {
+  box-shadow: 0 0 35px rgba(255,95,209,0.6), inset 0 0 25px rgba(53,229,255,0.3);
+  transform: scale(1.03);
 }
-.popup-card button {
-  margin-top: 20px;
-  background: linear-gradient(100deg, #ff5fd1, #ffb347);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  color: #fff;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 0 12px rgba(255,95,209,0.45);
-  transition: box-shadow 0.3s ease;
-}
-.popup-card button:hover {
-  box-shadow: 0 0 20px rgba(255,95,209,0.7);
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-/* ---------- DASHBOARD CARDS ---------- */
-.dashboard-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  width: 80%;
-  max-width: 1000px;
-}
-.card {
-  background: #0b0d10;
+.popup-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   border-radius: 12px;
-  padding: 20px;
-  flex: 1 1 300px;
-  box-shadow: 0 0 10px rgba(91,255,122,0.25);
+  padding: 2px;
+  background: linear-gradient(120deg, #35e5ff, #5bff7a, #ff5fd1, #ffb347, #35e5ff);
+  background-size: 300% 300%;
+  animation: borderFlow 6s linear infinite;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
 }
-.card h3 {
-  color: #35e5ff;
-  margin-bottom: 10px;
+@keyframes borderFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
-
-/* ---------- RESPONSIVE ---------- */
-@media (max-width: 768px) {
-  .grid { width: 90%; grid-template-columns: repeat(4, 1fr); }
-  .dashboard-cards { flex-direction: column; align-items: center; }
+.popup-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(53,229,255,0.3) 0%, rgba(53,229,255,0) 80%);
+  transform: skewX(-25deg);
+  animation: reflectionSweep 6s linear infinite;
+  pointer-events: none;
 }
-@media (max-width: 480px) {
-  .grid { display: block; }
-  .day-cell { margin-bottom: 10px; }
-}
-</style>
-</head>
-<body>
-
-<header>
-  <h2>HOWLERS DOG PARK</h2>
-  <nav>
-    <a href="index.html">HOME</a>
-    <a href="join.html">JOIN</a>
-    <a href="signin.html">SIGN-IN</a>
-    <a href="#">DASHBOARD</a>
-  </nav>
-</header>
-
-<main class="main">
-  <div class="welcome">
-    <h1>Welcome Back, Member!</h1>
-    <p>Manage your bookings and membership below.</p>
-  </div>
-
-  <div class="grid" id="bookingGrid">
-    <!-- Example cells -->
-    <div class="day-cell">1<span class="day-dot low"></span></div>
-    <div class="day-cell">2<span class="day-dot medium"></span></div>
-    <div class="day-cell">3<span class="day-dot high"></span></div>
-    <!-- Repeat for all days -->
-  </div>
-
-  <div class="popup-overlay" id="popupOverlay">
-    <div class="popup-card">
-      <h2>Book Visit – <span id="selectedDate">Date</span></h2>
-      <p>Select a time slot:</p>
-      <button id="confirmBooking">Confirm Booking</button>
-      <br><br>
-      <button onclick="closePopup()">Close</button>
-    </div>
-  </div>
-
-  <div class="dashboard-cards">
-    <div class="card">
-      <h3>Dog Profile</h3>
-      <p>Name: Rex</p>
-      <p>Breed: Rottweiler</p>
-      <p>Age: 3 years</p>
-    </div>
-    <div class="card">
-      <h3>Membership Details</h3>
-      <p>Tier: Premium</p>
-      <p>Renewal Date: Oct 15 2026</p>
-    </div>
-    <div class="card">
-      <h3>Billing Summary</h3>
-      <p>Last Payment: Aug 15 2026</p>
-      <p>Next Due: Oct 15 2026</p>
-    </div>
-    <div class="card">
-      <h3>Support & Feedback</h3>
-      <p>Need help? Contact us anytime.</p>
-    </div>
-  </div>
-</main>
-
-<footer>
-  <p>© 2026 Howlers Dog Park</p>
-  <a href="index.html">Back to Home</a>
-</footer>
-
-<script>
-const gridCells = document.querySelectorAll('.day-cell');
-const popupOverlay = document.getElementById('popupOverlay');
-const selectedDate = document.getElementById('selectedDate');
-const confirmBtn = document.getElementById('confirmBooking');
-
-gridCells.forEach(cell => {
-  cell.addEventListener('click', () => {
-    selectedDate.textContent = cell.textContent.trim();
-    popupOverlay.style.display = 'flex';
-  });
-});
-
-confirmBtn.addEventListener
-
-  <script>
-function closePopup() {
-  document.getElementById('popupOverlay').style.display = 'none';
-}
-
-const gridCells = document.querySelectorAll('.day-cell');
-const popupOverlay = document.getElementById('popupOverlay');
-const selectedDate = document.getElementById('selectedDate');
-const confirmBtn = document.getElementById('confirmBooking');
-
-gridCells.forEach(cell => {
-  cell.addEventListener('click', () => {
-    selectedDate.textContent = cell.textContent.trim();
-    popupOverlay.style.display = 'flex';
-  });
-});
-
-confirmBtn.addEventListener('click', () => {
-  const date = selectedDate.textContent;
-  const cell = Array.from(gridCells).find(c => c.textContent.trim() === date);
-  if (cell) {
-    const dot = cell.querySelector('.day-dot');
-    dot.className = 'day-dot booked';
-  }
-  closePopup();
-  alert(`Session booked for ${date}!`);
-});
-</script>
+@keyframes reflectionSweep {
+  0% { left: -60%; opacity: 0; }
+  20% { opacity: 1; }
+  50% { left: 120%; opacity
