@@ -1,145 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join Howlers Dog Park</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join Howlers Dog Park</title>
+  <link rel="stylesheet" href="styles.css" />
 
-    <!-- Global Stylesheet -->
-    <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Page background */
+    body.join-page {
+      background: radial-gradient(circle at top left, #14171d 0, #0b0d10 55%, #050608 100%);
+      color: #f5f5f7;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
+    }
 
-    <!-- Page-Specific Styling -->
-    <style>
-        .join-page {
-            background-image: url('assets/images/rottweiler-stencil.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
+    /* Watermark */
+    body.join-page::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("assets/images/rottweiler-stencil.png");
+      background-size: 900px auto;
+      background-repeat: no-repeat;
+      background-position: center 20%;
+      opacity: 0.06;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        .join-wrapper {
-            max-width: 700px;
-            margin: 6rem auto;
-            padding: 2rem 2.5rem;
-            background: rgba(5,7,10,0.85);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 14px;
-            box-shadow: 0 0 24px rgba(53,229,255,0.25);
-        }
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.12;
+      mix-blend-mode: soft-light;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='no'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 1;
+    }
 
-        .join-wrapper h1 {
-            text-align: center;
-            font-size: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 1.5rem;
-            color: var(--accent-cyan);
-        }
+    header {
+      padding: 1.5rem 6vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #a4a8b3;
+      position: relative;
+      z-index: 9999;
+    }
 
-        .join-wrapper p {
-            text-align: center;
-            color: #c3c7d3;
-            margin-bottom: 2rem;
-            font-size: 1rem;
-        }
+    header .logo {
+      font-weight: 700;
+      color: #f5f5f7;
+    }
 
-        .join-form label {
-            display: block;
-            margin-top: 1rem;
-            margin-bottom: 0.4rem;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: #d5d8e4;
-        }
+    header nav a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      color: #a4a8b3;
+      transition: color 0.2s ease;
+    }
 
-        .join-form input {
-            width: 100%;
-            padding: 0.7rem;
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.15);
-            background: rgba(255,255,255,0.05);
-            color: var(--text-offwhite);
-            font-size: 1rem;
-        }
+    header nav a:hover {
+      color: #35e5ff;
+    }
 
-        .join-form input:focus {
-            outline: none;
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 12px rgba(53,229,255,0.4);
-        }
+    /* Join form container */
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 4rem 6vw;
+      position: relative;
+      z-index: 2;
+    }
 
-        .submit-btn {
-            margin-top: 2rem;
-            width: 100%;
-            padding: 0.9rem;
-            border: none;
-            border-radius: 999px;
-            background: linear-gradient(120deg, var(--accent-cyan), var(--accent-green));
-            color: #020305;
-            font-size: 1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            cursor: pointer;
-            box-shadow: 0 0 24px rgba(53,229,255,0.45);
-        }
+    .join-card {
+      width: 100%;
+      max-width: 600px;
+      background: rgba(5,7,10,0.85);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      box-shadow: 0 0 24px rgba(53,229,255,0.25);
+      padding: 2rem 2.5rem;
+      backdrop-filter: blur(8px);
+    }
 
-        .submit-btn:hover {
-            background: linear-gradient(120deg, var(--accent-pink), var(--accent-orange));
-        }
-    </style>
+    .join-card h1 {
+      text-align: center;
+      font-size: 2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+      color: #35e5ff;
+    }
+
+    .join-card p {
+      text-align: center;
+      color: #c3c7d3;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+
+    .join-form label {
+      display: block;
+      margin-top: 1rem;
+      margin-bottom: 0.4rem;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #d5d8e4;
+    }
+
+    .join-form input {
+      width: 100%;
+      padding: 0.7rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.05);
+      color: #f5f5f7;
+      font-size: 1rem;
+    }
+
+    .join-form input:focus {
+      outline: none;
+      border-color: #35e5ff;
+      box-shadow: 0 0 12px rgba(53,229,255,0.4);
+    }
+
+    .btn-primary {
+      margin-top: 2rem;
+      width: 100%;
+      padding: 0.9rem;
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(120deg, #35e5ff, #5bff7a);
+      color: #020305;
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 0 24px rgba(53,229,255,0.45);
+      transition: background 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(120deg, #ff5fd1, #ffb347);
+    }
+
+    footer {
+      padding: 1.8rem 6vw 2.2rem;
+      font-size: 0.8rem;
+      color: #8b90a0;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    footer a {
+      color: #a4a8b3;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #35e5ff;
+    }
+  </style>
 </head>
 
 <body class="join-page">
+  <div class="grain"></div>
 
-    <div class="grain"></div>
+  <header>
+    <div class="logo">HOWLERS DOG PARK</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="join.html">Join</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
 
-    <!-- Header (copied from your main site) -->
-    <header>
-        <div class="logo">HOWLERS DOG PARK</div>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="join.html">Join</a>
-            <a href="contact.html">Contact</a>
-        </nav>
-    </header>
+  <main>
+    <div class="join-card">
+      <h1>Become a Member</h1>
+      <p>Sign up to enjoy full access to Howlers Dog Park, member events, and priority scheduling.</p>
 
-    <!-- Main Join Section -->
-    <div class="join-wrapper">
-        <h1>Become a Member</h1>
-        <p>Sign up to enjoy full access to Howlers Dog Park, member events, and priority scheduling.</p>
+      <form class="join-form">
+        <label>Full Name</label>
+        <input type="text" required />
 
-        <form class="join-form">
+        <label>Email Address</label>
+        <input type="email" required />
 
-            <label>Full Name</label>
-            <input type="text" required>
+        <label>Phone Number</label>
+        <input type="text" required />
 
-            <label>Email Address</label>
-            <input type="email" required>
+        <label>Dog’s Name</label>
+        <input type="text" required />
 
-            <label>Phone Number</label>
-            <input type="text" required>
+        <label>Dog’s Breed</label>
+        <input type="text" required />
 
-            <label>Dog’s Name</label>
-            <input type="text" required>
+        <label>Create Password</label>
+        <input type="password" required />
 
-            <label>Dog’s Breed</label>
-            <input type="text" required>
-
-            <label>Create Password</label>
-            <input type="password" required>
-
-            <button type="submit" class="submit-btn">Create Membership</button>
-
-        </form>
+        <button type="submit" class="btn-primary">Create Membership</button>
+      </form>
     </div>
+  </main>
 
-    <!-- Footer -->
-    <footer>
-        <div>© 2026 Howlers Dog Park</div>
-        <div><a href="index.html">Back to Home</a></div>
-    </footer>
-
+  <footer>
+    <div>© 2026 Howlers Dog Park</div>
+    <div><a href="index.html">Back to Home</a></div>
+  </footer>
 </body>
 </html>
