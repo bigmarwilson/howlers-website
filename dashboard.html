@@ -208,4 +208,101 @@ header nav a:hover {
 @keyframes reflectionSweep {
   0% { left: -60%; opacity: 0; }
   20% { opacity: 1; }
-  50% { left: 120%; opacity
+  50% { left: 120%; opacity: 0.8; }
+  100% { left: 120%; opacity: 0; }
+}
+</style>
+</head>
+<body>
+  <div class="ambient-shimmer"></div>
+  <div class="watermark"></div>
+
+  <header>
+    <h2>HOWLERS DOG PARK</h2>
+    <nav>
+      <a href="index.html">HOME</a>
+      <a href="join.html">JOIN</a>
+      <a href="signin.html">SIGN‑IN</a>
+      <a href="#">DASHBOARD</a>
+    </nav>
+  </header>
+
+  <main class="main">
+    <div class="welcome">
+      <h1>Welcome Back, Member!</h1>
+      <p>Manage your bookings and membership below.</p>
+    </div>
+
+    <div class="calendar-container">
+      <h2 class="calendar-title">Book Your Visit</h2>
+      <div class="calendar-grid" id="calendarGrid"></div>
+    </div>
+  </main>
+
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-card">
+      <h2>Book Visit – <span id="selectedDate">Date</span></h2>
+      <p>Select a time slot:</p>
+      <div class="time-options">
+        <button class="time-btn">10 AM</button>
+        <button class="time-btn">1 PM</button>
+        <button class="time-btn">3 PM</button>
+        <button class="time-btn">5 PM</button>
+      </div>
+      <button id="confirmBooking">Confirm Booking</button>
+      <br><br>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Howlers Dog Park</p>
+    <a href="index.html">Back to Home</a>
+  </footer>
+
+  <script>
+  function closePopup() {
+    document.getElementById('popupOverlay').style.display = 'none';
+  }
+
+  const calendarGrid = document.getElementById('calendarGrid');
+  const popupOverlay = document.getElementById('popupOverlay');
+  const selectedDate = document.getElementById('selectedDate');
+  const confirmBtn = document.getElementById('confirmBooking');
+
+  const daysInMonth = 30;
+  const trafficLevels = ['low', 'medium', 'high'];
+
+  for (let i = 1; i <= daysInMonth; i++) {
+    const day = document.createElement('div');
+    day.classList.add('calendar-day');
+    day.textContent = i;
+
+    const dot = document.createElement('span');
+    const randomLevel = trafficLevels[Math.floor(Math.random() * trafficLevels.length)];
+    dot.classList.add('calendar-dot', randomLevel);
+    day.appendChild(dot);
+
+    day.addEventListener('click', () => {
+      selectedDate.textContent = i;
+      popupOverlay.style.display = 'flex';
+    });
+
+    calendarGrid.appendChild(day);
+  }
+
+  confirmBtn.addEventListener('click', () => {
+    const date = selectedDate.textContent;
+    const cell = Array.from(document.querySelectorAll('.calendar-day'))
+      .find(c => c.textContent.trim() === date);
+    if (cell) {
+      const dot = cell.querySelector('.calendar-dot');
+      dot.className = 'calendar-dot booked';
+    }
+    closePopup();
+    alert(`Session booked for ${date}!`);
+  });
+  </script>
+</body>
+</html>
+
