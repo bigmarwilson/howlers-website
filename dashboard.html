@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Member Dashboard | Howlers Dog Park</title>
+<style>
+/* ---------- GLOBAL STYLES ---------- */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(circle at top left, #14171d 0%, #0b0d10 55%, #050608 100%);
+  color: #fff;
+  overflow-x: hidden;
+}
+header, footer {
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  background: transparent;
+  color: #35e5ff;
+  text-shadow: 0 0 8px rgba(53,229,255,0.6);
+}
+header nav a, footer a {
+  color: #35e5ff;
+  text-decoration: none;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+}
+header nav a:hover, footer a:hover {
+  color: #ff5fd1;
+}
+
+/* ---------- MAIN CONTAINER ---------- */
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+/* ---------- WELCOME HEADER ---------- */
+.welcome {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.welcome h1 {
+  color: #35e5ff;
+  text-shadow: 0 0 12px rgba(53,229,255,0.6);
+}
+.welcome p {
+  color: #5bff7a;
+}
+
+/* ---------- BOOKING GRID ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  width: 70%;
+  max-width: 900px;
+  margin-bottom: 40px;
+  position: relative;
+}
+.day-cell {
+  position: relative;
+  background: #0b0d10;
+  border-radius: 8px;
+  text-align: center;
+  padding: 20px 0;
+  cursor: pointer;
+  transition: box-shadow 0.4s ease;
+}
+.day-cell:hover {
+  box-shadow: 0 0 12px rgba(255,95,209,0.45);
+}
+.day-dot {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  box-shadow: 0 0 6px currentColor;
+  animation: dotPulse 3s ease-in-out infinite;
+}
+.day-dot.low { color: #5bff7a; }
+.day-dot.medium { color: #ffb347; }
+.day-dot.high { color: #ff5fd1; }
+.day-dot.booked { color: #35e5ff; }
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+/* ---------- POP-UP CARD ---------- */
+.popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.4);
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+.popup-card {
+  background: #0b0d10;
+  border: 2px solid #35e5ff;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(91,255,122,0.5);
+  padding: 30px;
+  width: 300px;
+  text-align: center;
+  animation: fadeIn 0.6s ease-in;
+}
+.popup-card h2 {
+  color: #5bff7a;
+}
+.popup-card button {
+  margin-top: 20px;
+  background: linear-gradient(100deg, #ff5fd1, #ffb347);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(255,95,209,0.45);
+  transition: box-shadow 0.3s ease;
+}
+.popup-card button:hover {
+  box-shadow: 0 0 20px rgba(255,95,209,0.7);
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ---------- DASHBOARD CARDS ---------- */
+.dashboard-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  width: 80%;
+  max-width: 1000px;
+}
+.card {
+  background: #0b0d10;
+  border-radius: 12px;
+  padding: 20px;
+  flex: 1 1 300px;
+  box-shadow: 0 0 10px rgba(91,255,122,0.25);
+}
+.card h3 {
+  color: #35e5ff;
+  margin-bottom: 10px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  .grid { width: 90%; grid-template-columns: repeat(4, 1fr); }
+  .dashboard-cards { flex-direction: column; align-items: center; }
+}
+@media (max-width: 480px) {
+  .grid { display: block; }
+  .day-cell { margin-bottom: 10px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h2>HOWLERS DOG PARK</h2>
+  <nav>
+    <a href="index.html">HOME</a>
+    <a href="join.html">JOIN</a>
+    <a href="signin.html">SIGN-IN</a>
+    <a href="#">DASHBOARD</a>
+  </nav>
+</header>
+
+<main class="main">
+  <div class="welcome">
+    <h1>Welcome Back, Member!</h1>
+    <p>Manage your bookings and membership below.</p>
+  </div>
+
+  <div class="grid" id="bookingGrid">
+    <!-- Example cells -->
+    <div class="day-cell">1<span class="day-dot low"></span></div>
+    <div class="day-cell">2<span class="day-dot medium"></span></div>
+    <div class="day-cell">3<span class="day-dot high"></span></div>
+    <!-- Repeat for all days -->
+  </div>
+
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-card">
+      <h2>Book Visit – <span id="selectedDate">Date</span></h2>
+      <p>Select a time slot:</p>
+      <button id="confirmBooking">Confirm Booking</button>
+      <br><br>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+
+  <div class="dashboard-cards">
+    <div class="card">
+      <h3>Dog Profile</h3>
+      <p>Name: Rex</p>
+      <p>Breed: Rottweiler</p>
+      <p>Age: 3 years</p>
+    </div>
+    <div class="card">
+      <h3>Membership Details</h3>
+      <p>Tier: Premium</p>
+      <p>Renewal Date: Oct 15 2026</p>
+    </div>
+    <div class="card">
+      <h3>Billing Summary</h3>
+      <p>Last Payment: Aug 15 2026</p>
+      <p>Next Due: Oct 15 2026</p>
+    </div>
+    <div class="card">
+      <h3>Support & Feedback</h3>
+      <p>Need help? Contact us anytime.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>© 2026 Howlers Dog Park</p>
+  <a href="index.html">Back to Home</a>
+</footer>
+
+<script>
+const gridCells = document.querySelectorAll('.day-cell');
+const popupOverlay = document.getElementById('popupOverlay');
+const selectedDate = document.getElementById('selectedDate');
+const confirmBtn = document.getElementById('confirmBooking');
+
+gridCells.forEach(cell => {
+  cell.addEventListener('click', () => {
+    selectedDate.textContent = cell.textContent.trim();
+    popupOverlay.style.display = 'flex';
+  });
+});
+
+confirmBtn.addEventListener
+
+  <script>
+function closePopup() {
+  document.getElementById('popupOverlay').style.display = 'none';
+}
+
+const gridCells = document.querySelectorAll('.day-cell');
+const popupOverlay = document.getElementById('popupOverlay');
+const selectedDate = document.getElementById('selectedDate');
+const confirmBtn = document.getElementById('confirmBooking');
+
+gridCells.forEach(cell => {
+  cell.addEventListener('click', () => {
+    selectedDate.textContent = cell.textContent.trim();
+    popupOverlay.style.display = 'flex';
+  });
+});
+
+confirmBtn.addEventListener('click', () => {
+  const date = selectedDate.textContent;
+  const cell = Array.from(gridCells).find(c => c.textContent.trim() === date);
+  if (cell) {
+    const dot = cell.querySelector('.day-dot');
+    dot.className = 'day-dot booked';
+  }
+  closePopup();
+  alert(`Session booked for ${date}!`);
+});
+</script>
