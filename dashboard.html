@@ -549,22 +549,42 @@
       });
 
       confirmBtn.addEventListener('click', () => {
-        if (!selectedDate || !selectedTime) {
-          alert('Please select a time slot before confirming.');
-          return;
-        }
+  if (!selectedDate || !selectedTime) {
+    alert('Please select a time slot before confirming.');
+    return;
+  }
 
-        const cell = Array.from(document.querySelectorAll('.calendar-day'))
-          .find(c => c.textContent.trim() === String(selectedDate));
+  // Build date string (your calendar uses days 1–30)
+  const year = 2026;
+  const month = "09"; // September
+  const day = String(selectedDate).padStart(2, "0");
 
-        if (cell) {
-          const dot = cell.querySelector('.calendar-dot');
-          dot.className = 'calendar-dot booked';
-        }
+  // Build email subject + body
+  const subject = encodeURIComponent(`Booking Request – ${month}/${day}/${year} at ${selectedTime}`);
+  const body = encodeURIComponent(
+    `A new dog visit has been scheduled.\n\n` +
+    `Date: ${month}/${day}/${year}\n` +
+    `Time: ${selectedTime}\n\n` +
+    `Please add this to the business calendar.`
+  );
 
-        alert(`Session booked for day ${selectedDate} at ${selectedTime}!`);
-        closePopup();
-      });
+  // Business email
+  const businessEmail = "lamarTwilson@outlook.com";
+
+  // Open user's email app with pre-filled booking message
+  window.location.href = `mailto:${businessEmail}?subject=${subject}&body=${body}`;
+
+  // Mark the day as booked visually
+  const cell = Array.from(document.querySelectorAll('.calendar-day'))
+    .find(c => c.textContent.trim() === String(selectedDate));
+
+  if (cell) {
+    const dot = cell.querySelector('.calendar-dot');
+    dot.className = 'calendar-dot booked';
+  }
+
+  closePopup();
+});
 
       closePopupBtn.addEventListener('click', () => {
         closePopup();
