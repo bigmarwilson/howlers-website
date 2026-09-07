@@ -159,6 +159,328 @@ header nav a:hover {
   color: #d5d8e4;
 }
 
+.calendar-card {
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(5,7,10,0.85);
+  padding: 1.6rem 1.8rem;
+  color: #c3c7d3;
+  box-shadow: 0 0 24px rgba(53,229,255,0.25);
+}
+
+.calendar-card h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  color: var(--text-offwhite);
+}
+
+.calendar-card p {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.calendar-container {
+  margin-top: 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(53,229,255,0.3);
+  box-shadow: 0 0 25px rgba(53,229,255,0.25);
+  padding: 1rem;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(6px);
+}
+
+.calendar-title {
+  color: var(--accent-green);
+  text-shadow: 0 0 10px rgba(91,255,122,0.6);
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.calendar-day {
+  background: #0b0d10;
+  border-radius: 8px;
+  padding: 12px 0;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(53,229,255,0.2);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.calendar-day:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255,95,209,0.6);
+}
+
+.calendar-dot {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  box-shadow: 0 0 6px currentColor;
+  animation: dotPulse 3s ease-in-out infinite;
+}
+
+.calendar-dot.low { color: var(--accent-green); }
+.calendar-dot.medium { color: var(--accent-orange); }
+.calendar-dot.high { color: var(--accent-pink); }
+.calendar-dot.booked { color: var(--accent-cyan); }
+
+@keyframes dotPulse {
+  0%,100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+/* POPUP OVERLAY — original behavior */
+.popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 100%);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  pointer-events: auto;
+  animation: overlayPulse 8s ease-in-out infinite;
+}
+
+@keyframes overlayPulse {
+  0%,100% { background: radial-gradient(circle at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 100%); }
+  50% { background: radial-gradient(circle at center, rgba(0,0,0,0.7) 0%, rgba(0,0,0,1) 100%); }
+}
+
+/* POPUP CARD */
+.popup-card {
+  position: relative;
+  pointer-events: auto;
+  background: rgba(11,13,16,0.7);
+  border: 2px solid rgba(53,229,255,0.4);
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(91,255,122,0.5), inset 0 0 20px rgba(53,229,255,0.2);
+  backdrop-filter: blur(12px);
+  padding: 28px;
+  width: 340px;
+  text-align: center;
+  animation: fadeIn 0.6s ease-in;
+  transition: all 0.4s ease;
+}
+
+.popup-card:hover {
+  box-shadow: 0 0 35px rgba(255,95,209,0.6), inset 0 0 25px rgba(53,229,255,0.3);
+  transform: scale(1.03);
+}
+
+.popup-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  padding: 2px;
+  background: linear-gradient(120deg, var(--accent-cyan), var(--accent-green), var(--accent-pink), var(--accent-orange), var(--accent-cyan));
+  background-size: 300% 300%;
+  animation: borderFlow 6s linear infinite;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+@keyframes borderFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.popup-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(53,229,255,0.3) 0%, rgba(53,229,255,0) 80%);
+  transform: skewX(-25deg);
+  animation: reflectionSweep 6s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes reflectionSweep {
+  0% { left: -60%; opacity: 0; }
+  20% { opacity: 1; }
+  50% { left: 120%; opacity: 0.8; }
+  100% { left: 120%; opacity: 0; }
+}
+
+.popup-card h2 {
+  color: var(--accent-cyan);
+  text-shadow: 0 0 10px rgba(53,229,255,0.6);
+  margin-bottom: 0.6rem;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.popup-card p {
+  font-size: 0.9rem;
+  color: #c3c7d3;
+  margin-bottom: 0.8rem;
+}
+
+.time-options {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0.8rem 0 1.2rem;
+}
+
+.time-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: linear-gradient(120deg, var(--accent-pink), var(--accent-orange));
+  color: #020305;
+  box-shadow: 0 0 16px rgba(255,95,209,0.45);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.time-btn:hover {
+  box-shadow: 0 0 22px rgba(255,95,209,0.75);
+  transform: translateY(-1px);
+}
+
+.time-btn.active {
+  background: linear-gradient(120deg, var(--accent-green), var(--accent-cyan));
+  color: #020305;
+  box-shadow: 0 0 22px rgba(91,255,122,0.75);
+  transform: translateY(-2px);
+}
+
+.primary-action {
+  margin-top: 0.4rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: linear-gradient(120deg, var(--accent-cyan), var(--accent-green));
+  color: #020305;
+  box-shadow: 0 0 20px rgba(53,229,255,0.6);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.primary-action:hover {
+  box-shadow: 0 0 26px rgba(91,255,122,0.8);
+  transform: translateY(-1px);
+}
+
+.secondary-action {
+  margin-top: 0.8rem;
+  padding: 0.45rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.25);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(5,7,10,0.8);
+  color: #d5d8e4;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.secondary-action:hover {
+  background: rgba(53,229,255,0.15);
+  color: var(--accent-cyan);
+}
+
+footer {
+  padding: 1.8rem 6vw 2.2rem;
+  font-size: 0.8rem;
+  color: #8b90a0;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  position: relative;
+  z-index: 2;
+}
+
+footer a {
+  color: #a4a8b3;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: var(--accent-cyan);
+}
+
+@media (max-width: 900px) {
+  .dashboard-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="grain"></div>
+<div class="ambient-shimmer"></div>
+
+<header>
+  <div class="logo">HOWLERS BACKYARD</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="join.html">Join</a>
+    <a href="signin.html">Sign‑In</a>
+    <a href="dashboard.html">Dashboard</a>
+  </nav>
+</header>
+
+<main>
+  <section class="dashboard-hero">
+    <div class="welcome-block">
+      <h1 class="welcome-title">
+        Member <span>dashboard</span>
+      </h1>
+      <p class="welcome-subtitle">
+        Manage your visits, keep your dog’s routine consistent, and stay connected to the Howlers Backyard community—
+        all from one glowing, industrial‑inspired space.
+      </p>
+      <div class="welcome-tags">
+        <div class="tag">Membership hub</div>
+        <div class="tag">Visit scheduling</div>
+        <div class="tag">Indoor dog park access</div>
+      </div>
+    </div>
+
+    <div class="calendar-card">
+      <h2>Upcoming Visits</h2>
+      <p>Select a date to book or adjust your dog’s visit schedule.</p>
+      <div class="calendar-container">
+        <div class="calendar-title">Book Your Visit</div>
         <div class="calendar-grid" id="calendarGrid"></div>
       </div>
     </div>
@@ -208,7 +530,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     timeButtons.forEach(btn => btn.classList.remove('active'));
 
-    popupOverlay.style.display = 'flex';   // JS sets flex
+    popupOverlay.style.display = 'flex';  /* original behavior */
   }
 
   function closePopup() {
@@ -291,3 +613,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+  
