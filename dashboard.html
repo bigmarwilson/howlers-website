@@ -434,6 +434,24 @@
         grid-template-columns: minmax(0, 1fr);
       }
     }
+
+    /* 🔥 FORCE POPUP TO BE ABOVE EVERYTHING 🔥 */
+.popup-overlay,
+.popup-card {
+  position: relative !important;
+  z-index: 999999 !important;
+  pointer-events: auto !important;
+}
+
+/* 🔥 FORCE ALL BACKGROUND EFFECTS TO IGNORE CLICKS 🔥 */
+.ambient-shimmer,
+.grain-overlay,
+.background-stencil,
+.header-reflection,
+.main-reflection {
+  pointer-events: none !important;
+}
+
   </style>
 </head>
 
