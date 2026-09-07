@@ -452,6 +452,26 @@
   pointer-events: none !important;
 }
 
+    /* FINAL FIX — FORCE POPUP ABOVE ALL STACKING CONTEXTS */
+.popup-overlay {
+  position: fixed !important;
+  z-index: 999999999 !important;
+  pointer-events: auto !important;
+}
+
+.popup-card {
+  position: relative !important;
+  z-index: 999999999 !important;
+  pointer-events: auto !important;
+}
+
+/* FORCE ALL BACKGROUND EFFECTS TO IGNORE CLICKS */
+.grain,
+.ambient-shimmer,
+body::before {
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
   </style>
 </head>
 
