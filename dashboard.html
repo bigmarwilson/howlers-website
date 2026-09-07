@@ -502,78 +502,79 @@
   </footer>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const calendarGrid = document.getElementById('calendarGrid');
-      const popupOverlay = document.getElementById('popupOverlay');
-      const selectedDateSpan = document.getElementById('selectedDate');
-      const confirmBtn = document.getElementById('confirmBooking');
-      const closePopupBtn = document.getElementById('closePopupBtn');
-      const timeButtons = document.querySelectorAll('.time-btn');
+document.addEventListener("DOMContentLoaded", () => {
 
-      let selectedDate = null;
-      let selectedTime = null;
+  const calendarGrid = document.getElementById('calendarGrid');
+  const popupOverlay = document.getElementById('popupOverlay');
+  const selectedDateSpan = document.getElementById('selectedDate');
+  const confirmBtn = document.getElementById('confirmBooking');
+  const closePopupBtn = document.getElementById('closePopupBtn');
+  const timeButtons = document.querySelectorAll('.time-btn');
 
-      function openPopup(dayNumber) {
-        selectedDate = dayNumber;
-        selectedTime = null;
-        selectedDateSpan.textContent = dayNumber;
-        timeButtons.forEach(btn => btn.classList.remove('active'));
-        popupOverlay.style.display = 'flex';
-      }
+  let selectedDate = null;
+  let selectedTime = null;
 
-      function closePopup() {
-        popupOverlay.style.display = 'none';
-      }
+  function openPopup(dayNumber) {
+    selectedDate = dayNumber;
+    selectedTime = null;
+    selectedDateSpan.textContent = dayNumber;
+    timeButtons.forEach(btn => btn.classList.remove('active'));
+    popupOverlay.style.display = 'flex';
+  }
 
-      const daysInMonth = 30;
-      const trafficLevels = ['low', 'medium', 'high'];
+  function closePopup() {
+    popupOverlay.style.display = 'none';
+  }
 
-      for (let i = 1; i <= daysInMonth; i++) {
-        const day = document.createElement('div');
-        day.classList.add('calendar-day');
-        day.textContent = i;
+  const daysInMonth = 30;
+  const trafficLevels = ['low', 'medium', 'high'];
 
-        const dot = document.createElement('span');
-        const randomLevel = trafficLevels[Math.floor(Math.random() * trafficLevels.length)];
-        dot.classList.add('calendar-dot', randomLevel);
-        day.appendChild(dot);
+  for (let i = 1; i <= daysInMonth; i++) {
+    const day = document.createElement('div');
+    day.classList.add('calendar-day');
+    day.textContent = i;
 
-        day.addEventListener('click', () => {
-          openPopup(i);
-        });
+    const dot = document.createElement('span');
+    const randomLevel = trafficLevels[Math.floor(Math.random() * trafficLevels.length)];
+    dot.classList.add('calendar-dot', randomLevel);
+    day.appendChild(dot);
 
-        calendarGrid.appendChild(day);
-      }
+    day.addEventListener('click', () => {
+      openPopup(i);
+    });
 
-      timeButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          timeButtons.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          selectedTime = btn.getAttribute('data-time');
-        });
-      });
+    calendarGrid.appendChild(day);
+  }
 
-      confirmBtn.addEventListener('click', () => {
-        if (!selectedDate || !selectedTime) {
-          alert('Please select a time slot before confirming.');
-          return;
-        }
+  timeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      timeButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedTime = btn.getAttribute('data-time');
+    });
+  });
 
-        const cell = Array.from(document.querySelectorAll('.calendar-day'))
-          .find(c => c.textContent.trim() === String(selectedDate));
+  confirmBtn.addEventListener('click', () => {
+    if (!selectedDate || !selectedTime) {
+      alert('Please select a time slot before confirming.');
+      return;
+    }
 
-        if (cell) {
-          const dot = cell.querySelector('.calendar-dot');
-          dot.className = 'calendar-dot booked';
-        }
+    const cell = Array.from(document.querySelectorAll('.calendar-day'))
+      .find(c => c.textContent.trim() === String(selectedDate));
 
-        alert(`Session booked for day ${selectedDate} at ${selectedTime}!`);
-        closePopup();
-      });
+    if (cell) {
+      const dot = cell.querySelector('.calendar-dot');
+      dot.className = 'calendar-dot booked';
+    }
 
-      closePopupBtn.addEventListener('click', () => {
-  closePopup();
-});
+    alert(`Session booked for day ${selectedDate} at ${selectedTime}!`);
+    closePopup();
+  });
+
+  closePopupBtn.addEventListener('click', () => {
+    closePopup();
+  });
 
 });
 </script>
