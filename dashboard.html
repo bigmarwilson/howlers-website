@@ -556,10 +556,43 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   confirmBtn.addEventListener('click', () => {
-    if (!selectedDate || !selectedTime) {
-      alert('Please select a time slot before confirming.');
-      return;
-    }
+  if (!selectedDate || !selectedTime) {
+    alert('Please select a time slot before confirming.');
+    return;
+  }
+
+  // Convert selectedTime ("10 AM") into 24-hour format
+  const timeMap = {
+    "10 AM": "10:00",
+    "1 PM": "13:00",
+    "3 PM": "15:00",
+    "5 PM": "17:00"
+  };
+
+  const startTime = timeMap[selectedTime];
+
+  // Build a date string (you can replace with real month/year later)
+  const year = 2026;
+  const month = "09"; // September
+  const day = String(selectedDate).padStart(2, "0");
+
+  // Email subject and body
+  const subject = encodeURIComponent(`New Dog Visit Booking - ${month}/${day}/${year}`);
+  const body = encodeURIComponent(
+    `A new visit has been scheduled.\n\n` +
+    `Date: ${month}/${day}/${year}\n` +
+    `Time: ${selectedTime}\n\n` +
+    `Please add this to the business calendar.`
+  );
+
+  // Business email
+  const businessEmail = "lamarTwilson@outlook.com";
+
+  // Open user's email app with pre-filled booking message
+  window.location.href = `mailto:${businessEmail}?subject=${subject}&body=${body}`;
+
+  closePopup();
+});
 
     const cell = Array.from(document.querySelectorAll('.calendar-day'))
       .find(c => c.textContent.trim() === String(selectedDate));
