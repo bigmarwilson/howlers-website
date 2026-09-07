@@ -561,6 +561,19 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  const cell = Array.from(document.querySelectorAll('.calendar-day'))
+    .find(c => c.textContent.trim() === String(selectedDate));
+
+  if (cell) {
+    const dot = cell.querySelector('.calendar-dot');
+    dot.className = 'calendar-dot booked';
+  }
+
+  alert(`Session booked for day ${selectedDate} at ${selectedTime}!`);
+  closePopup();
+});
+}
+
   // Convert selectedTime ("10 AM") into 24-hour format
   const timeMap = {
     "10 AM": "10:00",
