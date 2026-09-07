@@ -32,7 +32,6 @@
       overflow-x: hidden;
     }
 
-    /* Rottweiler watermark (same asset path as index.html) */
     body::before {
       content: "";
       position: fixed;
@@ -46,7 +45,6 @@
       z-index: 0;
     }
 
-    /* Grain overlay */
     .grain {
       position: fixed;
       inset: 0;
@@ -57,18 +55,18 @@
       z-index: 1;
     }
 
-    /* Ambient shimmer behind everything */
     .ambient-shimmer {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: radial-gradient(circle at 20% 40%, rgba(53,229,255,0.15), transparent 70%),
-              radial-gradient(circle at 80% 60%, rgba(255,95,209,0.15), transparent 70%);
-  background-size: 200% 200%;
-  animation: shimmerFlow 12s ease-in-out infinite;
-  z-index: 0;
-  pointer-events: none;
-}
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle at 20% 40%, rgba(53,229,255,0.15), transparent 70%),
+                  radial-gradient(circle at 80% 60%, rgba(255,95,209,0.15), transparent 70%);
+      background-size: 200% 200%;
+      animation: shimmerFlow 12s ease-in-out infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+
     @keyframes shimmerFlow {
       0% { background-position: 0% 50%; opacity: 0.4; }
       50% { background-position: 100% 50%; opacity: 0.6; }
@@ -81,7 +79,6 @@
       padding: 2.5rem 6vw 3rem;
     }
 
-    /* HEADER (aligned with index.html style) */
     header {
       padding: 1.5rem 6vw 1rem;
       display: flex;
@@ -111,7 +108,6 @@
       color: var(--accent-cyan);
     }
 
-    /* MAIN DASHBOARD LAYOUT */
     .dashboard-hero {
       margin-top: 1.5rem;
       display: grid;
@@ -163,7 +159,6 @@
       color: #d5d8e4;
     }
 
-    /* CALENDAR CARD */
     .calendar-card {
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,0.08);
@@ -247,7 +242,6 @@
       50% { opacity: 1; transform: scale(1.3); }
     }
 
-    /* POP-UP OVERLAY + CARD */
     .popup-overlay {
       display: none;
       position: fixed;
@@ -503,133 +497,85 @@
   </footer>
 
   <script>
-document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", () => {
+      const calendarGrid = document.getElementById('calendarGrid');
+      const popupOverlay = document.getElementById('popupOverlay');
+      const selectedDateSpan = document.getElementById('selectedDate');
+      const confirmBtn = document.getElementById('confirmBooking');
+      const closePopupBtn = document.getElementById('closePopupBtn');
+      const timeButtons = document.querySelectorAll('.time-btn');
 
-  const calendarGrid = document.getElementById('calendarGrid');
-  const popupOverlay = document.getElementById('popupOverlay');
-  const selectedDateSpan = document.getElementById('selectedDate');
-  const confirmBtn = document.getElementById('confirmBooking');
-  const closePopupBtn = document.getElementById('closePopupBtn');
-  const timeButtons = document.querySelectorAll('.time-btn');
+      let selectedDate = null;
+      let selectedTime = null;
 
-  let selectedDate = null;
-  let selectedTime = null;
+      function openPopup(dayNumber) {
+        selectedDate = dayNumber;
+        selectedTime = null;
+        selectedDateSpan.textContent = dayNumber;
+        timeButtons.forEach(btn => btn.classList.remove('active'));
+        popupOverlay.style.display = 'flex';
+      }
 
-  function openPopup(dayNumber) {
-    selectedDate = dayNumber;
-    selectedTime = null;
-    selectedDateSpan.textContent = dayNumber;
-    timeButtons.forEach(btn => btn.classList.remove('active'));
-    popupOverlay.style.display = 'flex';
-  }
+      function closePopup() {
+        popupOverlay.style.display = 'none';
+      }
 
-  function closePopup() {
-    popupOverlay.style.display = 'none';
-  }
+      const daysInMonth = 30;
+      const trafficLevels = ['low', 'medium', 'high'];
 
-  const daysInMonth = 30;
-  const trafficLevels = ['low', 'medium', 'high'];
+      for (let i = 1; i <= daysInMonth; i++) {
+        const day = document.createElement('div');
+        day.classList.add('calendar-day');
+        day.textContent = i;
 
-  for (let i = 1; i <= daysInMonth; i++) {
-    const day = document.createElement('div');
-    day.classList.add('calendar-day');
-    day.textContent = i;
+        const dot = document.createElement('span');
+        const randomLevel = trafficLevels[Math.floor(Math.random() * trafficLevels.length)];
+        dot.classList.add('calendar-dot', randomLevel);
+        day.appendChild(dot);
 
-    const dot = document.createElement('span');
-    const randomLevel = trafficLevels[Math.floor(Math.random() * trafficLevels.length)];
-    dot.classList.add('calendar-dot', randomLevel);
-    day.appendChild(dot);
+        day.addEventListener('click', () => {
+          openPopup(i);
+        });
 
-    day.addEventListener('click', () => {
-      openPopup(i);
+        calendarGrid.appendChild(day);
+      }
+
+      timeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          timeButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          selectedTime = btn.getAttribute('data-time');
+        });
+      });
+
+      confirmBtn.addEventListener('click', () => {
+        if (!selectedDate || !selectedTime) {
+          alert('Please select a time slot before confirming.');
+          return;
+        }
+
+        const cell = Array.from(document.querySelectorAll('.calendar-day'))
+          .find(c => c.textContent.trim() === String(selectedDate));
+
+        if (cell) {
+          const dot = cell.querySelector('.calendar-dot');
+          dot.className = 'calendar-dot booked';
+        }
+
+        alert(`Session booked for day ${selectedDate} at ${selectedTime}!`);
+        closePopup();
+      });
+
+      closePopupBtn.addEventListener('click', () => {
+        closePopup();
+      });
+
+      popupOverlay.addEventListener('click', (e) => {
+        if (e.target === popupOverlay) {
+          closePopup();
+        }
+      });
     });
-
-    calendarGrid.appendChild(day);
-  }
-
-  timeButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      timeButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      selectedTime = btn.getAttribute('data-time');
-    });
-  });
-
-  confirmBtn.addEventListener('click', () => {
-  if (!selectedDate || !selectedTime) {
-    alert('Please select a time slot before confirming.');
-    return;
-  }
-
-  const cell = Array.from(document.querySelectorAll('.calendar-day'))
-    .find(c => c.textContent.trim() === String(selectedDate));
-
-  if (cell) {
-    const dot = cell.querySelector('.calendar-dot');
-    dot.className = 'calendar-dot booked';
-  }
-
-  alert(`Session booked for day ${selectedDate} at ${selectedTime}!`);
-  closePopup();
-});
-}
-
-  // Convert selectedTime ("10 AM") into 24-hour format
-  const timeMap = {
-    "10 AM": "10:00",
-    "1 PM": "13:00",
-    "3 PM": "15:00",
-    "5 PM": "17:00"
-  };
-
-  const startTime = timeMap[selectedTime];
-
-  // Build a date string (you can replace with real month/year later)
-  const year = 2026;
-  const month = "09"; // September
-  const day = String(selectedDate).padStart(2, "0");
-
-  // Email subject and body
-  const subject = encodeURIComponent(`New Dog Visit Booking - ${month}/${day}/${year}`);
-  const body = encodeURIComponent(
-    `A new visit has been scheduled.\n\n` +
-    `Date: ${month}/${day}/${year}\n` +
-    `Time: ${selectedTime}\n\n` +
-    `Please add this to the business calendar.`
-  );
-
-  // Business email
-  const businessEmail = "lamarTwilson@outlook.com";
-
-  // Open user's email app with pre-filled booking message
-  window.location.href = `mailto:${businessEmail}?subject=${subject}&body=${body}`;
-
-  closePopup();
-});
-
-    const cell = Array.from(document.querySelectorAll('.calendar-day'))
-      .find(c => c.textContent.trim() === String(selectedDate));
-
-    if (cell) {
-      const dot = cell.querySelector('.calendar-dot');
-      dot.className = 'calendar-dot booked';
-    }
-
-    alert(`Session booked for day ${selectedDate} at ${selectedTime}!`);
-    closePopup();
-  });
-
-  closePopupBtn.addEventListener('click', () => {
-    closePopup();
-  });
-  popupOverlay.addEventListener('click', (e) => {
-  if (e.target === popupOverlay) {
-    closePopup();
-  }
-});
-
-});
-</script>
+  </script>
 </body>
 </html>
-
