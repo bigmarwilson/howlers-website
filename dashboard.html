@@ -68,8 +68,8 @@
     }
 
     @keyframes shimmerFlow {
-      0% { background-position: 0% 50%; opacity: 0.4; }
-      50% { background-position: 100% 50%; opacity: 0.6; }
+      0%   { background-position: 0% 50%; opacity: 0.4; }
+      50%  { background-position: 100% 50%; opacity: 0.6; }
       100% { background-position: 0% 50%; opacity: 0.4; }
     }
 
@@ -232,97 +232,97 @@
       animation: dotPulse 3s ease-in-out infinite;
     }
 
-    .calendar-dot.low { color: var(--accent-green); }
+    .calendar-dot.low    { color: var(--accent-green); }
     .calendar-dot.medium { color: var(--accent-orange); }
-    .calendar-dot.high { color: var(--accent-pink); }
+    .calendar-dot.high   { color: var(--accent-pink); }
     .calendar-dot.booked { color: var(--accent-cyan); }
 
     @keyframes dotPulse {
       0%,100% { opacity: 0.6; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.3); }
+      50%     { opacity: 1;   transform: scale(1.3); }
     }
 
-    /* POPUP OVERLAY — FIXED ABOVE ALL OTHER LAYERS */
-.popup-overlay {
-  display: none;
-  position: fixed;
-  top: 0; 
-  left: 0;
-  width: 100%; 
-  height: 100%;
-  background: radial-gradient(circle at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 100%);
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;              /* ⭐ FIX #1 — highest layer */
-  pointer-events: auto;       /* ⭐ FIX #3 — allow clicking inside */
-  animation: overlayPulse 8s ease-in-out infinite;
-}
+    /* POPUP OVERLAY */
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 100%);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      pointer-events: auto;
+      animation: overlayPulse 8s ease-in-out infinite;
+    }
 
-@keyframes overlayPulse {
-  0%,100% { background: radial-gradient(circle at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 100%); }
-  50% { background: radial-gradient(circle at center, rgba(0,0,0,0.7) 0%, rgba(0,0,0,1) 100%); }
-}
+    @keyframes overlayPulse {
+      0%,100% { background: radial-gradient(circle at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 100%); }
+      50%     { background: radial-gradient(circle at center, rgba(0,0,0,0.7) 0%, rgba(0,0,0,1) 100%); }
+    }
 
-/* POPUP CARD — MUST ACCEPT CLICKS */
-.popup-card {
-  position: relative;
-  pointer-events: auto;        /* ⭐ FIX #2 — buttons now respond */
-  background: rgba(11,13,16,0.7);
-  border: 2px solid rgba(53,229,255,0.4);
-  border-radius: 12px;
-  box-shadow: 0 0 25px rgba(91,255,122,0.5), inset 0 0 20px rgba(53,229,255,0.2);
-  backdrop-filter: blur(12px);
-  padding: 28px;
-  width: 340px;
-  text-align: center;
-  animation: fadeIn 0.6s ease-in;
-  transition: all 0.4s ease;
-}
+    /* POPUP CARD */
+    .popup-card {
+      position: relative;
+      pointer-events: auto;
+      background: rgba(11,13,16,0.7);
+      border: 2px solid rgba(53,229,255,0.4);
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(91,255,122,0.5), inset 0 0 20px rgba(53,229,255,0.2);
+      backdrop-filter: blur(12px);
+      padding: 28px;
+      width: 340px;
+      text-align: center;
+      animation: fadeIn 0.6s ease-in;
+      transition: all 0.4s ease;
+    }
 
-.popup-card:hover {
-  box-shadow: 0 0 35px rgba(255,95,209,0.6), inset 0 0 25px rgba(53,229,255,0.3);
-  transform: scale(1.03);
-}
+    .popup-card:hover {
+      box-shadow: 0 0 35px rgba(255,95,209,0.6), inset 0 0 25px rgba(53,229,255,0.3);
+      transform: scale(1.03);
+    }
 
-.popup-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 12px;
-  padding: 2px;
-  background: linear-gradient(120deg, var(--accent-cyan), var(--accent-green), var(--accent-pink), var(--accent-orange), var(--accent-cyan));
-  background-size: 300% 300%;
-  animation: borderFlow 6s linear infinite;
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-}
+    .popup-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      padding: 2px;
+      background: linear-gradient(120deg, var(--accent-cyan), var(--accent-green), var(--accent-pink), var(--accent-orange), var(--accent-cyan));
+      background-size: 300% 300%;
+      animation: borderFlow 6s linear infinite;
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
 
-@keyframes borderFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+    @keyframes borderFlow {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-.popup-card::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -50%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(120deg, rgba(53,229,255,0.3) 0%, rgba(53,229,255,0) 80%);
-  transform: skewX(-25deg);
-  animation: reflectionSweep 6s linear infinite;
-  pointer-events: none;        /* keep this */
-}
+    .popup-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -50%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(120deg, rgba(53,229,255,0.3) 0%, rgba(53,229,255,0) 80%);
+      transform: skewX(-25deg);
+      animation: reflectionSweep 6s linear infinite;
+      pointer-events: none;
+    }
 
-@keyframes reflectionSweep {
-  0% { left: -60%; opacity: 0; }
-  20% { opacity: 1; }
-  50% { left: 120%; opacity: 0.8; }
-  100% { left: 120%; opacity: 0; }
-}
+    @keyframes reflectionSweep {
+      0%   { left: -60%; opacity: 0; }
+      20%  { opacity: 1; }
+      50%  { left: 120%; opacity: 0.8; }
+      100% { left: 120%; opacity: 0; }
+    }
 
     .popup-card h2 {
       color: var(--accent-cyan);
@@ -365,6 +365,14 @@
     .time-btn:hover {
       box-shadow: 0 0 22px rgba(255,95,209,0.75);
       transform: translateY(-1px);
+    }
+
+    /* ⭐ ACTIVE STATE FIX */
+    .time-btn.active {
+      background: linear-gradient(120deg, var(--accent-green), var(--accent-cyan));
+      color: #020305;
+      box-shadow: 0 0 22px rgba(91,255,122,0.75);
+      transform: translateY(-2px);
     }
 
     .primary-action {
@@ -434,44 +442,6 @@
         grid-template-columns: minmax(0, 1fr);
       }
     }
-
-    /* 🔥 FORCE POPUP TO BE ABOVE EVERYTHING 🔥 */
-.popup-overlay,
-.popup-card {
-  position: relative !important;
-  z-index: 999999 !important;
-  pointer-events: auto !important;
-}
-
-/* 🔥 FORCE ALL BACKGROUND EFFECTS TO IGNORE CLICKS 🔥 */
-.ambient-shimmer,
-.grain-overlay,
-.background-stencil,
-.header-reflection,
-.main-reflection {
-  pointer-events: none !important;
-}
-
-    /* FINAL FIX — FORCE POPUP ABOVE ALL STACKING CONTEXTS */
-.popup-overlay {
-  position: fixed !important;
-  z-index: 999999999 !important;
-  pointer-events: auto !important;
-}
-
-.popup-card {
-  position: relative !important;
-  z-index: 999999999 !important;
-  pointer-events: auto !important;
-}
-
-/* FORCE ALL BACKGROUND EFFECTS TO IGNORE CLICKS */
-.grain,
-.ambient-shimmer,
-body::before {
-  pointer-events: none !important;
-  z-index: 0 !important;
-}
   </style>
 </head>
 
@@ -509,7 +479,6 @@ body::before {
       <div class="calendar-card">
         <h2>Upcoming Visits</h2>
         <p>Select a date to book or adjust your dog’s visit schedule.</p>
-
         <div class="calendar-container">
           <div class="calendar-title">Book Your Visit</div>
           <div class="calendar-grid" id="calendarGrid"></div>
@@ -542,12 +511,12 @@ body::before {
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const calendarGrid = document.getElementById('calendarGrid');
-      const popupOverlay = document.getElementById('popupOverlay');
+      const calendarGrid     = document.getElementById('calendarGrid');
+      const popupOverlay     = document.getElementById('popupOverlay');
       const selectedDateSpan = document.getElementById('selectedDate');
-      const confirmBtn = document.getElementById('confirmBooking');
-      const closePopupBtn = document.getElementById('closePopupBtn');
-      const timeButtons = document.querySelectorAll('.time-btn');
+      const confirmBtn       = document.getElementById('confirmBooking');
+      const closePopupBtn    = document.getElementById('closePopupBtn');
+      const timeButtons      = document.querySelectorAll('.time-btn');
 
       let selectedDate = null;
       let selectedTime = null;
@@ -564,8 +533,8 @@ body::before {
         popupOverlay.style.display = 'none';
       }
 
-      const daysInMonth = 30;
-      const trafficLevels = ['low', 'medium', 'high'];
+      const daysInMonth    = 30;
+      const trafficLevels  = ['low', 'medium', 'high'];
 
       for (let i = 1; i <= daysInMonth; i++) {
         const day = document.createElement('div');
@@ -593,42 +562,37 @@ body::before {
       });
 
       confirmBtn.addEventListener('click', () => {
-  if (!selectedDate || !selectedTime) {
-    alert('Please select a time slot before confirming.');
-    return;
-  }
+        if (!selectedDate || !selectedTime) {
+          alert('Please select a time slot before confirming.');
+          return;
+        }
 
-  // Build date string (your calendar uses days 1–30)
-  const year = 2026;
-  const month = "09"; // September
-  const day = String(selectedDate).padStart(2, "0");
+        const year  = 2026;
+        const month = "09"; // September
+        const day   = String(selectedDate).padStart(2, "0");
 
-  // Build email subject + body
-  const subject = encodeURIComponent(`Booking Request – ${month}/${day}/${year} at ${selectedTime}`);
-  const body = encodeURIComponent(
-    `A new dog visit has been scheduled.\n\n` +
-    `Date: ${month}/${day}/${year}\n` +
-    `Time: ${selectedTime}\n\n` +
-    `Please add this to the business calendar.`
-  );
+        const subject = encodeURIComponent(`Booking Request – ${month}/${day}/${year} at ${selectedTime}`);
+        const body    = encodeURIComponent(
+          `A new dog visit has been scheduled.\n\n` +
+          `Date: ${month}/${day}/${year}\n` +
+          `Time: ${selectedTime}\n\n` +
+          `Please add this to the business calendar.`
+        );
 
-  // Business email
-  const businessEmail = "lamarTwilson@outlook.com";
+        const businessEmail = "lamarTwilson@outlook.com";
 
-  // Open user's email app with pre-filled booking message
-  window.location.href = `mailto:${businessEmail}?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:${businessEmail}?subject=${subject}&body=${body}`;
 
-  // Mark the day as booked visually
-  const cell = Array.from(document.querySelectorAll('.calendar-day'))
-    .find(c => c.textContent.trim() === String(selectedDate));
+        const cell = Array.from(document.querySelectorAll('.calendar-day'))
+          .find(c => c.textContent.trim() === String(selectedDate));
 
-  if (cell) {
-    const dot = cell.querySelector('.calendar-dot');
-    dot.className = 'calendar-dot booked';
-  }
+        if (cell) {
+          const dot = cell.querySelector('.calendar-dot');
+          dot.className = 'calendar-dot booked';
+        }
 
-  closePopup();
-});
+        closePopup();
+      });
 
       closePopupBtn.addEventListener('click', () => {
         closePopup();
