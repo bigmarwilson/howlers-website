@@ -360,6 +360,75 @@ header nav a:hover {
   color: #d5d8e4;
 }
 
+  /* --------------------------------------------- */
+/* TOKEN CARD */
+/* --------------------------------------------- */
+
+.token-card {
+  background: radial-gradient(circle at top left, #1b1b2f 0%, #0b0b12 45%, #050509 100%);
+  border-radius: 18px;
+  border: 1px solid rgba(120, 255, 255, 0.35);
+  box-shadow:
+    0 0 18px rgba(0, 255, 255, 0.35),
+    0 0 40px rgba(180, 0, 255, 0.35);
+  padding: 1.5rem;
+  max-width: 300px;
+  color: #f5f5ff;
+  position: relative;
+  overflow: hidden;
+  margin-top: 2rem;
+}
+
+.token-icon-wrap {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1rem;
+}
+
+.token-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 12px rgba(255, 200, 0, 0.8));
+}
+
+.token-title {
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-cyan);
+  margin-bottom: 0.6rem;
+}
+
+.token-remaining {
+  font-size: 1rem;
+  margin-bottom: 0.6rem;
+  color: #c3c7d3;
+}
+
+.token-progress-bar {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(30, 30, 50, 0.9);
+  overflow: hidden;
+  margin-bottom: 0.8rem;
+}
+
+.token-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #00ff9d, #7df9ff, #ff7bff);
+  box-shadow: 0 0 10px rgba(0, 255, 157, 0.7);
+  width: 100%;
+}
+
+.token-note {
+  font-size: 0.8rem;
+  color: #9effa8;
+  opacity: 0.9;
+}
+
 /* --------------------------------------------- */
 /* DOG CARDS — SECTION B */
 /* --------------------------------------------- */
@@ -606,6 +675,25 @@ footer a:hover {
       <div class="calendar-grid" id="calendarGrid"></div>
     </div>
   </div>
+
+  <!-- TOKEN CARD (PLACE DIRECTLY UNDER WELCOME BLOCK) -->
+<div class="token-card">
+  <div class="token-icon-wrap">
+    <img src="images/icons/dog-treat.png" alt="Token Icon" class="token-icon">
+  </div>
+
+  <h2 class="token-title">Membership Tokens</h2>
+
+  <p class="token-remaining">
+    <span id="tokensRemaining">15</span> / 15 remaining
+  </p>
+
+  <div class="token-progress-bar">
+    <div id="tokenProgressFill" class="token-progress-fill"></div>
+  </div>
+
+  <p class="token-note">Resets monthly • Used at check‑in</p>
+</div>
 
 </section> <!-- END dashboard-hero -->
 
