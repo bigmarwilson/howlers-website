@@ -860,6 +860,35 @@ footer a:hover {
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
+  // TOKEN SYSTEM
+let maxTokens = 15;
+
+// Load tokens from storage or initialize
+let tokens = parseInt(localStorage.getItem("tokens")) || maxTokens;
+
+// Monthly reset (simple version)
+const currentMonth = new Date().getMonth();
+const storedMonth = parseInt(localStorage.getItem("tokenMonth"));
+
+if (storedMonth !== currentMonth) {
+  tokens = maxTokens;
+  localStorage.setItem("tokenMonth", currentMonth);
+  localStorage.setItem("tokens", tokens);
+}
+
+// Update UI
+function updateTokenUI() {
+  const remainingEl = document.getElementById("tokensRemaining");
+  const fillEl = document.getElementById("tokenProgressFill");
+
+  remainingEl.textContent = tokens;
+
+  const percent = (tokens / maxTokens) * 100;
+  fillEl.style.width = percent + "%";
+}
+
+updateTokenUI();
+
   const calendarGrid = document.getElementById('calendarGrid');
   const popupOverlay = document.getElementById('popupOverlay');
   const selectedDateSpan = document.getElementById('selectedDate');
@@ -990,6 +1019,11 @@ END:VCALENDAR`;
     const dot = cell.querySelector('.calendar-dot');
     dot.className = 'calendar-dot booked';
   }
+
+    // Decrement token on booking
+tokens = Math.max(tokens - 1, 0);
+localStorage.setItem("tokens", tokens);
+updateTokenUI();
 
   closePopup();
 });
