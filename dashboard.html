@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Member Dashboard | Howlers Backyard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Member Dashboard | Howlers Backyard</title>
 
-  <style>
-
-/* --------------------------------------------- */
-/* GLOBAL THEME – NEON INDUSTRIAL AESTHETIC */
-/* --------------------------------------------- */
-
+<style>
 :root {
   --bg-charcoal: #0b0d10;
   --text-offwhite: #f5f5f7;
@@ -37,7 +32,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Background stencil */
 body::before {
   content: "";
   position: fixed;
@@ -51,7 +45,6 @@ body::before {
   z-index: 0;
 }
 
-/* Grain overlay */
 .grain {
   position: fixed;
   inset: 0;
@@ -62,14 +55,12 @@ body::before {
   z-index: 1;
 }
 
-/* Ambient shimmer */
 .ambient-shimmer {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background:
-    radial-gradient(circle at 20% 40%, rgba(53,229,255,0.15), transparent 70%),
-    radial-gradient(circle at 80% 60%, rgba(255,95,209,0.15), transparent 70%);
+  background: radial-gradient(circle at 20% 40%, rgba(53,229,255,0.15), transparent 70%),
+              radial-gradient(circle at 80% 60%, rgba(255,95,209,0.15), transparent 70%);
   background-size: 200% 200%;
   animation: shimmerFlow 12s ease-in-out infinite;
   z-index: 2;
@@ -117,22 +108,12 @@ header nav a:hover {
   color: var(--accent-cyan);
 }
 
-/* --------------------------------------------- */
-/* DASHBOARD LAYOUT */
-/* --------------------------------------------- */
-
 .dashboard-hero {
   margin-top: 1.5rem;
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
   gap: 2.5rem;
-  align-items: stretch;
-}
-
-.left-column,
-.right-column {
-  display: flex;
-  flex-direction: column;
+  align-items: flex-start;
 }
 
 .welcome-block {
@@ -178,18 +159,13 @@ header nav a:hover {
   color: #d5d8e4;
 }
 
-/* --------------------------------------------- */
-/* CALENDAR CARD */
-/* --------------------------------------------- */
-
-.calendar-card {
+  .calendar-card {
   border-radius: 14px;
   border: 1px solid rgba(255,255,255,0.08);
   background: rgba(5,7,10,0.85);
   padding: 1.6rem 1.8rem;
   color: #c3c7d3;
   box-shadow: 0 0 24px rgba(53,229,255,0.25);
-  min-height: 420px;
 }
 
 .calendar-card h2 {
@@ -222,6 +198,7 @@ header nav a:hover {
   letter-spacing: 0.12em;
 }
 
+/* ⭐ RESTORED — THIS FIXES THE CALENDAR LAYOUT */
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -263,201 +240,186 @@ header nav a:hover {
 
 @keyframes dotPulse {
   0%,100% { opacity: 0.6; transform: scale(1); }
-  50%     { opacity: 1;   transform: scale(1.3); }
+  50% { opacity: 1; transform: scale(1.3); }
 }
 
-/* --------------------------------------------- */
-/* DOG CARDS – ORIGINAL NON-SLIDER VERSION */
-/* --------------------------------------------- */
+/* POPUP OVERLAY — unchanged except z-index fix */
+.popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 100%);
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+  animation: overlayPulse 8s ease-in-out infinite;
 
-.dog-card-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  margin-top: 2rem;
+  /* ⭐ FIX: ensures overlay is above decorative layers */
+  z-index: 10000;
 }
 
-.dog-card {
-  background: radial-gradient(circle at top left, #1b1b2f 0%, #0b0b12 45%, #050509 100%);
-  border-radius: 18px;
-  border: 1px solid rgba(120, 255, 255, 0.35);
-  box-shadow:
-    0 0 18px rgba(0, 255, 255, 0.35),
-    0 0 40px rgba(180, 0, 255, 0.35);
-  padding: 1.25rem;
-  max-width: 320px;
-  color: #f5f5ff;
+@keyframes overlayPulse {
+  0%,100% { background: radial-gradient(circle at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 100%); }
+  50% { background: radial-gradient(circle at center, rgba(0,0,0,0.7) 0%, rgba(0,0,0,1) 100%); }
+}
+
+/* POPUP CARD — unchanged except z-index fix */
+.popup-card {
   position: relative;
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  min-height: 420px;
+  pointer-events: auto;
+  background: rgba(11,13,16,0.7);
+  border: 2px solid rgba(53,229,255,0.4);
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(91,255,122,0.5), inset 0 0 20px rgba(53,229,255,0.2);
+  backdrop-filter: blur(12px);
+  padding: 28px;
+  width: 340px;
+  text-align: center;
+  animation: fadeIn 0.6s ease-in;
+  transition: all 0.4s ease;
+
+  /* ⭐ FIX: ensures card receives clicks */
+  z-index: 10001;
 }
 
-.dog-card:hover {
-  transform: translateY(-4px);
-  box-shadow:
-    0 0 24px rgba(0, 255, 255, 0.55),
-    0 0 55px rgba(180, 0, 255, 0.55);
+.popup-card:hover {
+  box-shadow: 0 0 35px rgba(255,95,209,0.6), inset 0 0 25px rgba(53,229,255,0.3);
+  transform: scale(1.03);
 }
 
-.dog-card::before {
+.popup-card::before {
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 18px;
-  background: radial-gradient(circle at center, rgba(0,255,255,0.18), transparent 70%);
-  opacity: 0.4;
+  border-radius: 12px;
+  padding: 2px;
+  background: linear-gradient(120deg, var(--accent-cyan), var(--accent-green), var(--accent-pink), var(--accent-orange), var(--accent-cyan));
+  background-size: 300% 300%;
+  animation: borderFlow 6s linear infinite;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+@keyframes borderFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.popup-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(53,229,255,0.3) 0%, rgba(53,229,255,0) 80%);
+  transform: skewX(-25deg);
+  animation: reflectionSweep 6s linear infinite;
   pointer-events: none;
 }
 
-.dog-card-photo-wrap {
-  width: 120px;
-  height: 120px;
-  border-radius: 18px;
-  overflow: hidden;
-  border: 2px solid rgba(0, 255, 255, 0.7);
-  box-shadow:
-    0 0 16px rgba(0, 255, 255, 0.6),
-    0 0 32px rgba(180, 0, 255, 0.4);
-  margin-bottom: 0.9rem;
+@keyframes reflectionSweep {
+  0% { left: -60%; opacity: 0; }
+  20% { opacity: 1; }
+  50% { left: 120%; opacity: 0.8; }
+  100% { left: 120%; opacity: 0; }
 }
 
-.dog-card-photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.dog-card-header {
+.popup-card h2 {
+  color: var(--accent-cyan);
+  text-shadow: 0 0 10px rgba(53,229,255,0.6);
   margin-bottom: 0.6rem;
-}
-
-.dog-card-name {
-  font-size: 1.4rem;
-  letter-spacing: 0.04em;
+  font-size: 1.1rem;
   text-transform: uppercase;
-  color: #7df9ff;
-  margin: 0;
+  letter-spacing: 0.12em;
 }
 
-.dog-card-subtitle {
-  margin: 0.15rem 0 0;
+.popup-card p {
   font-size: 0.9rem;
-  color: #c3c3ff;
-}
-
-.dog-card-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-bottom: 0.7rem;
-}
-
-.dog-card-badge {
-  font-size: 0.75rem;
-  padding: 0.25rem 0.6rem;
-  border-radius: 999px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background: rgba(10, 10, 20, 0.9);
-}
-
-.dog-card-badge-temperament {
-  color: #00ff9d;
-  border-color: rgba(0, 255, 157, 0.6);
-  box-shadow: 0 0 10px rgba(0, 255, 157, 0.6);
-}
-
-.dog-card-badge-tier {
-  color: #ff7bff;
-  border-color: rgba(255, 123, 255, 0.7);
-  box-shadow: 0 0 10px rgba(255, 123, 255, 0.7);
-}
-
-.dog-card-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
+  color: #c3c7d3;
   margin-bottom: 0.8rem;
 }
 
-.dog-card-tag {
-  font-size: 0.75rem;
-  padding: 0.2rem 0.55rem;
-  border-radius: 999px;
-  background: rgba(40, 40, 70, 0.9);
-  color: #e5e5ff;
-  border: 1px solid rgba(120, 255, 255, 0.35);
-}
-
-.dog-card-meta {
-  margin-bottom: 0.9rem;
-}
-
-.dog-card-progress-label {
-  font-size: 0.8rem;
-  color: #c3c3ff;
-  margin-bottom: 0.25rem;
-}
-
-.dog-card-progress-label span {
-  color: #7df9ff;
-}
-
-.dog-card-progress-bar {
-  width: 100%;
-  height: 6px;
-  border-radius: 999px;
-  background: rgba(30, 30, 50, 0.9);
-  overflow: hidden;
-  margin-bottom: 0.4rem;
-}
-
-.dog-card-progress-fill {
-  height: 100%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #00ff9d, #7df9ff, #ff7bff);
-  box-shadow: 0 0 10px rgba(0, 255, 157, 0.7);
-}
-
-.dog-card-vax-status {
-  font-size: 0.78rem;
-  color: #9effa8;
-}
-
-.dog-card-actions {
+.time-options {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  gap: 0.6rem;
+  margin: 0.8rem 0 1.2rem;
 }
 
-.dog-card-btn {
-  font-size: 0.8rem;
-  padding: 0.35rem 0.8rem;
+.time-btn {
+  padding: 0.5rem 1rem;
   border-radius: 999px;
-  border: 1px solid rgba(120, 255, 255, 0.6);
-  background: rgba(5, 5, 15, 0.95);
-  color: #e5ffff;
+  border: none;
   cursor: pointer;
-  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: linear-gradient(120deg, var(--accent-pink), var(--accent-orange));
+  color: #020305;
+  box-shadow: 0 0 16px rgba(255,95,209,0.45);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
 }
 
-.dog-card-btn:hover {
-  background: rgba(0, 255, 255, 0.12);
-  box-shadow: 0 0 10px rgba(120, 255, 255, 0.7);
+.time-btn:hover {
+  box-shadow: 0 0 22px rgba(255,95,209,0.75);
   transform: translateY(-1px);
 }
 
-.dog-card-btn-secondary {
-  border-color: rgba(255, 123, 255, 0.7);
-  color: #ffddff;
+.time-btn.active {
+  background: linear-gradient(120deg, var(--accent-green), var(--accent-cyan));
+  color: #020305;
+  box-shadow: 0 0 22px rgba(91,255,122,0.75);
+  transform: translateY(-2px);
 }
 
-/* --------------------------------------------- */
-/* FOOTER */
-/* --------------------------------------------- */
+  .primary-action {
+  margin-top: 0.4rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: linear-gradient(120deg, var(--accent-cyan), var(--accent-green));
+  color: #020305;
+  box-shadow: 0 0 20px rgba(53,229,255,0.6);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.primary-action:hover {
+  box-shadow: 0 0 26px rgba(91,255,122,0.8);
+  transform: translateY(-1px);
+}
+
+.secondary-action {
+  margin-top: 0.8rem;
+  padding: 0.45rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.25);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(5,7,10,0.8);
+  color: #d5d8e4;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.secondary-action:hover {
+  background: rgba(53,229,255,0.15);
+  color: var(--accent-cyan);
+}
 
 footer {
   padding: 1.8rem 6vw 2.2rem;
@@ -480,50 +442,39 @@ footer a:hover {
   color: var(--accent-cyan);
 }
 
-/* --------------------------------------------- */
-/* RESPONSIVE */
-/* --------------------------------------------- */
-
 @media (max-width: 900px) {
   .dashboard-hero {
     grid-template-columns: minmax(0, 1fr);
   }
 }
-
 </style>
-
- </head>
+</head>
 
 <body>
-  <div class="grain"></div>
-  <div class="ambient-shimmer"></div>
 
-  <header>
-    <div class="logo">HOWLERS BACKYARD</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="join.html">Join</a>
-      <a href="signin.html">Sign‑In</a>
-      <a href="dashboard.html">Dashboard</a>
-    </nav>
-  </header>
+<div class="grain"></div>
+<div class="ambient-shimmer"></div>
 
-  <main>
-    <section class="dashboard-hero">
+<header>
+  <div class="logo">HOWLERS BACKYARD</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="join.html">Join</a>
+    <a href="signin.html">Sign‑In</a>
+    <a href="dashboard.html">Dashboard</a>
+  </nav>
+</header>
 
-  <!-- LEFT COLUMN -->
-  <div class="left-column">
-
+<main>
+  <section class="dashboard-hero">
     <div class="welcome-block">
       <h1 class="welcome-title">
         Member <span>dashboard</span>
       </h1>
-
       <p class="welcome-subtitle">
         Manage your visits, keep your dog’s routine consistent, and stay connected to the Howlers Backyard community—
         all from one glowing, industrial‑inspired space.
       </p>
-
       <div class="welcome-tags">
         <div class="tag">Membership hub</div>
         <div class="tag">Visit scheduling</div>
@@ -531,276 +482,140 @@ footer a:hover {
       </div>
     </div>
 
-   <!-- DOG CARD GRID (ORIGINAL, NON-SLIDER VERSION) -->
-<div class="dog-card-grid">
+    <div class="calendar-card">
+      <h2>Upcoming Visits</h2>
+      <p>Select a date to book or adjust your dog’s visit schedule.</p>
+      <div class="calendar-container">
+        <div class="calendar-title">Book Your Visit</div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+      </div>
+    </div>
+  </section>
+</main>
 
-    <!-- DOG 1 -->
-    <div class="dog-card">
-        <div class="dog-card-photo-wrap">
-            <img src="images/dogs/sample-dog.jpg" class="dog-card-photo">
-        </div>
-        <div class="dog-card-header">
-            <h2 class="dog-card-name">Nova</h2>
-            <p class="dog-card-subtitle">3 years • Husky Mix</p>
-        </div>
-        <div class="dog-card-badges">
-            <span class="dog-card-badge dog-card-badge-temperament">Energetic</span>
-            <span class="dog-card-badge dog-card-badge-tier">Unlimited Howler</span>
-        </div>
-        <div class="dog-card-tags">
-            <span class="dog-card-tag">Zoomies Champion</span>
-            <span class="dog-card-tag">Treat Connoisseur</span>
-            <span class="dog-card-tag">Loves Tug Toys</span>
-        </div>
-        <div class="dog-card-meta">
-            <div class="dog-card-progress-label">Visits this month: <span>7 / 12</span></div>
-            <div class="dog-card-progress-bar">
-                <div class="dog-card-progress-fill" style="width: 60%;"></div>
-            </div>
-            <div class="dog-card-vax-status">✔ Vaccinations up to date</div>
-        </div>
-        <div class="dog-card-actions">
-            <button class="dog-card-btn">Edit Profile</button>
-            <button class="dog-card-btn">View History</button>
-            <button class="dog-card-btn dog-card-btn-secondary">Add Note</button>
-        </div>
+<!-- POPUP OVERLAY -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup-card">
+    <h2>Book Visit – <span id="selectedDate">Date</span></h2>
+    <p>Select a time slot for your dog’s visit.</p>
+
+    <div class="time-options">
+      <button class="time-btn" data-time="10 AM">10 AM</button>
+      <button class="time-btn" data-time="1 PM">1 PM</button>
+      <button class="time-btn" data-time="3 PM">3 PM</button>
+      <button class="time-btn" data-time="5 PM">5 PM</button>
     </div>
 
-    <!-- DOG 2 -->
-    <div class="dog-card">
-        <div class="dog-card-photo-wrap">
-            <img src="images/dogs/sample-dog2.jpg" class="dog-card-photo">
-        </div>
-        <div class="dog-card-header">
-            <h2 class="dog-card-name">Rex</h2>
-            <p class="dog-card-subtitle">5 years • Rottweiler</p>
-        </div>
-        <div class="dog-card-badges">
-            <span class="dog-card-badge dog-card-badge-temperament">Confident</span>
-            <span class="dog-card-badge dog-card-badge-tier">Weekend Warrior</span>
-        </div>
-        <div class="dog-card-tags">
-            <span class="dog-card-tag">Ball Obsessed</span>
-            <span class="dog-card-tag">Fence Greeter</span>
-            <span class="dog-card-tag">Loves Agility</span>
-        </div>
-        <div class="dog-card-meta">
-            <div class="dog-card-progress-label">Visits this month: <span>4 / 8</span></div>
-            <div class="dog-card-progress-bar">
-                <div class="dog-card-progress-fill" style="width: 50%;"></div>
-            </div>
-            <div class="dog-card-vax-status">✔ Vaccinations up to date</div>
-        </div>
-        <div class="dog-card-actions">
-            <button class="dog-card-btn">Edit Profile</button>
-            <button class="dog-card-btn">View History</button>
-            <button class="dog-card-btn dog-card-btn-secondary">Add Note</button>
-        </div>
-    </div>
-
-    <!-- DOG 3 -->
-    <div class="dog-card">
-        <div class="dog-card-photo-wrap">
-            <img src="images/dogs/sample-dog3.jpg" class="dog-card-photo">
-        </div>
-        <div class="dog-card-header">
-            <h2 class="dog-card-name">Milo</h2>
-            <p class="dog-card-subtitle">2 years • Pit Mix</p>
-        </div>
-        <div class="dog-card-badges">
-            <span class="dog-card-badge dog-card-badge-temperament">Goofy</span>
-            <span class="dog-card-badge dog-card-badge-tier">Day Pass Regular</span>
-        </div>
-        <div class="dog-card-tags">
-            <span class="dog-card-tag">Squeaky Toy Lover</span>
-            <span class="dog-card-tag">Water Bowl Splash Artist</span>
-            <span class="dog-card-tag">Couch Cuddler</span>
-        </div>
-        <div class="dog-card-meta">
-            <div class="dog-card-progress-label">Visits this month: <span>3 / 6</span></div>
-            <div class="dog-card-progress-bar">
-                <div class="dog-card-progress-fill" style="width: 50%;"></div>
-            </div>
-            <div class="dog-card-vax-status">✔ Vaccinations up to date</div>
-        </div>
-        <div class="dog-card-actions">
-            <button class="dog-card-btn">Edit Profile</button>
-            <button class="dog-card-btn">View History</button>
-            <button class="dog-card-btn dog-card-btn-secondary">Add Note</button>
-        </div>
-    </div>
-
-    <!-- DOG 4 -->
-    <div class="dog-card">
-        <div class="dog-card-photo-wrap">
-            <img src="images/dogs/sample-dog4.jpg" class="dog-card-photo">
-        </div>
-        <div class="dog-card-header">
-            <h2 class="dog-card-name">Luna</h2>
-            <p class="dog-card-subtitle">1 year • Shepherd Mix</p>
-        </div>
-        <div class="dog-card-badges">
-            <span class="dog-card-badge dog-card-badge-temperament">Curious</span>
-            <span class="dog-card-badge dog-card-badge-tier">Puppy Pack</span>
-        </div>
-        <div class="dog-card-tags">
-            <span class="dog-card-tag">New Friends Every Visit</span>
-            <span class="dog-card-tag">Treat Motivated</span>
-            <span class="dog-card-tag">Learning Recall</span>
-        </div>
-        <div class="dog-card-meta">
-            <div class="dog-card-progress-label">Visits this month: <span>2 / 10</span></div>
-            <div class="dog-card-progress-bar">
-                <div class="dog-card-progress-fill" style="width: 20%;"></div>
-            </div>
-            <div class="dog-card-vax-status">✔ Vaccinations up to date</div>
-        </div>
-        <div class="dog-card-actions">
-            <button class="dog-card-btn">Edit Profile</button>
-            <button class="dog-card-btn">View History</button>
-            <button class="dog-card-btn dog-card-btn-secondary">Add Note</button>
-        </div>
-    </div>
-
+    <button id="confirmBooking" class="primary-action">Confirm Booking</button>
+    <button id="closePopupBtn" class="secondary-action">Close</button>
+  </div>
 </div>
 
-  </div> <!-- END RIGHT COLUMN -->
+<footer>
+  <p>© 2026 Howlers Backyard</p>
+  <a href="index.html">Back to Home</a>
+</footer>
 
-</section>
-
-  </main>
-
-  <!-- POPUP OVERLAY -->
-  <div class="popup-overlay" id="popupOverlay">
-    <div class="popup-card">
-      <h2>Book Visit – <span id="selectedDate">Date</span></h2>
-      <p>Select a time slot for your dog’s visit.</p>
-
-      <div class="time-options">
-        <button class="time-btn" data-time="10 AM">10 AM</button>
-        <button class="time-btn" data-time="1 PM">1 PM</button>
-        <button class="time-btn" data-time="3 PM">3 PM</button>
-        <button class="time-btn" data-time="5 PM">5 PM</button>
-      </div>
-
-      <button id="confirmBooking" class="primary-action">Confirm Booking</button>
-      <button id="closePopupBtn" class="secondary-action">Close</button>
-    </div>
-  </div>
-
-  <footer>
-    <p>© 2026 Howlers Backyard</p>
-    <a href="index.html">Back to Home</a>
-  </footer>
-
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const calendarGrid = document.getElementById('calendarGrid');
-    const popupOverlay = document.getElementById('popupOverlay');
-    const selectedDateSpan = document.getElementById('selectedDate');
-    const confirmBtn = document.getElementById('confirmBooking');
-    const closePopupBtn = document.getElementById('closePopupBtn');
-    const timeButtons = document.querySelectorAll('.time-btn');
-
-    let selectedDate = null;
-    let selectedTime = null;
-
-    function openPopup(dayNumber) {
-      selectedDate = dayNumber;
-      selectedTime = null;
-      selectedDateSpan.textContent = dayNumber;
-      timeButtons.forEach(btn => btn.classList.remove('active'));
-      popupOverlay.style.display = 'flex';
-    }
-
-    function closePopup() {
-      popupOverlay.style.display = 'none';
-    }
-
-    const daysInMonth = 30;
-    const trafficLevels = ['low', 'medium', 'high'];
-
-    for (let i = 1; i <= daysInMonth; i++) {
-      const day = document.createElement('div');
-      day.classList.add('calendar-day');
-      day.textContent = i;
-
-      const dot = document.createElement('span');
-      const randomLevel = trafficLevels[Math.floor(Math.random() * trafficLevels.length)];
-      dot.classList.add('calendar-dot', randomLevel);
-      day.appendChild(dot);
-
-      day.addEventListener('click', () => {
-        openPopup(i);
-      });
-
-      calendarGrid.appendChild(day);
-    }
-
-    timeButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        timeButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        selectedTime = btn.getAttribute('data-time');
-      });
-    });
-
-    confirmBtn.addEventListener('click', () => {
-      if (!selectedDate || !selectedTime) {
-        alert('Please select a time slot before confirming.');
-        return;
-      }
-
-      const year = 2026;
-      const month = "09";
-      const day = String(selectedDate).padStart(2, "0");
-
-      const subject = encodeURIComponent(`Booking Request – ${month}/${day}/${year} at ${selectedTime}`);
-      const body = encodeURIComponent(
-        `A new dog visit has been scheduled.\n\n` +
-        `Date: ${month}/${day}/${year}\n` +
-        `Time: ${selectedTime}\n\n` +
-        `Please add this to the business calendar.`
-      );
-
-      const businessEmail = "lamarTwilson@outlook.com";
-      window.location.href = `mailto:${businessEmail}?subject=${subject}&body=${body}`;
-
-      const cell = Array.from(document.querySelectorAll('.calendar-day'))
-        .find(c => c.textContent.trim() === String(selectedDate));
-
-      if (cell) {
-        const dot = cell.querySelector('.calendar-dot');
-        dot.className = 'calendar-dot booked';
-      }
-
-      closePopup();
-    });
-
-    closePopupBtn.addEventListener('click', () => {
-      closePopup();
-    });
-
-    popupOverlay.addEventListener('click', (e) => {
-      if (e.target === popupOverlay) {
-        closePopup();
-      }
-    });
-  });
-  </script>
-
-  <script>
+<script>
 document.addEventListener("DOMContentLoaded", () => {
-  const grid = document.querySelector(".dog-card-grid");
-  let userInteracted = false;
 
-  grid.addEventListener("scroll", () => {
-    if (!userInteracted) {
-      grid.style.animation = "none";
-      userInteracted = true;
+  const calendarGrid = document.getElementById('calendarGrid');
+  const popupOverlay = document.getElementById('popupOverlay');
+  const selectedDateSpan = document.getElementById('selectedDate');
+  const confirmBtn = document.getElementById('confirmBooking');
+  const closePopupBtn = document.getElementById('closePopupBtn');
+  const timeButtons = document.querySelectorAll('.time-btn');
+
+  let selectedDate = null;
+  let selectedTime = null;
+
+  function openPopup(dayNumber) {
+    selectedDate = dayNumber;
+    selectedTime = null;
+    selectedDateSpan.textContent = dayNumber;
+
+    timeButtons.forEach(btn => btn.classList.remove('active'));
+
+    popupOverlay.style.display = 'flex';
+  }
+
+  function closePopup() {
+    popupOverlay.style.display = 'none';
+  }
+
+  const daysInMonth = 30;
+  const trafficLevels = ['low', 'medium', 'high'];
+
+  for (let i = 1; i <= daysInMonth; i++) {
+    const day = document.createElement('div');
+    day.classList.add('calendar-day');
+    day.textContent = i;
+
+    const dot = document.createElement('span');
+    const randomLevel = trafficLevels[Math.floor(Math.random() * trafficLevels.length)];
+    dot.classList.add('calendar-dot', randomLevel);
+
+    day.appendChild(dot);
+
+    day.addEventListener('click', () => {
+      openPopup(i);
+    });
+
+    calendarGrid.appendChild(day);
+  }
+
+  timeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      timeButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedTime = btn.getAttribute('data-time');
+    });
+  });
+
+  confirmBtn.addEventListener('click', () => {
+    if (!selectedDate || !selectedTime) {
+      alert('Please select a time slot before confirming.');
+      return;
+    }
+
+    const year = 2026;
+    const month = "09";
+    const day = String(selectedDate).padStart(2, "0");
+
+    const subject = encodeURIComponent(`Booking Request – ${month}/${day}/${year} at ${selectedTime}`);
+    const body = encodeURIComponent(
+      `A new dog visit has been scheduled.\n\n` +
+      `Date: ${month}/${day}/${year}\n` +
+      `Time: ${selectedTime}\n\n` +
+      `Please add this to the business calendar.`
+    );
+
+    const businessEmail = "lamarTwilson@outlook.com";
+    window.location.href = `mailto:${businessEmail}?subject=${subject}&body=${body}`;
+
+    const cell = Array.from(document.querySelectorAll('.calendar-day'))
+      .find(c => c.textContent.trim() === String(selectedDate));
+
+    if (cell) {
+      const dot = cell.querySelector('.calendar-dot');
+      dot.className = 'calendar-dot booked';
+    }
+
+    closePopup();
+  });
+
+  closePopupBtn.addEventListener('click', () => {
+    closePopup();
+  });
+
+  popupOverlay.addEventListener('click', (e) => {
+    if (e.target === popupOverlay) {
+      closePopup();
     }
   });
+
 });
 </script>
 
 </body>
+</html> 
