@@ -1,858 +1,855 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Member Dashboard | Howlers Backyard</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Member Dashboard | Howlers Backyard</title>
+
+  <style>
+  /* --------------------------------------------- */
+  /* DOG PROFILE CARD CSS                         */
+  /* --------------------------------------------- */
 
   .dog-card-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: flex-start;
-}
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: flex-start;
+  }
 
-.dog-card {
-  background: radial-gradient(circle at top left, #1b1b2f 0%, #0b0b12 45%, #050509 100%);
-  border-radius: 18px;
-  border: 1px solid rgba(120, 255, 255, 0.35);
-  box-shadow:
-    0 0 18px rgba(0, 255, 255, 0.35),
-    0 0 40px rgba(180, 0, 255, 0.35);
-  padding: 1.25rem;
-  max-width: 320px;
-  color: #f5f5ff;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
+  .dog-card {
+    background: radial-gradient(circle at top left, #1b1b2f 0%, #0b0b12 45%, #050509 100%);
+    border-radius: 18px;
+    border: 1px solid rgba(120, 255, 255, 0.35);
+    box-shadow:
+      0 0 18px rgba(0, 255, 255, 0.35),
+      0 0 40px rgba(180, 0, 255, 0.35);
+    padding: 1.25rem;
+    max-width: 320px;
+    color: #f5f5ff;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
 
-.dog-card:hover {
-  transform: translateY(-4px);
-  box-shadow:
-    0 0 24px rgba(0, 255, 255, 0.55),
-    0 0 55px rgba(180, 0, 255, 0.55);
-}
+  .dog-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 0 24px rgba(0, 255, 255, 0.55),
+      0 0 55px rgba(180, 0, 255, 0.55);
+  }
 
-.dog-card::before {
-  content: "";
-  position: absolute;
-  inset: -40%;
-  background: radial-gradient(circle, rgba(0, 255, 255, 0.12), transparent 60%);
-  opacity: 0;
-  animation: dog-card-glow 4s infinite;
-  pointer-events: none;
-}
+  .dog-card::before {
+    content: "";
+    position: absolute;
+    inset: -40%;
+    background: radial-gradient(circle, rgba(0, 255, 255, 0.12), transparent 60%);
+    opacity: 0;
+    animation: dog-card-glow 4s infinite;
+    pointer-events: none;
+  }
 
-@keyframes dog-card-glow {
-  0%, 100% { opacity: 0; transform: translate3d(0, 0, 0); }
-  50% { opacity: 1; transform: translate3d(10px, -10px, 0); }
-}
+  @keyframes dog-card-glow {
+    0%, 100% { opacity: 0; transform: translate3d(0, 0, 0); }
+    50% { opacity: 1; transform: translate3d(10px, -10px, 0); }
+  }
 
-.dog-card-photo-wrap {
-  width: 120px;
-  height: 120px;
-  border-radius: 18px;
-  overflow: hidden;
-  border: 2px solid rgba(0, 255, 255, 0.7);
-  box-shadow:
-    0 0 16px rgba(0, 255, 255, 0.6),
-    0 0 32px rgba(180, 0, 255, 0.4);
-  margin-bottom: 0.9rem;
-}
+  .dog-card-photo-wrap {
+    width: 120px;
+    height: 120px;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 2px solid rgba(0, 255, 255, 0.7);
+    box-shadow:
+      0 0 16px rgba(0, 255, 255, 0.6),
+      0 0 32px rgba(180, 0, 255, 0.4);
+    margin-bottom: 0.9rem;
+  }
 
-.dog-card-photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
+  .dog-card-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 
-.dog-card-header {
-  margin-bottom: 0.6rem;
-}
+  .dog-card-header {
+    margin-bottom: 0.6rem;
+  }
 
-.dog-card-name {
-  font-size: 1.4rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #7df9ff;
-  margin: 0;
-}
+  .dog-card-name {
+    font-size: 1.4rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #7df9ff;
+    margin: 0;
+  }
 
-.dog-card-subtitle {
-  margin: 0.15rem 0 0;
-  font-size: 0.9rem;
-  color: #c3c3ff;
-}
+  .dog-card-subtitle {
+    margin: 0.15rem 0 0;
+    font-size: 0.9rem;
+    color: #c3c3ff;
+  }
 
-.dog-card-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-bottom: 0.7rem;
-}
+  .dog-card-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.7rem;
+  }
 
-.dog-card-badge {
-  font-size: 0.75rem;
-  padding: 0.25rem 0.6rem;
-  border-radius: 999px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background: rgba(10, 10, 20, 0.9);
-}
+  .dog-card-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(10, 10, 20, 0.9);
+  }
 
-.dog-card-badge-temperament {
-  color: #00ff9d;
-  border-color: rgba(0, 255, 157, 0.6);
-  box-shadow: 0 0 10px rgba(0, 255, 157, 0.6);
-}
+  .dog-card-badge-temperament {
+    color: #00ff9d;
+    border-color: rgba(0, 255, 157, 0.6);
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.6);
+  }
 
-.dog-card-badge-tier {
-  color: #ff7bff;
-  border-color: rgba(255, 123, 255, 0.7);
-  box-shadow: 0 0 10px rgba(255, 123, 255, 0.7);
-}
+  .dog-card-badge-tier {
+    color: #ff7bff;
+    border-color: rgba(255, 123, 255, 0.7);
+    box-shadow: 0 0 10px rgba(255, 123, 255, 0.7);
+  }
 
-.dog-card-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  margin-bottom: 0.8rem;
-}
+  .dog-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 0.8rem;
+  }
 
-.dog-card-tag {
-  font-size: 0.75rem;
-  padding: 0.2rem 0.55rem;
-  border-radius: 999px;
-  background: rgba(40, 40, 70, 0.9);
-  color: #e5e5ff;
-  border: 1px solid rgba(120, 255, 255, 0.35);
-}
+  .dog-card-tag {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    background: rgba(40, 40, 70, 0.9);
+    color: #e5e5ff;
+    border: 1px solid rgba(120, 255, 255, 0.35);
+  }
 
-.dog-card-meta {
-  margin-bottom: 0.9rem;
-}
+  .dog-card-meta {
+    margin-bottom: 0.9rem;
+  }
 
-.dog-card-progress-label {
-  font-size: 0.8rem;
-  color: #c3c3ff;
-  margin-bottom: 0.25rem;
-}
+  .dog-card-progress-label {
+    font-size: 0.8rem;
+    color: #c3c3ff;
+    margin-bottom: 0.25rem;
+  }
 
-.dog-card-progress-label span {
-  color: #7df9ff;
-}
+  .dog-card-progress-label span {
+    color: #7df9ff;
+  }
 
-.dog-card-progress-bar {
-  width: 100%;
-  height: 6px;
-  border-radius: 999px;
-  background: rgba(30, 30, 50, 0.9);
-  overflow: hidden;
-  margin-bottom: 0.4rem;
-}
+  .dog-card-progress-bar {
+    width: 100%;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(30, 30, 50, 0.9);
+    overflow: hidden;
+    margin-bottom: 0.4rem;
+  }
 
-.dog-card-progress-fill {
-  height: 100%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #00ff9d, #7df9ff, #ff7bff);
-  box-shadow: 0 0 10px rgba(0, 255, 157, 0.7);
-}
+  .dog-card-progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #00ff9d, #7df9ff, #ff7bff);
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.7);
+  }
 
-.dog-card-vax-status {
-  font-size: 0.78rem;
-  color: #9effa8;
-}
+  .dog-card-vax-status {
+    font-size: 0.78rem;
+    color: #9effa8;
+  }
 
-.dog-card-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
+  .dog-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
 
-.dog-card-btn {
-  font-size: 0.8rem;
-  padding: 0.35rem 0.8rem;
-  border-radius: 999px;
-  border: 1px solid rgba(120, 255, 255, 0.6);
-  background: rgba(5, 5, 15, 0.95);
-  color: #e5ffff;
-  cursor: pointer;
-  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
-}
+  .dog-card-btn {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid rgba(120, 255, 255, 0.6);
+    background: rgba(5, 5, 15, 0.95);
+    color: #e5ffff;
+    cursor: pointer;
+    transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+  }
 
-.dog-card-btn:hover {
-  background: rgba(0, 255, 255, 0.12);
-  box-shadow: 0 0 10px rgba(120, 255, 255, 0.7);
-  transform: translateY(-1px);
-}
+  .dog-card-btn:hover {
+    background: rgba(0, 255, 255, 0.12);
+    box-shadow: 0 0 10px rgba(120, 255, 255, 0.7);
+    transform: translateY(-1px);
+  }
 
-.dog-card-btn-secondary {
-  border-color: rgba(255, 123, 255, 0.7);
-  color: #ffddff;
-}
+  .dog-card-btn-secondary {
+    border-color: rgba(255, 123, 255, 0.7);
+    color: #ffddff;
+  }
 
-<style>
-:root {
-  --bg-charcoal: #0b0d10;
-  --text-offwhite: #f5f5f7;
-  --accent-cyan: #35e5ff;
-  --accent-green: #5bff7a;
-  --accent-pink: #ff5fd1;
-  --accent-orange: #ffb347;
-}
+  /* --------------------------------------------- */
+  /* YOUR ORIGINAL DASHBOARD CSS                   */
+  /* --------------------------------------------- */
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+  :root {
+    --bg-charcoal: #0b0d10;
+    --text-offwhite: #f5f5f7;
+    --accent-cyan: #35e5ff;
+    --accent-green: #5bff7a;
+    --accent-pink: #ff5fd1;
+    --accent-orange: #ffb347;
+  }
 
-body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: radial-gradient(circle at top left, #14171d 0, var(--bg-charcoal) 55%, #050608 100%);
-  color: var(--text-offwhite);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow-x: hidden;
-}
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: url("assets/images/rottweiler-stencil.png");
-  background-size: 900px auto;
-  background-repeat: no-repeat;
-  background-position: center 20%;
-  opacity: 0.06;
-  pointer-events: none;
-  z-index: 0;
-}
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: radial-gradient(circle at top left, #14171d 0, var(--bg-charcoal) 55%, #050608 100%);
+    color: var(--text-offwhite);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-x: hidden;
+  }
 
-.grain {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.12;
-  mix-blend-mode: soft-light;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='no'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  z-index: 1;
-}
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("assets/images/rottweiler-stencil.png");
+    background-size: 900px auto;
+    background-repeat: no-repeat;
+    background-position: center 20%;
+    opacity: 0.06;
+    pointer-events: none;
+    z-index: 0;
+  }
 
-.ambient-shimmer {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: radial-gradient(circle at 20% 40%, rgba(53,229,255,0.15), transparent 70%),
-              radial-gradient(circle at 80% 60%, rgba(255,95,209,0.15), transparent 70%);
-  background-size: 200% 200%;
-  animation: shimmerFlow 12s ease-in-out infinite;
-  z-index: 2;
-  pointer-events: none;
-}
+  .grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.12;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='no'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index: 1;
+  }
 
-@keyframes shimmerFlow {
-  0% { background-position: 0% 50%; opacity: 0.4; }
-  50% { background-position: 100% 50%; opacity: 0.6; }
-  100% { background-position: 0% 50%; opacity: 0.4; }
-}
+  .ambient-shimmer {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: radial-gradient(circle at 20% 40%, rgba(53,229,255,0.15), transparent 70%),
+                radial-gradient(circle at 80% 60%, rgba(255,95,209,0.15), transparent 70%);
+    background-size: 200% 200%;
+    animation: shimmerFlow 12s ease-in-out infinite;
+    z-index: 2;
+    pointer-events: none;
+  }
 
-main {
-  position: relative;
-  z-index: 3;
-  padding: 2.5rem 6vw 3rem;
-}
+  @keyframes shimmerFlow {
+    0% { background-position: 0% 50%; opacity: 0.4; }
+    50% { background-position: 100% 50%; opacity: 0.6; }
+    100% { background-position: 0% 50%; opacity: 0.4; }
+  }
 
-header {
-  padding: 1.5rem 6vw 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.9rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #a4a8b3;
-  position: relative;
-  z-index: 4;
-}
+  main {
+    position: relative;
+    z-index: 3;
+    padding: 2.5rem 6vw 3rem;
+  }
 
-header .logo {
-  font-weight: 700;
-  color: var(--text-offwhite);
-}
+  header {
+    padding: 1.5rem 6vw 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #a4a8b3;
+    position: relative;
+    z-index: 4;
+  }
 
-header nav a {
-  margin-left: 1.5rem;
-  text-decoration: none;
-  color: #a4a8b3;
-  transition: color 0.2s ease;
-}
+  header .logo {
+    font-weight: 700;
+    color: var(--text-offwhite);
+  }
 
-header nav a:hover {
-  color: var(--accent-cyan);
-}
+  header nav a {
+    margin-left: 1.5rem;
+    text-decoration: none;
+    color: #a4a8b3;
+    transition: color 0.2s ease;
+  }
 
-.dashboard-hero {
-  margin-top: 1.5rem;
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-  gap: 2.5rem;
-  align-items: flex-start;
-}
+  header nav a:hover {
+    color: var(--accent-cyan);
+  }
 
-.welcome-block {
-  position: relative;
-  max-width: 640px;
-}
+  .dashboard-hero {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 2.5rem;
+    align-items: flex-start;
+  }
 
-.welcome-title {
-  font-size: clamp(2.2rem, 3vw, 2.8rem);
-  font-weight: 800;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: var(--text-offwhite);
-}
+  .welcome-block {
+    position: relative;
+    max-width: 640px;
+  }
 
-.welcome-title span {
-  color: var(--accent-cyan);
-}
+  .welcome-title {
+    font-size: clamp(2.2rem, 3vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--text-offwhite);
+  }
 
-.welcome-subtitle {
-  margin-top: 1rem;
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #c3c7d3;
-  max-width: 520px;
-}
+  .welcome-title span {
+    color: var(--accent-cyan);
+  }
 
-.welcome-tags {
-  margin-top: 1.4rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-}
+  .welcome-subtitle {
+    margin-top: 1rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #c3c7d3;
+    max-width: 520px;
+  }
 
-.tag {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 0.35rem 0.8rem;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: radial-gradient(circle at 0 0, rgba(53,229,255,0.25), transparent 55%);
-  color: #d5d8e4;
-}
+  .welcome-tags {
+    margin-top: 1.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .tag {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: radial-gradient(circle at 0 0, rgba(53,229,255,0.25), transparent 55%);
+    color: #d5d8e4;
+  }
 
   .calendar-card {
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(5,7,10,0.85);
-  padding: 1.6rem 1.8rem;
-  color: #c3c7d3;
-  box-shadow: 0 0 24px rgba(53,229,255,0.25);
-}
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(5,7,10,0.85);
+    padding: 1.6rem 1.8rem;
+    color: #c3c7d3;
+    box-shadow: 0 0 24px rgba(53,229,255,0.25);
+  }
 
-.calendar-card h2 {
-  font-size: 1.2rem;
-  margin-bottom: 0.8rem;
-  color: var(--text-offwhite);
-}
+  .calendar-card h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+    color: var(--text-offwhite);
+  }
 
-.calendar-card p {
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-}
+  .calendar-card p {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
 
-.calendar-container {
-  margin-top: 1rem;
-  border-radius: 12px;
-  border: 1px solid rgba(53,229,255,0.3);
-  box-shadow: 0 0 25px rgba(53,229,255,0.25);
-  padding: 1rem;
-  background: rgba(0,0,0,0.4);
-  backdrop-filter: blur(6px);
-}
+  .calendar-container {
+    margin-top: 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(53,229,255,0.3);
+    box-shadow: 0 0 25px rgba(53,229,255,0.25);
+    padding: 1rem;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(6px);
+  }
 
-.calendar-title {
-  color: var(--accent-green);
-  text-shadow: 0 0 10px rgba(91,255,122,0.6);
-  margin-bottom: 0.8rem;
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
+  .calendar-title {
+    color: var(--accent-green);
+    text-shadow: 0 0 10px rgba(91,255,122,0.6);
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
 
-/* ⭐ RESTORED — THIS FIXES THE CALENDAR LAYOUT */
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 8px;
-}
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+  }
 
-.calendar-day {
-  background: #0b0d10;
-  border-radius: 8px;
-  padding: 12px 0;
-  cursor: pointer;
-  position: relative;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 10px rgba(53,229,255,0.2);
-  font-size: 0.9rem;
-  text-align: center;
-}
+  .calendar-day {
+    background: #0b0d10;
+    border-radius: 8px;
+    padding: 12px 0;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(53,229,255,0.2);
+    font-size: 0.9rem;
+    text-align: center;
+  }
 
-.calendar-day:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(255,95,209,0.6);
-}
+  .calendar-day:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255,95,209,0.6);
+  }
 
-.calendar-dot {
-  position: absolute;
-  bottom: 6px;
-  right: 6px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  box-shadow: 0 0 6px currentColor;
-  animation: dotPulse 3s ease-in-out infinite;
-}
+  .calendar-dot {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    box-shadow: 0 0 6px currentColor;
+    animation: dotPulse 3s ease-in-out infinite;
+  }
 
-.calendar-dot.low { color: var(--accent-green); }
-.calendar-dot.medium { color: var(--accent-orange); }
-.calendar-dot.high { color: var(--accent-pink); }
-.calendar-dot.booked { color: var(--accent-cyan); }
+  .calendar-dot.low { color: var(--accent-green); }
+  .calendar-dot.medium { color: var(--accent-orange); }
+  .calendar-dot.high { color: var(--accent-pink); }
+  .calendar-dot.booked { color: var(--accent-cyan); }
 
-@keyframes dotPulse {
-  0%,100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.3); }
-}
+  @keyframes dotPulse {
+    0%,100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.3); }
+  }
 
-/* POPUP OVERLAY — unchanged except z-index fix */
-.popup-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* background: radial-gradient(circle at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 100%); */
-background: transparent;
-  justify-content: center;
-  align-items: center;
-  pointer-events: none;
-  animation: overlayPulse 8s ease-in-out infinite;
+  .popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    animation: overlayPulse 8s ease-in-out infinite;
+    z-index: 10000;
+  }
 
-  /* ⭐ FIX: ensures overlay is above decorative layers */
-  z-index: 10000;
-}
+  @keyframes overlayPulse {
+    0%,100% { background: radial-gradient(circle at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 100%); }
+    50% { background: radial-gradient(circle at center, rgba(0,0,0,0.7) 0%, rgba(0,0,0,1) 100%); }
+  }
 
-@keyframes overlayPulse {
-  0%,100% { background: radial-gradient(circle at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 100%); }
-  50% { background: radial-gradient(circle at center, rgba(0,0,0,0.7) 0%, rgba(0,0,0,1) 100%); }
-}
+  .popup-card {
+    position: relative;
+    pointer-events: auto;
+    background: rgba(11,13,16,0.7);
+    border: 2px solid rgba(53,229,255,0.4);
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(91,255,122,0.5), inset 0 0 20px rgba(53,229,255,0.2);
+    backdrop-filter: blur(12px);
+    padding: 28px;
+    width: 340px;
+    text-align: center;
+    animation: fadeIn 0.6s ease-in;
+    transition: all 0.4s ease;
+    z-index: 10001;
+    isolation: isolate;
+  }
 
-/* POPUP CARD — unchanged except z-index fix */
-.popup-card {
-  position: relative;
-  pointer-events: auto;
-  background: rgba(11,13,16,0.7);
-  border: 2px solid rgba(53,229,255,0.4);
-  border-radius: 12px;
-  box-shadow: 0 0 25px rgba(91,255,122,0.5), inset 0 0 20px rgba(53,229,255,0.2);
-  backdrop-filter: blur(12px);
-  padding: 28px;
-  width: 340px;
-  text-align: center;
-  animation: fadeIn 0.6s ease-in;
-  transition: all 0.4s ease;
-  z-index: 10001;
-  isolation: isolate;
-}
+  .popup-card:hover {
+    box-shadow: 0 0 35px rgba(255,95,209,0.6), inset 0 0 25px rgba(53,229,255,0.3);
+    transform: scale(1.03);
+  }
 
-.popup-card:hover {
-  box-shadow: 0 0 35px rgba(255,95,209,0.6), inset 0 0 25px rgba(53,229,255,0.3);
-  transform: scale(1.03);
-}
+  .popup-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    padding: 2px;
+    background: linear-gradient(120deg, var(--accent-cyan), var(--accent-green), var(--accent-pink), var(--accent-orange), var(--accent-cyan));
+    background-size: 300% 300%;
+    animation: borderFlow 6s linear infinite;
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
 
-.popup-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 12px;
-  padding: 2px;
-  background: linear-gradient(120deg, var(--accent-cyan), var(--accent-green), var(--accent-pink), var(--accent-orange), var(--accent-cyan));
-  background-size: 300% 300%;
-  animation: borderFlow 6s linear infinite;
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-}
+  @keyframes borderFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 
-@keyframes borderFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+  .popup-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg, rgba(53,229,255,0.3) 0%, rgba(53,229,255,0) 80%);
+    transform: skewX(-25deg);
+    animation: reflectionSweep 6s linear infinite;
+    pointer-events: none;
+  }
 
-.popup-card::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -50%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(120deg, rgba(53,229,255,0.3) 0%, rgba(53,229,255,0) 80%);
-  transform: skewX(-25deg);
-  animation: reflectionSweep 6s linear infinite;
-  pointer-events: none;
-}
+  @keyframes reflectionSweep {
+    0% { left: -60%; opacity: 0; }
+    20% { opacity: 1; }
+    50% { left: 120%; opacity: 0.8; }
+    100% { left: 120%; opacity: 0; }
+  }
 
-@keyframes reflectionSweep {
-  0% { left: -60%; opacity: 0; }
-  20% { opacity: 1; }
-  50% { left: 120%; opacity: 0.8; }
-  100% { left: 120%; opacity: 0; }
-}
+  .popup-card h2 {
+    color: var(--accent-cyan);
+    text-shadow: 0 0 10px rgba(53,229,255,0.6);
+    margin-bottom: 0.6rem;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
 
-.popup-card h2 {
-  color: var(--accent-cyan);
-  text-shadow: 0 0 10px rgba(53,229,255,0.6);
-  margin-bottom: 0.6rem;
-  font-size: 1.1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
+  .popup-card p {
+    font-size: 0.9rem;
+    color: #c3c7d3;
+    margin-bottom: 0.8rem;
+  }
 
-.popup-card p {
-  font-size: 0.9rem;
-  color: #c3c7d3;
-  margin-bottom: 0.8rem;
-}
+  .time-options {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 0.8rem 0 1.2rem;
+  }
 
-.time-options {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin: 0.8rem 0 1.2rem;
-}
+  .time-btn {
+    position: relative;
+    z-index: 10002;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: linear-gradient(120deg, var(--accent-pink), var(--accent-orange));
+    color: #020305;
+    box-shadow: 0 0 16px rgba(255,95,209,0.45);
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+  }
 
-.time-btn {
-  position: relative;
-  z-index: 10002; /* ✅ add this */
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  border: none;
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  background: linear-gradient(120deg, var(--accent-pink), var(--accent-orange));
-  color: #020305;
-  box-shadow: 0 0 16px rgba(255,95,209,0.45);
-  transition: box-shadow 0.3s ease, transform 0.2s ease;
-}
+  .time-btn:hover {
+    box-shadow: 0 0 22px rgba(255,95,209,0.75);
+    transform: translateY(-1px);
+  }
 
-.time-btn:hover {
-  box-shadow: 0 0 22px rgba(255,95,209,0.75);
-  transform: translateY(-1px);
-}
-
-.time-btn.active {
-  background: linear-gradient(120deg, var(--accent-green), var(--accent-cyan));
-  color: #020305;
-  box-shadow: 0 0 22px rgba(91,255,122,0.75);
-  transform: translateY(-2px);
-}
+  .time-btn.active {
+    background: linear-gradient(120deg, var(--accent-green), var(--accent-cyan));
+    color: #020305;
+    box-shadow: 0 0 22px rgba(91,255,122,0.75);
+    transform: translateY(-2px);
+  }
 
   .primary-action {
-  position: relative;
-  z-index: 10002; /* ✅ lifts buttons above reflections */
-  margin-top: 0.4rem;
-  padding: 0.6rem 1.4rem;
-  border-radius: 999px;
-  border: none;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  background: linear-gradient(120deg, var(--accent-cyan), var(--accent-green));
-  color: #020305;
-  box-shadow: 0 0 20px rgba(53,229,255,0.6);
-  transition: box-shadow 0.3s ease, transform 0.2s ease;
-}
-
-.primary-action:hover {
-  box-shadow: 0 0 26px rgba(91,255,122,0.8);
-  transform: translateY(-1px);
-}
-
-.secondary-action {
-  position: relative;
-  z-index: 10002;
-  margin-top: 0.8rem;
-  padding: 0.45rem 1.2rem;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.25);
-  cursor: pointer;
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  background: rgba(5,7,10,0.8);
-  color: #d5d8e4;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.secondary-action:hover {
-  background: rgba(53,229,255,0.15);
-  color: var(--accent-cyan);
-}
-
-footer {
-  padding: 1.8rem 6vw 2.2rem;
-  font-size: 0.8rem;
-  color: #8b90a0;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-  position: relative;
-  z-index: 2;
-}
-
-footer a {
-  color: #a4a8b3;
-  text-decoration: none;
-}
-
-footer a:hover {
-  color: var(--accent-cyan);
-}
-
-@media (max-width: 900px) {
-  .dashboard-hero {
-    grid-template-columns: minmax(0, 1fr);
+    position: relative;
+    z-index: 10002;
+    margin-top: 0.4rem;
+    padding: 0.6rem 1.4rem;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: linear-gradient(120deg, var(--accent-cyan), var(--accent-green));
+    color: #020305;
+    box-shadow: 0 0 20px rgba(53,229,255,0.6);
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
   }
-}
-</style>
+
+  .primary-action:hover {
+    box-shadow: 0 0 26px rgba(91,255,122,0.8);
+    transform: translateY(-1px);
+  }
+
+  .secondary-action {
+    position: relative;
+    z-index: 10002;
+    margin-top: 0.8rem;
+    padding: 0.45rem 1.2rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.25);
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(5,7,10,0.8);
+    color: #d5d8e4;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .secondary-action:hover {
+    background: rgba(53,229,255,0.15);
+    color: var(--accent-cyan);
+  }
+
+  footer {
+    padding: 1.8rem 6vw 2.2rem;
+    font-size: 0.8rem;
+    color: #8b90a0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  footer a {
+    color: #a4a8b3;
+    text-decoration: none;
+  }
+
+  footer a:hover {
+    color: var(--accent-cyan);
+  }
+
+  @media (max-width: 900px) {
+    .dashboard-hero {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  </style>
 </head>
 
 <body>
+  <div class="grain"></div>
+  <div class="ambient-shimmer"></div>
 
-<div class="grain"></div>
-<div class="ambient-shimmer"></div>
+  <header>
+    <div class="logo">HOWLERS BACKYARD</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="join.html">Join</a>
+      <a href="signin.html">Sign‑In</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+  </header>
 
-<header>
-  <div class="logo">HOWLERS BACKYARD</div>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="join.html">Join</a>
-    <a href="signin.html">Sign‑In</a>
-    <a href="dashboard.html">Dashboard</a>
-  </nav>
-</header>
-
-<main>
-  <section class="dashboard-hero">
-    <div class="welcome-block">
-      <h1 class="welcome-title">
-        Member <span>dashboard</span>
-      </h1>
-      <p class="welcome-subtitle">
-        Manage your visits, keep your dog’s routine consistent, and stay connected to the Howlers Backyard community—
-        all from one glowing, industrial‑inspired space.
-      </p>
-      <div class="welcome-tags">
-        <div class="tag">Membership hub</div>
-        <div class="tag">Visit scheduling</div>
-        <div class="tag">Indoor dog park access</div>
+  <main>
+    <section class="dashboard-hero">
+      <div class="welcome-block">
+        <h1 class="welcome-title">
+          Member <span>dashboard</span>
+        </h1>
+        <p class="welcome-subtitle">
+          Manage your visits, keep your dog’s routine consistent, and stay connected to the Howlers Backyard community—
+          all from one glowing, industrial‑inspired space.
+        </p>
+        <div class="welcome-tags">
+          <div class="tag">Membership hub</div>
+          <div class="tag">Visit scheduling</div>
+          <div class="tag">Indoor dog park access</div>
+        </div>
       </div>
-    </div>
 
-    <div class="dog-card-grid">
-  <div class="dog-card">
-    <div class="dog-card-photo-wrap">
-      <img src="images/dogs/sample-dog.jpg" alt="Dog photo" class="dog-card-photo">
-    </div>
+      <!-- DOG PROFILE CARD SECTION -->
+      <div class="dog-card-grid">
+        <div class="dog-card">
+          <div class="dog-card-photo-wrap">
+            <img src="images/dogs/sample-dog.jpg" alt="Dog photo" class="dog-card-photo">
+          </div>
 
-    <div class="dog-card-header">
-      <h2 class="dog-card-name">Nova</h2>
-      <p class="dog-card-subtitle">3 years • Husky Mix</p>
-    </div>
+          <div class="dog-card-header">
+            <h2 class="dog-card-name">Nova</h2>
+            <p class="dog-card-subtitle">3 years • Husky Mix</p>
+          </div>
 
-    <div class="dog-card-badges">
-      <span class="dog-card-badge dog-card-badge-temperament">Energetic</span>
-      <span class="dog-card-badge dog-card-badge-tier">Unlimited Howler</span>
-    </div>
+          <div class="dog-card-badges">
+            <span class="dog-card-badge dog-card-badge-temperament">Energetic</span>
+            <span class="dog-card-badge dog-card-badge-tier">Unlimited Howler</span>
+          </div>
 
-    <div class="dog-card-tags">
-      <span class="dog-card-tag">Zoomies Champion</span>
-      <span class="dog-card-tag">Treat Connoisseur</span>
-      <span class="dog-card-tag">Loves Tug Toys</span>
-    </div>
+          <div class="dog-card-tags">
+            <span class="dog-card-tag">Zoomies Champion</span>
+            <span class="dog-card-tag">Treat Connoisseur</span>
+            <span class="dog-card-tag">Loves Tug Toys</span>
+          </div>
 
-    <div class="dog-card-meta">
-      <div class="dog-card-progress-label">
-        Visits this month: <span>7 / 12</span>
+          <div class="dog-card-meta">
+            <div class="dog-card-progress-label">
+              Visits this month: <span>7 / 12</span>
+            </div>
+            <div class="dog-card-progress-bar">
+              <div class="dog-card-progress-fill" style="width: 60%;"></div>
+            </div>
+            <div class="dog-card-vax">
+              <span class="dog-card-vax-status">✔ Vaccinations up to date</span>
+            </div>
+          </div>
+
+          <div class="dog-card-actions">
+            <button class="dog-card-btn">Edit Profile</button>
+            <button class="dog-card-btn">View History</button>
+            <button class="dog-card-btn dog-card-btn-secondary">Add Note</button>
+          </div>
+        </div>
       </div>
-      <div class="dog-card-progress-bar">
-        <div class="dog-card-progress-fill" style="width: 60%;"></div>
-      </div>
-      <div class="dog-card-vax">
-        <span class="dog-card-vax-status">✔ Vaccinations up to date</span>
-      </div>
-    </div>
 
-    <div class="dog-card-actions">
-      <button class="dog-card-btn">Edit Profile</button>
-      <button class="dog-card-btn">View History</button>
-      <button class="dog-card-btn dog-card-btn-secondary">Add Note</button>
+      <!-- CALENDAR CARD -->
+      <div class="calendar-card">
+        <h2>Upcoming Visits</h2>
+        <p>Select a date to book or adjust your dog’s visit schedule.</p>
+        <div class="calendar-container">
+          <div class="calendar-title">Book Your Visit</div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- POPUP OVERLAY -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-card">
+      <h2>Book Visit – <span id="selectedDate">Date</span></h2>
+      <p>Select a time slot for your dog’s visit.</p>
+
+      <div class="time-options">
+        <button class="time-btn" data-time="10 AM">10 AM</button>
+        <button class="time-btn" data-time="1 PM">1 PM</button>
+        <button class="time-btn" data-time="3 PM">3 PM</button>
+        <button class="time-btn" data-time="5 PM">5 PM</button>
+      </div>
+
+      <button id="confirmBooking" class="primary-action">Confirm Booking</button>
+      <button id="closePopupBtn" class="secondary-action">Close</button>
     </div>
   </div>
-</div>
 
-    <div class="calendar-card">
-      <h2>Upcoming Visits</h2>
-      <p>Select a date to book or adjust your dog’s visit schedule.</p>
-      <div class="calendar-container">
-        <div class="calendar-title">Book Your Visit</div>
-        <div class="calendar-grid" id="calendarGrid"></div>
-      </div>
-    </div>
-  </section>
-</main>
+  <footer>
+    <p>© 2026 Howlers Backyard</p>
+    <a href="index.html">Back to Home</a>
+  </footer>
 
-<!-- POPUP OVERLAY -->
-<div class="popup-overlay" id="popupOverlay">
-  <div class="popup-card">
-    <h2>Book Visit – <span id="selectedDate">Date</span></h2>
-    <p>Select a time slot for your dog’s visit.</p>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const calendarGrid = document.getElementById('calendarGrid');
+    const popupOverlay = document.getElementById('popupOverlay');
+    const selectedDateSpan = document.getElementById('selectedDate');
+    const confirmBtn = document.getElementById('confirmBooking');
+    const closePopupBtn = document.getElementById('closePopupBtn');
+    const timeButtons = document.querySelectorAll('.time-btn');
 
-    <div class="time-options">
-      <button class="time-btn" data-time="10 AM">10 AM</button>
-      <button class="time-btn" data-time="1 PM">1 PM</button>
-      <button class="time-btn" data-time="3 PM">3 PM</button>
-      <button class="time-btn" data-time="5 PM">5 PM</button>
-    </div>
+    let selectedDate = null;
+    let selectedTime = null;
 
-    <button id="confirmBooking" class="primary-action">Confirm Booking</button>
-    <button id="closePopupBtn" class="secondary-action">Close</button>
-  </div>
-</div>
-
-<footer>
-  <p>© 2026 Howlers Backyard</p>
-  <a href="index.html">Back to Home</a>
-</footer>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-
-  const calendarGrid = document.getElementById('calendarGrid');
-  const popupOverlay = document.getElementById('popupOverlay');
-  const selectedDateSpan = document.getElementById('selectedDate');
-  const confirmBtn = document.getElementById('confirmBooking');
-  const closePopupBtn = document.getElementById('closePopupBtn');
-  const timeButtons = document.querySelectorAll('.time-btn');
-
-  let selectedDate = null;
-  let selectedTime = null;
-
-  function openPopup(dayNumber) {
-    selectedDate = dayNumber;
-    selectedTime = null;
-    selectedDateSpan.textContent = dayNumber;
-
-    timeButtons.forEach(btn => btn.classList.remove('active'));
-
-    popupOverlay.style.display = 'flex';
-  }
-
-  function closePopup() {
-    popupOverlay.style.display = 'none';
-  }
-
-  const daysInMonth = 30;
-  const trafficLevels = ['low', 'medium', 'high'];
-
-  for (let i = 1; i <= daysInMonth; i++) {
-    const day = document.createElement('div');
-    day.classList.add('calendar-day');
-    day.textContent = i;
-
-    const dot = document.createElement('span');
-    const randomLevel = trafficLevels[Math.floor(Math.random() * trafficLevels.length)];
-    dot.classList.add('calendar-dot', randomLevel);
-
-    day.appendChild(dot);
-
-    day.addEventListener('click', () => {
-      openPopup(i);
-    });
-
-    calendarGrid.appendChild(day);
-  }
-
-  timeButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      timeButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      selectedTime = btn.getAttribute('data-time');
-    });
-  });
-
-  confirmBtn.addEventListener('click', () => {
-    if (!selectedDate || !selectedTime) {
-      alert('Please select a time slot before confirming.');
-      return;
+    function openPopup(dayNumber) {
+      selectedDate = dayNumber;
+      selectedTime = null;
+      selectedDateSpan.textContent = dayNumber;
+      timeButtons.forEach(btn => btn.classList.remove('active'));
+      popupOverlay.style.display = 'flex';
     }
 
-    const year = 2026;
-    const month = "09";
-    const day = String(selectedDate).padStart(2, "0");
-
-    const subject = encodeURIComponent(`Booking Request – ${month}/${day}/${year} at ${selectedTime}`);
-    const body = encodeURIComponent(
-      `A new dog visit has been scheduled.\n\n` +
-      `Date: ${month}/${day}/${year}\n` +
-      `Time: ${selectedTime}\n\n` +
-      `Please add this to the business calendar.`
-    );
-
-    const businessEmail = "lamarTwilson@outlook.com";
-    window.location.href = `mailto:${businessEmail}?subject=${subject}&body=${body}`;
-
-    const cell = Array.from(document.querySelectorAll('.calendar-day'))
-      .find(c => c.textContent.trim() === String(selectedDate));
-
-    if (cell) {
-      const dot = cell.querySelector('.calendar-dot');
-      dot.className = 'calendar-dot booked';
+    function closePopup() {
+      popupOverlay.style.display = 'none';
     }
 
-    closePopup();
-  });
+    const daysInMonth = 30;
+    const trafficLevels = ['low', 'medium', 'high'];
 
-  closePopupBtn.addEventListener('click', () => {
-    closePopup();
-  });
+    for (let i = 1; i <= daysInMonth; i++) {
+      const day = document.createElement('div');
+      day.classList.add('calendar-day');
+      day.textContent = i;
 
-  popupOverlay.addEventListener('click', (e) => {
-    if (e.target === popupOverlay) {
+      const dot = document.createElement('span');
+      const randomLevel = trafficLevels[Math.floor(Math.random() * trafficLevels.length)];
+      dot.classList.add('calendar-dot', randomLevel);
+      day.appendChild(dot);
+
+      day.addEventListener('click', () => {
+        openPopup(i);
+      });
+
+      calendarGrid.appendChild(day);
+    }
+
+    timeButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        timeButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedTime = btn.getAttribute('data-time');
+      });
+    });
+
+    confirmBtn.addEventListener('click', () => {
+      if (!selectedDate || !selectedTime) {
+        alert('Please select a time slot before confirming.');
+        return;
+      }
+
+      const year = 2026;
+      const month = "09";
+      const day = String(selectedDate).padStart(2, "0");
+
+      const subject = encodeURIComponent(`Booking Request – ${month}/${day}/${year} at ${selectedTime}`);
+      const body = encodeURIComponent(
+        `A new dog visit has been scheduled.\n\n` +
+        `Date: ${month}/${day}/${year}\n` +
+        `Time: ${selectedTime}\n\n` +
+        `Please add this to the business calendar.`
+      );
+
+      const businessEmail = "lamarTwilson@outlook.com";
+      window.location.href = `mailto:${businessEmail}?subject=${subject}&body=${body}`;
+
+      const cell = Array.from(document.querySelectorAll('.calendar-day'))
+        .find(c => c.textContent.trim() === String(selectedDate));
+
+      if (cell) {
+        const dot = cell.querySelector('.calendar-dot');
+        dot.className = 'calendar-dot booked';
+      }
+
       closePopup();
-    }
+    });
+
+    closePopupBtn.addEventListener('click', () => {
+      closePopup();
+    });
+
+    popupOverlay.addEventListener('click', (e) => {
+      if (e.target === popupOverlay) {
+        closePopup();
+      }
+    });
   });
-
-});
-</script>
-
+  </script>
 </body>
-</html>
