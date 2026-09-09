@@ -1134,4 +1134,19 @@
     });
   });
   </script>
+
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const grid = document.querySelector(".dog-card-grid");
+  let userInteracted = false;
+
+  grid.addEventListener("scroll", () => {
+    if (!userInteracted) {
+      grid.style.animation = "none";
+      userInteracted = true;
+    }
+  });
+});
+</script>
+
 </body>
