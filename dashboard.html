@@ -825,36 +825,87 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   confirmBtn.addEventListener('click', () => {
-    if (!selectedDate || !selectedTime) {
-      alert('Please select a time slot before confirming.');
-      return;
-    }
+  if (!selectedDate || !selectedTime) {
+    alert('Please select a time slot before confirming.');
+    return;
+  }
 
-    const year = 2026;
-    const month = "09";
-    const day = String(selectedDate).padStart(2, "0");
+  const year = 2026;
+  const month = "09";
+  const day = String(selectedDate).padStart(2, "0");
 
-    const subject = encodeURIComponent(`Booking Request – ${month}/${day}/${year} at ${selectedTime}`);
-    const body = encodeURIComponent(
-      `A new dog visit has been scheduled.\n\n` +
-      `Date: ${month}/${day}/${year}\n` +
-      `Time: ${selectedTime}\n\n` +
-      `Please add this to the business calendar.`
-    );
+  // Convert selectedTime ("10 AM") into 24-hour format
+  function convertTo24(timeStr) {
+    const [hour, modifier] = timeStr.split(" ");
+    let h = parseInt(hour);
+    if (modifier === "PM" && h !== 12) h += 12;
+    if (modifier === "AM" && h === 12) h = 0;
+    return h.toString().padStart(2, "0") + "00";
+  }
 
-    const businessEmail = "lamarTwilson@outlook.com";
-    window.location.href = `mailto:${businessEmail}?subject=${subject}&body=${body}`;
+  const startTime = convertTo24(selectedTime);      // e.g., "1000"
+  const endTime = (parseInt(startTime) + 200).toString().padStart(4, "0"); // 2-hour block
 
-    const cell = Array.from(document.querySelectorAll('.calendar-day'))
-      .find(c => c.textContent.trim() === String(selectedDate));
+  // Build ICS content (Central Time)
+  const icsContent =
+`BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Howlers Backyard//EN
+BEGIN:VEVENT
+UID:${Date.now()}@howlersbackyard.com
+DTSTAMP:${year}${month}${day}T${startTime}00
+DTSTART;TZID=America/Chicago:${year}${month}${day}T${startTime}
+DTEND;TZID=America/Chicago:${year}${month}${day}T${endTime}
+SUMMARY:Howlers Backyard Visit
+DESCRIPTION:Scheduled dog park visit at Howlers Backyard.
+LOCATION:Howlers Backyard Indoor Dog Park
+END:VEVENT
+END:VCALENDAR`;
 
-    if (cell) {
-      const dot = cell.querySelector('.calendar-dot');
-      dot.className = 'calendar-dot booked';
-    }
+  // Trigger ICS download for customer
+  const blob = new Blob([icsContent], { type: "text/calendar" });
+  const url = URL.createObjectURL(blob);
 
-    closePopup();
-  });
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `Howlers-Visit-${month}-${day}-${year}.ics`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  URL.revokeObjectURL(url);
+
+  // Email ICS to scheduler (you)
+  const businessEmail = "lamarTwilson@outlook.com";
+
+  const mailSubject = encodeURIComponent(`New Visit – ${month}/${day}/${year} at ${selectedTime}`);
+  const mailBody = encodeURIComponent(
+    `A new dog visit has been scheduled.\n\n` +
+    `Date: ${month}/${day}/${year}\n` +
+    `Time: ${selectedTime}\n\n` +
+    `ICS file is attached.\n\n` +
+    `-- Howlers Backyard`
+  );
+
+  // Attach ICS using data URI
+  const mailtoLink =
+    `mailto:${businessEmail}?subject=${mailSubject}&body=${mailBody}` +
+    `&attachment="data:text/calendar;base64,${btoa(icsContent)}"`;
+
+  window.location.href = mailtoLink;
+
+  // Mark calendar dot as booked
+  const cell = Array.from(document.querySelectorAll('.calendar-day'))
+    .find(c => c.textContent.trim() === String(selectedDate));
+
+  if (cell) {
+    const dot = cell.querySelector('.calendar-dot');
+    dot.className = 'calendar-dot booked';
+  }
+
+  closePopup();
+});
+
 
   closePopupBtn.addEventListener('click', () => {
     closePopup();
