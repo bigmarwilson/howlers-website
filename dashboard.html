@@ -7,6 +7,10 @@
 
   <style>
 
+    .dog-card-grid {
+  margin-top: 3rem;
+}
+
     .left-column,
 .right-column {
   display: flex;
@@ -40,11 +44,21 @@
 
 
   .dog-card-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    justify-content: flex-start;
-  }
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Firefox */
+}
+
+.dog-card-grid::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.dog-card {
+  scroll-snap-align: start;
+}
 
   .dog-card {
     background: radial-gradient(circle at top left, #1b1b2f 0%, #0b0b12 45%, #050509 100%);
