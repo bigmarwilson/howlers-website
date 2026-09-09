@@ -7,6 +7,77 @@
 
   <style>
 
+    /* DOG CARD SLIDER — FINALIZED DESIGN */
+.dog-card-wrapper {
+  position: relative;
+  max-width: 700px; /* shows ~2 cards */
+  overflow: hidden;
+  margin-top: 2rem;
+}
+
+/* Horizontal track */
+.dog-card-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  animation: dogSliderAuto 14s ease-in-out infinite;
+}
+
+.dog-card-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.dog-card {
+  scroll-snap-align: start;
+  flex: 0 0 320px;
+}
+
+/* Fade edges */
+.dog-scroll-fade-left,
+.dog-scroll-fade-right {
+  position: absolute;
+  top: 0;
+  width: 80px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.dog-scroll-fade-left {
+  left: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.9), transparent);
+}
+
+.dog-scroll-fade-right {
+  right: 0;
+  background: linear-gradient(to left, rgba(0,0,0,0.9), transparent);
+}
+
+/* Auto-glide animation */
+@keyframes dogSliderAuto {
+  0%   { transform: translateX(0); }
+  45%  { transform: translateX(-200px); }
+  55%  { transform: translateX(-200px); }
+  100% { transform: translateX(0); }
+}
+
+/* Softer glow behind cards */
+.dog-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: radial-gradient(circle at center, rgba(0,255,255,0.18), transparent 70%);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+
     .dog-scroll-fade-left,
 .dog-scroll-fade-right {
   position: absolute;
