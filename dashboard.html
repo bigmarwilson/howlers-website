@@ -429,6 +429,70 @@ header nav a:hover {
   opacity: 0.9;
 }
 
+  /* --------------------------------------------- */
+/* NOTICEBOARD BILLBOARD */
+/* --------------------------------------------- */
+
+.noticeboard-section {
+  margin-top: 3rem;
+  width: 100%;
+}
+
+.noticeboard-card {
+  background: radial-gradient(circle at top left, #1b1b2f 0%, #0b0b12 45%, #050509 100%);
+  border-radius: 18px;
+  border: 1px solid rgba(120, 255, 255, 0.35);
+  box-shadow:
+    0 0 18px rgba(0, 255, 255, 0.35),
+    0 0 40px rgba(180, 0, 255, 0.35);
+  padding: 1.8rem;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  min-height: 260px;
+}
+
+/* Glowing Header Bar */
+.noticeboard-header {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: linear-gradient(90deg, rgba(53,229,255,0.4), rgba(255,95,209,0.4));
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #020305;
+  text-shadow: 0 0 10px rgba(255,255,255,0.6);
+  box-shadow: 0 0 20px rgba(53,229,255,0.5);
+  margin-bottom: 1.2rem;
+}
+
+/* Content Area */
+.noticeboard-content {
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+.noticeboard-content.fade-out {
+  opacity: 0;
+}
+
+.noticeboard-content.fade-in {
+  opacity: 1;
+}
+
+.noticeboard-content ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.noticeboard-content li {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  color: #c3c7d3;
+}
+
 /* --------------------------------------------- */
 /* DOG CARDS — SECTION B */
 /* --------------------------------------------- */
@@ -696,6 +760,31 @@ footer a:hover {
 </div>
 
 </section> <!-- END dashboard-hero -->
+
+  <!-- NOTICEBOARD BILLBOARD -->
+<section class="noticeboard-section">
+
+  <div class="noticeboard-card">
+
+    <!-- Glowing Header Bar -->
+    <div class="noticeboard-header">
+      <span id="noticeboardTitle">Weekly Events</span>
+    </div>
+
+    <!-- Content Area -->
+    <div class="noticeboard-content" id="noticeboardContent">
+      <ul>
+        <li>Puppy Social Hour – Monday @ 6 PM</li>
+        <li>Agility Open Play – Wednesday @ 4 PM</li>
+        <li>Rottie Meetup – Friday @ 7 PM</li>
+        <li>Senior Dog Quiet Hour – Sunday @ 9 AM</li>
+        <li>Training Workshop – Saturday @ 2 PM</li>
+      </ul>
+    </div>
+
+  </div>
+
+</section>
 
 <!-- ⭐ SECTION B — DOG CARDS BELOW CALENDAR -->
 <section class="dog-section">
@@ -1040,6 +1129,97 @@ updateTokenUI();
   });
 
 });
+
+  /* --------------------------------------------- */
+/* NOTICEBOARD BILLBOARD LOGIC */
+/* --------------------------------------------- */
+
+const noticeboardTitle = document.getElementById("noticeboardTitle");
+const noticeboardContent = document.getElementById("noticeboardContent");
+
+const noticeboardSlides = [
+  {
+    title: "Weekly Events",
+    items: [
+      "Puppy Social Hour – Monday @ 6 PM",
+      "Agility Open Play – Wednesday @ 4 PM",
+      "Rottie Meetup – Friday @ 7 PM",
+      "Senior Dog Quiet Hour – Sunday @ 9 AM",
+      "Training Workshop – Saturday @ 2 PM"
+    ]
+  },
+  {
+    title: "Food Truck Vendors",
+    items: [
+      "BarkBQ – Mon/Tues",
+      "Treat Wheels – Wednesday",
+      "Paws & Beans – Thursday",
+      "Taco Tailgate – Friday",
+      "Howler’s Hotdogs – Saturday"
+    ]
+  },
+  {
+    title: "Facility Notices",
+    items: [
+      "Turf Cleaning – Tuesday @ 10 AM",
+      "Agility Zone Closed – Thursday",
+      "New Climbing Ramp Installed",
+      "Weather Capacity Update: Indoor Only",
+      "HVAC Filter Replacement – Sunday"
+    ]
+  },
+  {
+    title: "Member Perks",
+    items: [
+      "Double Token Day – Wednesday",
+      "Bring‑a‑Friend Day – Friday",
+      "Free Treat Samples – Weekend",
+      "Monthly Raffle – Enter Now",
+      "Exclusive Puppy Playdate Access"
+    ]
+  },
+  {
+    title: "Staff Messages",
+    items: [
+      "Trainer Jess Available Tues/Thurs",
+      "New Puppy Class Starts Next Week",
+      "Enrichment Tips Posted in Blog",
+      "Ask About Our Behavior Consults",
+      "Member Appreciation Week Coming Soon"
+    ]
+  }
+];
+
+let currentSlide = 0;
+
+function updateNoticeboard() {
+  const slide = noticeboardSlides[currentSlide];
+
+  // Fade out
+  noticeboardContent.classList.add("fade-out");
+
+  setTimeout(() => {
+    // Update content
+    noticeboardTitle.textContent = slide.title;
+
+    noticeboardContent.innerHTML = `
+      <ul>
+        ${slide.items.map(item => `<li>${item}</li>`).join("")}
+      </ul>
+    `;
+
+    // Fade in
+    noticeboardContent.classList.remove("fade-out");
+    noticeboardContent.classList.add("fade-in");
+  }, 1000);
+
+  // Prepare next slide
+  currentSlide = (currentSlide + 1) % noticeboardSlides.length;
+}
+
+// Auto‑cycle every 6 seconds
+setInterval(updateNoticeboard, 6000);
+
 </script>
 
 </body>
