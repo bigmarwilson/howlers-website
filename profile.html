@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Profile | Howlers Backyard</title>
+  <title>Edit Dog | Howlers Backyard</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -26,9 +26,9 @@
       <!-- LEFT: Photo + intro -->
       <div>
         <div class="add-dog-header">
-          <h1 class="add-dog-title">Edit dog</h1>
+          <h1 class="add-dog-title">Edit Dog</h1>
           <p class="add-dog-subtitle">
-            Create a profile for your dog so you can manage visits, track health notes, and keep their routine consistent.
+            Update your dog's profile information.
           </p>
         </div>
 
@@ -41,8 +41,8 @@
 
       <!-- RIGHT: Form fields -->
       <div>
-        <form id="addDogForm" class="add-dog-form">
-          <!-- Identity -->
+        <form id="editDogForm" class="add-dog-form">
+          <!-- Identity (READ ONLY) -->
           <div class="form-group">
             <label for="dogName">Dog name</label>
             <input type="text" id="dogName" readonly />
@@ -55,13 +55,12 @@
 
           <div class="form-group">
             <label for="age">Age (years)</label>
-            <input type="number" id="age" min="0" readonly />
+            <input type="number" id="age" readonly />
           </div>
 
           <div class="form-group">
             <label for="sex">Sex</label>
             <select id="sex" disabled>
-              <option value="">Select</option>
               <option value="Female">Female</option>
               <option value="Male">Male</option>
               <option value="Unknown">Unknown</option>
@@ -69,56 +68,48 @@
           </div>
 
           <div class="form-group">
-            <label for="weight">Weight (lbs)</label>
-            <input type="number" id="weight" min="0" />
-          </div>
-
-          <div class="form-group">
             <label for="birthday">Birthday</label>
             <input type="date" id="birthday" readonly />
           </div>
 
-          <!-- Health -->
+          <!-- Editable fields -->
+          <div class="form-group">
+            <label for="weight">Weight (lbs)</label>
+            <input type="number" id="weight" min="0" />
+          </div>
+
           <div class="form-group form-full-width">
             <label for="healthConcerns">Health concerns</label>
-            <textarea id="healthConcerns" placeholder="Allergies, injuries, chronic conditions..."></textarea>
+            <textarea id="healthConcerns"></textarea>
           </div>
 
           <div class="form-group">
             <label for="vaccinationStatus">Vaccination status</label>
             <select id="vaccinationStatus">
-              <option value="">Select</option>
               <option value="Up to date">Up to date</option>
               <option value="Needs update soon">Needs update soon</option>
               <option value="Unknown">Unknown</option>
             </select>
           </div>
 
-          <!-- Behavior -->
           <div class="form-group">
             <label for="temperament">Temperament</label>
-            <input type="text" id="temperament" placeholder="Energetic, shy, confident..." />
+            <input type="text" id="temperament" />
           </div>
 
           <div class="form-group form-full-width">
             <label for="tags">Tags</label>
-            <input
-              type="text"
-              id="tags"
-              placeholder="Zoomies Champion, Treat Connoisseur, Loves Tug Toys"
-            />
+            <input type="text" id="tags" />
           </div>
 
           <div class="form-group form-full-width">
             <label for="notes">Notes</label>
-            <textarea id="notes" placeholder="Anything staff should know about your dog."></textarea>
+            <textarea id="notes"></textarea>
           </div>
 
-          <!-- Membership -->
           <div class="form-group">
             <label for="membershipTier">Membership tier</label>
             <select id="membershipTier">
-              <option value="">Select</option>
               <option value="Unlimited Howler">Unlimited Howler</option>
               <option value="Weekend Warrior">Weekend Warrior</option>
               <option value="Day Pass Regular">Day Pass Regular</option>
@@ -128,7 +119,7 @@
 
           <!-- Actions -->
           <div class="form-full-width actions-row">
-            <button type="submit" class="btn-primary">Save dog</button>
+            <button type="submit" class="btn-primary">Save changes</button>
             <button type="button" class="btn-secondary" onclick="window.location.href='dashboard.html'">
               Cancel
             </button>
@@ -144,102 +135,75 @@
   </footer>
 
   <script>
-    // STEP 1 — Load or initialize dog database
-let dogs = JSON.parse(localStorage.getItem("dogs")) || {};
+    // Load dog name from URL
+    const params = new URLSearchParams(window.location.search);
+    const dogName = params.get("dog");
 
-// Photo preview only (no saving yet)
-const photoInput = document.getElementById("photoUpload");
-const photoImg = document.getElementById("profilePhoto");
+    // Load dogs database
+    let dogs = JSON.parse(localStorage.getItem("dogs")) || {};
+    let dog = dogs[dogName];
 
-photoInput.addEventListener("change", function (event) {
-  const file = event.target.files[0];
-  if (!file) return;
+    // If dog doesn't exist, redirect
+    if (!dog) {
+      alert("Dog not found.");
+      window.location.href = "dashboard.html";
+    }
 
-  const reader = new FileReader();
-  reader.onload = function (e) {
-    photoImg.src = e.target.result;
-  };
-  reader.readAsDataURL(file);
-});
+    // Fill form fields with existing data
+    document.getElementById("dogName").value = dog.name;
+    document.getElementById("breed").value = dog.breed;
+    document.getElementById("age").value = dog.age;
+    document.getElementById("sex").value = dog.sex;
+    document.getElementById("birthday").value = dog.birthday;
 
-// For now, prevent actual submit and just show an alert
-document.getElementById("addDogForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-  alert("Dog saved (demo). Next step: connect this to the dashboard.");
-});
+    document.getElementById("weight").value = dog.weight;
+    document.getElementById("healthConcerns").value = dog.healthConcerns;
+    document.getElementById("vaccinationStatus").value = dog.vaccinationStatus;
+    document.getElementById("temperament").value = dog.temperament;
+    document.getElementById("tags").value = dog.tags;
+    document.getElementById("notes").value = dog.notes;
+    document.getElementById("membershipTier").value = dog.membershipTier;
 
-     // STEP 2 — Save dog into localStorage
-document.getElementById("addDogForm").addEventListener("submit", function (e) {
-  e.preventDefault();
+    // Load photo
+    document.getElementById("profilePhoto").src = dog.photo;
 
-  // Read form fields
-  const name = document.getElementById("dogName").value.trim();
-  const breed = document.getElementById("breed").value.trim();
-  const age = document.getElementById("age").value.trim();
-  const sex = document.getElementById("sex").value;
-  const weight = document.getElementById("weight").value.trim();
-  const birthday = document.getElementById("birthday").value;
-  const healthConcerns = document.getElementById("healthConcerns").value.trim();
-  const vaccinationStatus = document.getElementById("vaccinationStatus").value;
-  const temperament = document.getElementById("temperament").value.trim();
-  const tags = document.getElementById("tags").value.trim();
-  const notes = document.getElementById("notes").value.trim();
-  const membershipTier = document.getElementById("membershipTier").value;
+    // Photo preview
+    const photoInput = document.getElementById("photoUpload");
+    const photoImg = document.getElementById("profilePhoto");
 
-  // Ensure name is provided
-  if (!name) {
-    alert("Please enter a dog name.");
-    return;
-  }
+    photoInput.addEventListener("change", function (event) {
+      const file = event.target.files[0];
+      if (!file) return;
 
-  // Prevent duplicate names
-  if (dogs[name]) {
-    alert("A dog with this name already exists. Please choose a different name.");
-    return;
-  }
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        photoImg.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
 
-  // Prevent more than 6 dogs
-  if (Object.keys(dogs).length >= 6) {
-    alert("You have reached the maximum of 6 dogs.");
-    return;
-  }
+    // Save updated dog info
+    document.getElementById("editDogForm").addEventListener("submit", function (e) {
+      e.preventDefault();
 
-  // Get photo (data URL)
-  const photoDataURL = document.getElementById("profilePhoto").src;
+      // Update ONLY editable fields
+      dog.weight = document.getElementById("weight").value.trim();
+      dog.healthConcerns = document.getElementById("healthConcerns").value.trim();
+      dog.vaccinationStatus = document.getElementById("vaccinationStatus").value;
+      dog.temperament = document.getElementById("temperament").value.trim();
+      dog.tags = document.getElementById("tags").value.trim();
+      dog.notes = document.getElementById("notes").value.trim();
+      dog.membershipTier = document.getElementById("membershipTier").value;
 
-  // Build dog object
-  const dog = {
-    name,
-    breed,
-    age,
-    sex,
-    weight,
-    birthday,
-    healthConcerns,
-    vaccinationStatus,
-    temperament,
-    tags,
-    notes,
-    membershipTier,
-    photo: photoDataURL
-  };
+      // Update photo
+      dog.photo = document.getElementById("profilePhoto").src;
 
-  // Save dog into the dogs object
-  dogs[name] = dog;
+      // Save back to localStorage
+      dogs[dogName] = dog;
+      localStorage.setItem("dogs", JSON.stringify(dogs));
 
-  // Save back to localStorage
-  localStorage.setItem("dogs", JSON.stringify(dogs));
-
-  // Success message
-  alert(`${name} has been added!`);
-
-  // Clear form for next dog
-  document.getElementById("addDogForm").reset();
-
-  // Reset photo preview
-  document.getElementById("profilePhoto").src = "images/dogs/sample-dog.jpg";
-});
-
+      alert("Dog profile updated!");
+    });
   </script>
 </body>
 </html>
