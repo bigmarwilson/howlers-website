@@ -428,6 +428,10 @@
       reader.readAsDataURL(file);
     });
 
+    // STEP 1 — Load or initialize dog database
+    let dogs = JSON.parse(localStorage.getItem("dogs")) || {};
+
+
     // For now, prevent actual submit and just show an alert
     document.getElementById("addDogForm").addEventListener("submit", function (e) {
       e.preventDefault();
