@@ -4,7 +4,223 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Edit Dog | Howlers Backyard</title>
-  <link rel="stylesheet" href="style.css" />
+
+  <!-- FULL ADD-DOG STYLING -->
+  <style>
+    :root {
+      --bg-charcoal: #0b0d10;
+      --text-offwhite: #f5f5f7;
+      --accent-cyan: #35e5ff;
+      --accent-green: #5bff7a;
+      --accent-pink: #ff5fd1;
+      --accent-orange: #ffb347;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #14171d 0, var(--bg-charcoal) 55%, #050608 100%);
+      color: var(--text-offwhite);
+      background-attachment: fixed;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("assets/images/rottweiler-stencil.png");
+      background-size: 900px auto;
+      background-repeat: no-repeat;
+      background-position: center 20%;
+      opacity: 0.06;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.12;
+      mix-blend-mode: soft-light;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='no'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 1;
+    }
+
+    .ambient-shimmer {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background:
+        radial-gradient(circle at 20% 40%, rgba(53,229,255,0.15), transparent 70%),
+        radial-gradient(circle at 80% 60%, rgba(255,95,209,0.15), transparent 70%);
+      background-size: 200% 200%;
+      animation: shimmerFlow 12s ease-in-out infinite;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    @keyframes shimmerFlow {
+      0% { background-position: 0% 50%; opacity: 0.4; }
+      50% { background-position: 100% 50%; opacity: 0.6; }
+      100% { background-position: 0% 50%; opacity: 0.4; }
+    }
+
+    header {
+      padding: 1.5rem 6vw 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #a4a8b3;
+      position: relative;
+      z-index: 4;
+    }
+
+    header .logo {
+      font-weight: 700;
+      color: var(--text-offwhite);
+    }
+
+    header nav a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      color: #a4a8b3;
+      transition: color 0.2s ease;
+    }
+
+    header nav a:hover {
+      color: var(--accent-cyan);
+    }
+
+    main {
+      position: relative;
+      z-index: 3;
+      padding: 2.5rem 6vw 3rem;
+    }
+
+    .add-dog-card {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: radial-gradient(circle at top left, #1b1b2f 0%, #0b0b12 45%, #050509 100%);
+      border-radius: 18px;
+      border: 1px solid rgba(120, 255, 255, 0.35);
+      box-shadow:
+        0 0 18px rgba(0, 255, 255, 0.35),
+        0 0 40px rgba(180, 0, 255, 0.35);
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .add-dog-title {
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-cyan);
+      margin-bottom: 0.5rem;
+    }
+
+    .add-dog-subtitle {
+      color: #c3c7d3;
+      margin-bottom: 1.5rem;
+    }
+
+    .profile-photo-wrap {
+      width: 100%;
+      height: 260px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(120,255,255,0.35);
+      box-shadow: 0 0 12px rgba(120,255,255,0.25);
+      margin-bottom: 1rem;
+    }
+
+    .profile-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .upload-input {
+      margin-top: 0.5rem;
+      color: var(--text-offwhite);
+    }
+
+    .add-dog-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+
+    .form-full-width {
+      grid-column: span 2;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-size: 0.9rem;
+      color: #d0d3db;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.7rem;
+      border-radius: 8px;
+      border: 1px solid rgba(120,255,255,0.35);
+      background: rgba(255,255,255,0.05);
+      color: var(--text-offwhite);
+    }
+
+    textarea {
+      min-height: 90px;
+    }
+
+    .actions-row {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .btn-primary {
+      background: var(--accent-cyan);
+      color: #000;
+      padding: 0.8rem 1.2rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      color: var(--text-offwhite);
+      padding: 0.8rem 1.2rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #a4a8b3;
+    }
+  </style>
 </head>
 
 <body>
@@ -23,14 +239,10 @@
 
   <main>
     <section class="add-dog-card">
-      <!-- LEFT: Photo + intro -->
+      <!-- LEFT -->
       <div>
-        <div class="add-dog-header">
-          <h1 class="add-dog-title">Edit Dog</h1>
-          <p class="add-dog-subtitle">
-            Update your dog's profile information.
-          </p>
-        </div>
+        <h1 class="add-dog-title">Edit Dog</h1>
+        <p class="add-dog-subtitle">Update your dog's profile information.</p>
 
         <div class="profile-photo-wrap">
           <img id="profilePhoto" src="images/dogs/sample-dog.jpg" alt="Dog photo">
@@ -39,27 +251,28 @@
         <input type="file" id="photoUpload" accept="image/*" class="upload-input">
       </div>
 
-      <!-- RIGHT: Form fields -->
+      <!-- RIGHT -->
       <div>
         <form id="editDogForm" class="add-dog-form">
-          <!-- Identity (READ ONLY) -->
+
+          <!-- READ ONLY -->
           <div class="form-group">
-            <label for="dogName">Dog name</label>
-            <input type="text" id="dogName" readonly />
+            <label>Dog name</label>
+            <input id="dogName" readonly />
           </div>
 
           <div class="form-group">
-            <label for="breed">Breed</label>
-            <input type="text" id="breed" readonly />
+            <label>Breed</label>
+            <input id="breed" readonly />
           </div>
 
           <div class="form-group">
-            <label for="age">Age (years)</label>
-            <input type="number" id="age" readonly />
+            <label>Age</label>
+            <input id="age" readonly />
           </div>
 
           <div class="form-group">
-            <label for="sex">Sex</label>
+            <label>Sex</label>
             <select id="sex" disabled>
               <option value="Female">Female</option>
               <option value="Male">Male</option>
@@ -68,23 +281,23 @@
           </div>
 
           <div class="form-group">
-            <label for="birthday">Birthday</label>
-            <input type="date" id="birthday" readonly />
+            <label>Birthday</label>
+            <input id="birthday" readonly />
           </div>
 
-          <!-- Editable fields -->
+          <!-- EDITABLE -->
           <div class="form-group">
-            <label for="weight">Weight (lbs)</label>
-            <input type="number" id="weight" min="0" />
+            <label>Weight (lbs)</label>
+            <input id="weight" />
           </div>
 
-          <div class="form-group form-full-width">
-            <label for="healthConcerns">Health concerns</label>
+          <div class="form-full-width">
+            <label>Health concerns</label>
             <textarea id="healthConcerns"></textarea>
           </div>
 
           <div class="form-group">
-            <label for="vaccinationStatus">Vaccination status</label>
+            <label>Vaccination status</label>
             <select id="vaccinationStatus">
               <option value="Up to date">Up to date</option>
               <option value="Needs update soon">Needs update soon</option>
@@ -93,22 +306,22 @@
           </div>
 
           <div class="form-group">
-            <label for="temperament">Temperament</label>
-            <input type="text" id="temperament" />
+            <label>Temperament</label>
+            <input id="temperament" />
           </div>
 
-          <div class="form-group form-full-width">
-            <label for="tags">Tags</label>
-            <input type="text" id="tags" />
+          <div class="form-full-width">
+            <label>Tags</label>
+            <input id="tags" />
           </div>
 
-          <div class="form-group form-full-width">
-            <label for="notes">Notes</label>
+          <div class="form-full-width">
+            <label>Notes</label>
             <textarea id="notes"></textarea>
           </div>
 
           <div class="form-group">
-            <label for="membershipTier">Membership tier</label>
+            <label>Membership tier</label>
             <select id="membershipTier">
               <option value="Unlimited Howler">Unlimited Howler</option>
               <option value="Weekend Warrior">Weekend Warrior</option>
@@ -117,13 +330,11 @@
             </select>
           </div>
 
-          <!-- Actions -->
           <div class="form-full-width actions-row">
             <button type="submit" class="btn-primary">Save changes</button>
-            <button type="button" class="btn-secondary" onclick="window.location.href='dashboard.html'">
-              Cancel
-            </button>
+            <button type="button" class="btn-secondary" onclick="window.location.href='dashboard.html'">Cancel</button>
           </div>
+
         </form>
       </div>
     </section>
@@ -131,7 +342,6 @@
 
   <footer>
     <p>© 2026 Howlers Backyard</p>
-    <a href="dashboard.html">Back to Dashboard</a>
   </footer>
 
   <script>
@@ -139,17 +349,16 @@
     const params = new URLSearchParams(window.location.search);
     const dogName = params.get("dog");
 
-    // Load dogs database
+    // Load dogs
     let dogs = JSON.parse(localStorage.getItem("dogs")) || {};
     let dog = dogs[dogName];
 
-    // If dog doesn't exist, redirect
     if (!dog) {
       alert("Dog not found.");
       window.location.href = "dashboard.html";
     }
 
-    // Fill form fields with existing data
+    // Fill fields
     document.getElementById("dogName").value = dog.name;
     document.getElementById("breed").value = dog.breed;
     document.getElementById("age").value = dog.age;
@@ -168,25 +377,21 @@
     document.getElementById("profilePhoto").src = dog.photo;
 
     // Photo preview
-    const photoInput = document.getElementById("photoUpload");
-    const photoImg = document.getElementById("profilePhoto");
-
-    photoInput.addEventListener("change", function (event) {
+    document.getElementById("photoUpload").addEventListener("change", function (event) {
       const file = event.target.files[0];
       if (!file) return;
 
       const reader = new FileReader();
       reader.onload = function (e) {
-        photoImg.src = e.target.result;
+        document.getElementById("profilePhoto").src = e.target.result;
       };
       reader.readAsDataURL(file);
     });
 
-    // Save updated dog info
+    // Save changes
     document.getElementById("editDogForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
-      // Update ONLY editable fields
       dog.weight = document.getElementById("weight").value.trim();
       dog.healthConcerns = document.getElementById("healthConcerns").value.trim();
       dog.vaccinationStatus = document.getElementById("vaccinationStatus").value;
@@ -195,15 +400,14 @@
       dog.notes = document.getElementById("notes").value.trim();
       dog.membershipTier = document.getElementById("membershipTier").value;
 
-      // Update photo
       dog.photo = document.getElementById("profilePhoto").src;
 
-      // Save back to localStorage
       dogs[dogName] = dog;
       localStorage.setItem("dogs", JSON.stringify(dogs));
 
       alert("Dog profile updated!");
     });
   </script>
+
 </body>
 </html>
