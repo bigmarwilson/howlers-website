@@ -90,5 +90,36 @@
 }
 </style>
 
+  <script>
+  // STEP 4C — Load dog data from URL and localStorage
+
+  // Get dog name from URL
+  const params = new URLSearchParams(window.location.search);
+  const dogName = params.get("dog");
+
+  // Load dogs database
+  const dogs = JSON.parse(localStorage.getItem("dogs")) || {};
+
+  // Get this dog's data
+  const dog = dogs[dogName];
+
+  // If dog doesn't exist, show error
+  if (!dog) {
+    document.querySelector(".edit-dog-card").innerHTML = `
+      <h1 class="edit-dog-title">Dog Not Found</h1>
+      <p style="color:#c3c7d3;">This dog does not exist in your profile.</p>
+      <a href="dashboard.html" class="btn-secondary" style="margin-top:1rem; display:inline-block;">Back to Dashboard</a>
+    `;
+  } else {
+    // Replace placeholder text
+    document.querySelector(".edit-dog-card").innerHTML = `
+      <h1 class="edit-dog-title">Edit ${dog.name}</h1>
+
+      <!-- Form will be inserted here in the next step -->
+      <p style="color:#c3c7d3;">Loading form...</p>
+    `;
+  }
+</script>
+
 </body>
 </html>
