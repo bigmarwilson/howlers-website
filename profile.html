@@ -8,118 +8,238 @@
 </head>
 
 <body>
-  <header class="profile-header">
-    <h1>Dog Profile</h1>
-    <a href="dashboard.html" class="back-link">← Back to Dashboard</a>
+  <div class="grain"></div>
+  <div class="ambient-shimmer"></div>
+
+  <header>
+    <div class="logo">HOWLERS BACKYARD</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="join.html">Join</a>
+      <a href="signin.html">Sign‑In</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
   </header>
 
-  <main class="profile-main">
-    <section class="profile-card">
-      <div class="profile-photo">
-  <img id="profilePhoto" src="" alt="Dog photo">
-</div>
+  <main>
+    <section class="add-dog-card">
+      <!-- LEFT: Photo + intro -->
+      <div>
+        <div class="add-dog-header">
+          <h1 class="add-dog-title">Add a dog</h1>
+          <p class="add-dog-subtitle">
+            Create a profile for your dog so you can manage visits, track health notes, and keep their routine consistent.
+          </p>
+        </div>
 
-<input type="file" id="photoUpload" accept="image/*" class="upload-input">
+        <div class="profile-photo-wrap">
+          <img id="profilePhoto" src="images/dogs/sample-dog.jpg" alt="Dog photo">
+        </div>
 
-      <div class="profile-photo"></div>
-      <div class="profile-info">
-        <h2 id="dogName">Dog Name</h2>
-        <form id="editForm">
-          <label>Breed</label>
-          <input type="text" id="breedInput" />
+        <input type="file" id="photoUpload" accept="image/*" class="upload-input">
+      </div>
 
-          <label>Age</label>
-          <input type="number" id="ageInput" />
+      <!-- RIGHT: Form fields -->
+      <div>
+        <form id="addDogForm" class="add-dog-form">
+          <!-- Identity -->
+          <div class="form-group">
+            <label for="dogName">Dog name</label>
+            <input type="text" id="dogName" required />
+          </div>
 
-          <label>Notes</label>
-          <textarea id="notesInput"></textarea>
+          <div class="form-group">
+            <label for="breed">Breed</label>
+            <input type="text" id="breed" required />
+          </div>
 
-          <button type="submit" class="save-btn">Save Changes</button>
+          <div class="form-group">
+            <label for="age">Age (years)</label>
+            <input type="number" id="age" min="0" required />
+          </div>
+
+          <div class="form-group">
+            <label for="sex">Sex</label>
+            <select id="sex" required>
+              <option value="">Select</option>
+              <option value="Female">Female</option>
+              <option value="Male">Male</option>
+              <option value="Unknown">Unknown</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="weight">Weight (lbs)</label>
+            <input type="number" id="weight" min="0" />
+          </div>
+
+          <div class="form-group">
+            <label for="birthday">Birthday</label>
+            <input type="date" id="birthday" />
+          </div>
+
+          <!-- Health -->
+          <div class="form-group form-full-width">
+            <label for="healthConcerns">Health concerns</label>
+            <textarea id="healthConcerns" placeholder="Allergies, injuries, chronic conditions..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="vaccinationStatus">Vaccination status</label>
+            <select id="vaccinationStatus">
+              <option value="">Select</option>
+              <option value="Up to date">Up to date</option>
+              <option value="Needs update soon">Needs update soon</option>
+              <option value="Unknown">Unknown</option>
+            </select>
+          </div>
+
+          <!-- Behavior -->
+          <div class="form-group">
+            <label for="temperament">Temperament</label>
+            <input type="text" id="temperament" placeholder="Energetic, shy, confident..." />
+          </div>
+
+          <div class="form-group form-full-width">
+            <label for="tags">Tags</label>
+            <input
+              type="text"
+              id="tags"
+              placeholder="Zoomies Champion, Treat Connoisseur, Loves Tug Toys"
+            />
+          </div>
+
+          <div class="form-group form-full-width">
+            <label for="notes">Notes</label>
+            <textarea id="notes" placeholder="Anything staff should know about your dog."></textarea>
+          </div>
+
+          <!-- Membership -->
+          <div class="form-group">
+            <label for="membershipTier">Membership tier</label>
+            <select id="membershipTier">
+              <option value="">Select</option>
+              <option value="Unlimited Howler">Unlimited Howler</option>
+              <option value="Weekend Warrior">Weekend Warrior</option>
+              <option value="Day Pass Regular">Day Pass Regular</option>
+              <option value="Puppy Pack">Puppy Pack</option>
+            </select>
+          </div>
+
+          <!-- Actions -->
+          <div class="form-full-width actions-row">
+            <button type="submit" class="btn-primary">Save dog</button>
+            <button type="button" class="btn-secondary" onclick="window.location.href='dashboard.html'">
+              Cancel
+            </button>
+          </div>
         </form>
       </div>
     </section>
   </main>
 
-  <script src="profile.js"></script>
-
-  <style>
-/* PROFILE PAGE */
-.profile-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 2rem 6vw;
-  color: #35e5ff;
-  text-shadow: 0 0 10px #35e5ff;
-}
-
-.back-link {
-  color: #ff5fd1;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.profile-card {
-  display: flex;
-  gap: 2rem;
-  background: radial-gradient(circle at top left, #1b1b2f 0%, #0b0b12 45%, #050509 100%);
-  border-radius: 18px;
-  border: 1px solid rgba(120, 255, 255, 0.35);
-  box-shadow: 0 0 18px rgba(0, 255, 255, 0.35);
-  padding: 2rem;
-  margin: 2rem 6vw;
-}
-
-.profile-photo {
-  width: 180px;
-  height: 180px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 95, 209, 0.4);
-}
-
-.save-btn {
-  margin-top: 1rem;
-  background: linear-gradient(90deg, #35e5ff, #ff5fd1);
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
-  color: #0b0b12;
-  font-weight: 700;
-  cursor: pointer;
-}
-</style>
+  <footer>
+    <p>© 2026 Howlers Backyard</p>
+    <a href="dashboard.html">Back to Dashboard</a>
+  </footer>
 
   <script>
-  // STEP 4C — Load dog data from URL and localStorage
+    // STEP 1 — Load or initialize dog database
+let dogs = JSON.parse(localStorage.getItem("dogs")) || {};
 
-  // Get dog name from URL
-  const params = new URLSearchParams(window.location.search);
-  const dogName = params.get("dog");
+// Photo preview only (no saving yet)
+const photoInput = document.getElementById("photoUpload");
+const photoImg = document.getElementById("profilePhoto");
 
-  // Load dogs database
-  const dogs = JSON.parse(localStorage.getItem("dogs")) || {};
+photoInput.addEventListener("change", function (event) {
+  const file = event.target.files[0];
+  if (!file) return;
 
-  // Get this dog's data
-  const dog = dogs[dogName];
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    photoImg.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+});
 
-  // If dog doesn't exist, show error
-  if (!dog) {
-    document.querySelector(".edit-dog-card").innerHTML = `
-      <h1 class="edit-dog-title">Dog Not Found</h1>
-      <p style="color:#c3c7d3;">This dog does not exist in your profile.</p>
-      <a href="dashboard.html" class="btn-secondary" style="margin-top:1rem; display:inline-block;">Back to Dashboard</a>
-    `;
-  } else {
-    // Replace placeholder text
-    document.querySelector(".edit-dog-card").innerHTML = `
-      <h1 class="edit-dog-title">Edit ${dog.name}</h1>
+// For now, prevent actual submit and just show an alert
+document.getElementById("addDogForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  alert("Dog saved (demo). Next step: connect this to the dashboard.");
+});
 
-      <!-- Form will be inserted here in the next step -->
-      <p style="color:#c3c7d3;">Loading form...</p>
-    `;
+     // STEP 2 — Save dog into localStorage
+document.getElementById("addDogForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  // Read form fields
+  const name = document.getElementById("dogName").value.trim();
+  const breed = document.getElementById("breed").value.trim();
+  const age = document.getElementById("age").value.trim();
+  const sex = document.getElementById("sex").value;
+  const weight = document.getElementById("weight").value.trim();
+  const birthday = document.getElementById("birthday").value;
+  const healthConcerns = document.getElementById("healthConcerns").value.trim();
+  const vaccinationStatus = document.getElementById("vaccinationStatus").value;
+  const temperament = document.getElementById("temperament").value.trim();
+  const tags = document.getElementById("tags").value.trim();
+  const notes = document.getElementById("notes").value.trim();
+  const membershipTier = document.getElementById("membershipTier").value;
+
+  // Ensure name is provided
+  if (!name) {
+    alert("Please enter a dog name.");
+    return;
   }
-</script>
 
+  // Prevent duplicate names
+  if (dogs[name]) {
+    alert("A dog with this name already exists. Please choose a different name.");
+    return;
+  }
+
+  // Prevent more than 6 dogs
+  if (Object.keys(dogs).length >= 6) {
+    alert("You have reached the maximum of 6 dogs.");
+    return;
+  }
+
+  // Get photo (data URL)
+  const photoDataURL = document.getElementById("profilePhoto").src;
+
+  // Build dog object
+  const dog = {
+    name,
+    breed,
+    age,
+    sex,
+    weight,
+    birthday,
+    healthConcerns,
+    vaccinationStatus,
+    temperament,
+    tags,
+    notes,
+    membershipTier,
+    photo: photoDataURL
+  };
+
+  // Save dog into the dogs object
+  dogs[name] = dog;
+
+  // Save back to localStorage
+  localStorage.setItem("dogs", JSON.stringify(dogs));
+
+  // Success message
+  alert(`${name} has been added!`);
+
+  // Clear form for next dog
+  document.getElementById("addDogForm").reset();
+
+  // Reset photo preview
+  document.getElementById("profilePhoto").src = "images/dogs/sample-dog.jpg";
+});
+
+  </script>
 </body>
 </html>
