@@ -797,6 +797,8 @@ footer a:hover {
   + Add Dog
   </button>
 
+  <div id="dynamicDogCards" class="dog-card-grid"></div>
+
   <div class="dog-card-grid">
 
     <!-- DOG 1 -->
@@ -1227,6 +1229,56 @@ function updateNoticeboard() {
 // Auto‑cycle every 6 seconds
 setInterval(updateNoticeboard, 6000);
 
+</script>
+
+  <script>
+  // STEP 3 — Load dogs and generate cards
+  const dogs = JSON.parse(localStorage.getItem("dogs")) || {};
+  const container = document.getElementById("dynamicDogCards");
+
+  // Loop through dogs in order added
+  Object.keys(dogs).forEach(name => {
+    const dog = dogs[name];
+
+    // Build card HTML
+    const card = document.createElement("div");
+    card.className = "dog-card";
+
+    card.innerHTML = `
+      <div class="dog-card-photo-wrap">
+        <img src="${dog.photo}" class="dog-card-photo">
+      </div>
+
+      <div class="dog-card-header">
+        <h2 class="dog-card-name">${dog.name}</h2>
+        <p class="dog-card-subtitle">${dog.age} years • ${dog.breed}</p>
+      </div>
+
+      <div class="dog-card-badges">
+        <span class="dog-card-badge dog-card-badge-temperament">${dog.temperament || "Temperament"}</span>
+        <span class="dog-card-badge dog-card-badge-tier">${dog.membershipTier || "Tier"}</span>
+      </div>
+
+      <div class="dog-card-tags">
+        ${dog.tags
+          ? dog.tags.split(",").map(tag => `<span class="dog-card-tag">${tag.trim()}</span>`).join("")
+          : ""
+        }
+      </div>
+
+      <div class="dog-card-meta">
+        <div class="dog-card-vax-status">✔ ${dog.vaccinationStatus || "Vaccination status"}</div>
+      </div>
+
+      <div class="dog-card-actions">
+        <button class="dog-card-btn" onclick="window.location.href='profile.html?dog=${dog.name}'">Edit Profile</button>
+        <button class="dog-card-btn">View History</button>
+        <button class="dog-card-btn dog-card-btn-secondary">Add Note</button>
+      </div>
+    `;
+
+    container.appendChild(card);
+  });
 </script>
 
 </body>
