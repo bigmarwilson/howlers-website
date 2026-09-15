@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Profile | Howlers Backyard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="profile-header">
+    <h1>Dog Profile</h1>
+    <a href="dashboard.html" class="back-link">← Back to Dashboard</a>
+  </header>
+
+  <main class="profile-main">
+    <section class="profile-card">
+      <div class="profile-photo"></div>
+      <div class="profile-info">
+        <h2 id="dogName">Dog Name</h2>
+        <form id="editForm">
+          <label>Breed</label>
+          <input type="text" id="breedInput" />
+
+          <label>Age</label>
+          <input type="number" id="ageInput" />
+
+          <label>Notes</label>
+          <textarea id="notesInput"></textarea>
+
+          <button type="submit" class="save-btn">Save Changes</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="profile.js"></script>
+</body>
+</html>
