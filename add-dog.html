@@ -413,26 +413,31 @@
   </footer>
 
   <script>
-    // Photo preview only (no saving yet)
-    const photoInput = document.getElementById("photoUpload");
-    const photoImg = document.getElementById("profilePhoto");
-
-    photoInput.addEventListener("change", function (event) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        photoImg.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    });
-
     // STEP 1 — Load or initialize dog database
-    let dogs = JSON.parse(localStorage.getItem("dogs")) || {};
+let dogs = JSON.parse(localStorage.getItem("dogs")) || {};
 
+// Photo preview only (no saving yet)
+const photoInput = document.getElementById("photoUpload");
+const photoImg = document.getElementById("profilePhoto");
 
-    // For now, prevent actual submit and just show an alert
+photoInput.addEventListener("change", function (event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    photoImg.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+// For now, prevent actual submit and just show an alert
+document.getElementById("addDogForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  alert("Dog saved (demo). Next step: connect this to the dashboard.");
+});
+
+     // For now, prevent actual submit and just show an alert
     document.getElementById("addDogForm").addEventListener("submit", function (e) {
       e.preventDefault();
       alert("Dog saved (demo). Next step: connect this to the dashboard.");
