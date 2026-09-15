@@ -437,11 +437,78 @@ document.getElementById("addDogForm").addEventListener("submit", function (e) {
   alert("Dog saved (demo). Next step: connect this to the dashboard.");
 });
 
-     // For now, prevent actual submit and just show an alert
-    document.getElementById("addDogForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-      alert("Dog saved (demo). Next step: connect this to the dashboard.");
-    });
+     // STEP 2 — Save dog into localStorage
+document.getElementById("addDogForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  // Read form fields
+  const name = document.getElementById("dogName").value.trim();
+  const breed = document.getElementById("breed").value.trim();
+  const age = document.getElementById("age").value.trim();
+  const sex = document.getElementById("sex").value;
+  const weight = document.getElementById("weight").value.trim();
+  const birthday = document.getElementById("birthday").value;
+  const healthConcerns = document.getElementById("healthConcerns").value.trim();
+  const vaccinationStatus = document.getElementById("vaccinationStatus").value;
+  const temperament = document.getElementById("temperament").value.trim();
+  const tags = document.getElementById("tags").value.trim();
+  const notes = document.getElementById("notes").value.trim();
+  const membershipTier = document.getElementById("membershipTier").value;
+
+  // Ensure name is provided
+  if (!name) {
+    alert("Please enter a dog name.");
+    return;
+  }
+
+  // Prevent duplicate names
+  if (dogs[name]) {
+    alert("A dog with this name already exists. Please choose a different name.");
+    return;
+  }
+
+  // Prevent more than 6 dogs
+  if (Object.keys(dogs).length >= 6) {
+    alert("You have reached the maximum of 6 dogs.");
+    return;
+  }
+
+  // Get photo (data URL)
+  const photoDataURL = document.getElementById("profilePhoto").src;
+
+  // Build dog object
+  const dog = {
+    name,
+    breed,
+    age,
+    sex,
+    weight,
+    birthday,
+    healthConcerns,
+    vaccinationStatus,
+    temperament,
+    tags,
+    notes,
+    membershipTier,
+    photo: photoDataURL
+  };
+
+  // Save dog into the dogs object
+  dogs[name] = dog;
+
+  // Save back to localStorage
+  localStorage.setItem("dogs", JSON.stringify(dogs));
+
+  // Success message
+  alert(`${name} has been added!`);
+
+  // Clear form for next dog
+  document.getElementById("addDogForm").reset();
+
+  // Reset photo preview
+  document.getElementById("profilePhoto").src = "images/dogs/sample-dog.jpg";
+});
+
   </script>
 </body>
 </html>
