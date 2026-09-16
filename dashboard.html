@@ -1109,53 +1109,75 @@ setInterval(updateNoticeboard, 6000);
 </script>
 
   <script>
-  // STEP 3 — Load dogs and generate cards
-  const dogs = JSON.parse(localStorage.getItem("dogs")) || {};
+<script>
+// ⭐ LOAD DOGS FROM FIRESTORE INSTEAD OF LOCALSTORAGE ⭐
+
+auth.onAuthStateChanged(async user => {
+  if (!user) return;
+
   const container = document.getElementById("dynamicDogCards");
+  container.innerHTML = ""; // Clear existing cards
 
-  // Loop through dogs in order added
-  Object.keys(dogs).forEach(name => {
-    const dog = dogs[name];
+  try {
+    const snapshot = await db
+      .collection("users")
+      .doc(user.uid)
+      .collection("dogs")
+      .get();
 
-    // Build card HTML
-    const card = document.createElement("div");
-    card.className = "dog-card";
+    if (snapshot.empty) {
+      container.innerHTML = "<p style='color:#c3c7d3;'>No dogs added yet.</p>";
+      return;
+    }
 
-    card.innerHTML = `
-      <div class="dog-card-photo-wrap">
-        <img src="${dog.photo}" class="dog-card-photo">
-      </div>
+    snapshot.forEach(doc => {
+      const dog = doc.data();
 
-      <div class="dog-card-header">
-        <h2 class="dog-card-name">${dog.name}</h2>
-        <p class="dog-card-subtitle">${dog.age} years • ${dog.breed}</p>
-      </div>
+      const card = document.createElement("div");
+      card.className = "dog-card";
 
-      <div class="dog-card-badges">
-        <span class="dog-card-badge dog-card-badge-temperament">${dog.temperament || "Temperament"}</span>
-        <span class="dog-card-badge dog-card-badge-tier">${dog.membershipTier || "Tier"}</span>
-      </div>
+      card.innerHTML = `
+        <div class="dog-card-photo-wrap">
+          <img src="${dog.photo}" class="dog-card-photo">
+        </div>
 
-      <div class="dog-card-tags">
-        ${dog.tags
-          ? dog.tags.split(",").map(tag => `<span class="dog-card-tag">${tag.trim()}</span>`).join("")
-          : ""
-        }
-      </div>
+        <div class="dog-card-header">
+          <h2 class="dog-card-name">${dog.name}</h2>
+          <p class="dog-card-subtitle">${dog.age} years • ${dog.breed}</p>
+        </div>
 
-      <div class="dog-card-meta">
-        <div class="dog-card-vax-status">✔ ${dog.vaccinationStatus || "Vaccination status"}</div>
-      </div>
+        <div class="dog-card-badges">
+          <span class="dog-card-badge dog-card-badge-temperament">${dog.temperament || "Temperament"}</span>
+          <span class="dog-card-badge dog-card-badge-tier">${dog.membershipTier || "Tier"}</span>
+        </div>
 
-      <div class="dog-card-actions">
-        <button class="dog-card-btn" onclick="window.location.href='profile.html?dog=${dog.name}'">Edit Profile</button>
-        <button class="dog-card-btn">View History</button>
-        <button class="dog-card-btn dog-card-btn-secondary">Add Note</button>
-      </div>
-    `;
+        <div class="dog-card-tags">
+          ${
+            dog.tags
+              ? dog.tags.split(",").map(tag => `<span class="dog-card-tag">${tag.trim()}</span>`).join("")
+              : ""
+          }
+        </div>
 
-    container.appendChild(card);
-  });
+        <div class="dog-card-meta">
+          <div class="dog-card-vax-status">✔ ${dog.vaccinationStatus || "Vaccination status"}</div>
+        </div>
+
+        <div class="dog-card-actions">
+          <button class="dog-card-btn" onclick="window.location.href='profile.html?dog=${dog.name}'">Edit Profile</button>
+          <button class="dog-card-btn">View History</button>
+          <button class="dog-card-btn dog-card-btn-secondary">Add Note</button>
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+
+  } catch (error) {
+    console.error("Error loading dogs:", error);
+    container.innerHTML = "<p style='color:red;'>Error loading dogs.</p>";
+  }
+});
 </script>
 
   <script>
