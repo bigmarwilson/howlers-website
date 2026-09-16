@@ -393,7 +393,7 @@
     apiKey: "AIzaSyDDXcYuZSeQUs85mEy61t474J9QXjOw84k",
     authDomain: "howlers-backyard.firebaseapp.com",
     projectId: "howlers-backyard",
-    storageBucket: "howlers-backyard.appspot.com",  /* correct bucket */
+    storageBucket: "howlers-backyard.appspot.com",
     messagingSenderId: "588898134350",
     appId: "1:588898134350:web:7aa05d2c7db871ba18561f"
   };
@@ -404,7 +404,7 @@
   const db = firebase.firestore();
 </script>
 
-<!-- Photo Preview (still works even without upload) -->
+<!-- Photo Preview -->
 <script>
   const photoInput = document.getElementById("photoUpload");
   const photoImg = document.getElementById("profilePhoto");
@@ -421,7 +421,7 @@
   });
 </script>
 
-<!-- ⭐ SAVE DOG — Firestore Only (No Storage Needed) -->
+<!-- SAVE DOG (must be LAST so auth & db exist) -->
 <script>
   document.getElementById("addDogForm").addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -434,7 +434,6 @@
         return;
       }
 
-      // Collect form data
       const name = document.getElementById("dogName").value.trim();
       const breed = document.getElementById("breed").value.trim();
       const age = document.getElementById("age").value.trim();
@@ -453,7 +452,6 @@
         return;
       }
 
-      // Check for duplicate dog name
       const existingDoc = await db
         .collection("users")
         .doc(user.uid)
@@ -462,14 +460,12 @@
         .get();
 
       if (existingDoc.exists) {
-        alert("A dog with this name already exists. Please choose a different name.");
+        alert("A dog with this name already exists.");
         return;
       }
 
-      // ⭐ DEFAULT PHOTO (no Firebase Storage needed)
       let photoURL = "images/dogs/sample-dog.jpg";
 
-      // Save dog to Firestore
       await db
         .collection("users")
         .doc(user.uid)
