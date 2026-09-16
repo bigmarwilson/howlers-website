@@ -510,6 +510,14 @@
 
         // Handle photo upload
         let photoURL = "images/dogs/sample-dog.jpg";
+
+// TEMPORARILY DISABLED UNTIL FIREBASE STORAGE IS ENABLED
+// const file = document.getElementById("photoUpload").files[0];
+// if (file) {
+//   const storageRef = storage.ref().child(`dogs/${user.uid}/${name}-${Date.now()}`);
+//   const snapshot = await storageRef.put(file);
+//   photoURL = await snapshot.ref.getDownloadURL();
+// }
         const file = document.getElementById("photoUpload").files[0];
 
         if (file) {
