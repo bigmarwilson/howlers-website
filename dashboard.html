@@ -696,6 +696,14 @@ footer a:hover {
 
 <body>
 
+  <script>
+  auth.onAuthStateChanged(user => {
+    if (!user) {
+      window.location.href = "signin.html";
+    }
+  });
+</script>
+
 <div class="grain"></div>
 <div class="ambient-shimmer"></div>
 
