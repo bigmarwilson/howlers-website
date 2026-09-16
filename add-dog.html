@@ -381,3 +381,128 @@
   <p>© 2026 Howlers Backyard</p>
   <a href="dashboard.html">Back to Dashboard</a>
 </footer>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+
+<!-- Firebase Initialization -->
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyDDXcYuZSeQUs85mEy61t474J9QXjOw84k",
+    authDomain: "howlers-backyard.firebaseapp.com",
+    projectId: "howlers-backyard",
+    storageBucket: "howlers-backyard.appspot.com",  /* correct bucket */
+    messagingSenderId: "588898134350",
+    appId: "1:588898134350:web:7aa05d2c7db871ba18561f"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+</script>
+
+<!-- Photo Preview (still works even without upload) -->
+<script>
+  const photoInput = document.getElementById("photoUpload");
+  const photoImg = document.getElementById("profilePhoto");
+
+  photoInput.addEventListener("change", function (event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      photoImg.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+</script>
+
+<!-- ⭐ SAVE DOG — Firestore Only (No Storage Needed) -->
+<script>
+  document.getElementById("addDogForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    try {
+      const user = auth.currentUser;
+
+      if (!user) {
+        alert("You must be logged in to add a dog.");
+        return;
+      }
+
+      // Collect form data
+      const name = document.getElementById("dogName").value.trim();
+      const breed = document.getElementById("breed").value.trim();
+      const age = document.getElementById("age").value.trim();
+      const sex = document.getElementById("sex").value;
+      const weight = document.getElementById("weight").value.trim();
+      const birthday = document.getElementById("birthday").value;
+      const healthConcerns = document.getElementById("healthConcerns").value.trim();
+      const vaccinationStatus = document.getElementById("vaccinationStatus").value;
+      const temperament = document.getElementById("temperament").value.trim();
+      const tags = document.getElementById("tags").value.trim();
+      const notes = document.getElementById("notes").value.trim();
+      const membershipTier = document.getElementById("membershipTier").value;
+
+      if (!name) {
+        alert("Please enter a dog name.");
+        return;
+      }
+
+      // Check for duplicate dog name
+      const existingDoc = await db
+        .collection("users")
+        .doc(user.uid)
+        .collection("dogs")
+        .doc(name)
+        .get();
+
+      if (existingDoc.exists) {
+        alert("A dog with this name already exists. Please choose a different name.");
+        return;
+      }
+
+      // ⭐ DEFAULT PHOTO (no Firebase Storage needed)
+      let photoURL = "images/dogs/sample-dog.jpg";
+
+      // Save dog to Firestore
+      await db
+        .collection("users")
+        .doc(user.uid)
+        .collection("dogs")
+        .doc(name)
+        .set({
+          name,
+          breed,
+          age,
+          sex,
+          weight,
+          birthday,
+          healthConcerns,
+          vaccinationStatus,
+          temperament,
+          tags,
+          notes,
+          membershipTier,
+          photo: photoURL,
+          createdAt: new Date().toISOString()
+        });
+
+      alert(`${name} has been added!`);
+      window.location.href = "dashboard.html";
+
+    } catch (error) {
+      console.error("Error saving dog:", error);
+      alert("There was an error saving your dog. Please try again.");
+    }
+  });
+</script>
+
+</body>
+</html>
+
+
