@@ -1,526 +1,553 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Add Dog | Howlers Backyard</title>
-
-<style>
-:root {
-  --bg-charcoal: #0b0d10;
-  --text-offwhite: #f5f5f7;
-  --accent-cyan: #35e5ff;
-  --accent-green: #5bff7a;
-  --accent-pink: #ff5fd1;
-  --accent-orange: #ffb347;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: radial-gradient(circle at top left, #14171d 0, var(--bg-charcoal) 55%, #050608 100%);
-  color: var(--text-offwhite);
-  background-attachment: fixed;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow-x: hidden;
-}
-
-/* Rottweiler watermark */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: url("assets/images/rottweiler-stencil.png");
-  background-size: 900px auto;
-  background-repeat: no-repeat;
-  background-position: center 20%;
-  opacity: 0.06;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Grain overlay */
-.grain {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.12;
-  mix-blend-mode: soft-light;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='no'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  z-index: 1;
-}
-
-/* Ambient shimmer */
-.ambient-shimmer {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background:
-    radial-gradient(circle at 20% 40%, rgba(53,229,255,0.15), transparent 70%),
-    radial-gradient(circle at 80% 60%, rgba(255,95,209,0.15), transparent 70%);
-  background-size: 200% 200%;
-  animation: shimmerFlow 12s ease-in-out infinite;
-  z-index: 2;
-  pointer-events: none;
-}
-
-@keyframes shimmerFlow {
-  0% { background-position: 0% 50%; opacity: 0.4; }
-  50% { background-position: 100% 50%; opacity: 0.6; }
-  100% { background-position: 0% 50%; opacity: 0.4; }
-}
-
-header {
-  padding: 1.5rem 6vw 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.9rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #a4a8b3;
-  position: relative;
-  z-index: 4;
-}
-
-header .logo {
-  font-weight: 700;
-  color: var(--text-offwhite);
-}
-
-header nav a {
-  margin-left: 1.5rem;
-  text-decoration: none;
-  color: #a4a8b3;
-  transition: color 0.2s ease;
-}
-
-header nav a:hover {
-  color: var(--accent-cyan);
-}
-
-main {
-  position: relative;
-  z-index: 3;
-  padding: 2.5rem 6vw 3rem;
-}
-
-/* Add Dog Card */
-.add-dog-card {
-  max-width: 900px;
-  margin: 0 auto;
-  background: radial-gradient(circle at top left, #1b1b2f 0%, #0b0b12 45%, #050509 100%);
-  border-radius: 18px;
-  border: 1px solid rgba(120, 255, 255, 0.35);
-  box-shadow:
-    0 0 18px rgba(0, 255, 255, 0.35),
-    0 0 40px rgba(180, 0, 255, 0.35);
-  padding: 2rem;
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
-  gap: 2rem;
-}
-
-.add-dog-header {
-  margin-bottom: 1rem;
-}
-
-.add-dog-title {
-  font-size: 1.6rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--accent-cyan);
-}
-
-.add-dog-subtitle {
-  margin-top: 0.5rem;
-  font-size: 0.95rem;
-  color: #c3c7d3;
-}
-
-.profile-photo-wrap {
-  width: 180px;
-  height: 180px;
-  border-radius: 18px;
-  overflow: hidden;
-  border: 2px solid rgba(0, 255, 255, 0.7);
-  margin-bottom: 0.9rem;
-}
-
-#profilePhoto {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.upload-input {
-  margin-top: 0.5rem;
-  color: #35e5ff;
-  background: rgba(255,255,255,0.05);
-  padding: 0.5rem;
-  border-radius: 8px;
-  border: 1px solid rgba(120,255,255,0.35);
-  font-size: 0.85rem;
-}
-
-.add-dog-form {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 1rem 1.5rem;
-  margin-top: 1rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  font-size: 0.85rem;
-  color: #c3c7d3;
-}
-
-.form-group label {
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.75rem;
-  color: #8b90a0;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-  padding: 0.45rem 0.6rem;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.18);
-  background: rgba(5,7,10,0.85);
-  color: var(--text-offwhite);
-  font-size: 0.85rem;
-}
-
-.form-group textarea {
-  min-height: 80px;
-  resize: vertical;
-}
-
-.form-full-width {
-  grid-column: 1 / -1;
-}
-
-.actions-row {
-  margin-top: 1.5rem;
-  display: flex;
-  gap: 0.8rem;
-}
-
-.btn-primary {
-  padding: 0.6rem 1.4rem;
-  border-radius: 999px;
-  border: none;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  background: linear-gradient(120deg, var(--accent-cyan), var(--accent-green));
-  color: #020305;
-  box-shadow: 0 0 24px rgba(53,229,255,0.45);
-}
-
-.btn-secondary {
-  padding: 0.6rem 1.4rem;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.18);
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  background: rgba(5,7,10,0.7);
-  color: #d5d8e4;
-}
-
-footer {
-  padding: 1.8rem 6vw 2.2rem;
-  font-size: 0.8rem;
-  color: #8b90a0;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-  position: relative;
-  z-index: 2;
-}
-
-footer a {
-  color: #a4a8b3;
-  text-decoration: none;
-}
-
-footer a:hover {
-  color: var(--accent-cyan);
-}
-
-@media (max-width: 900px) {
-  .add-dog-card {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-</style>
-</head>
-
-<body>
-
-<script>
-auth.onAuthStateChanged(user => {
-  if (!user) {
-    window.location.href = "signin.html";
-  }
-});
-</script>
-
-<div class="grain"></div>
-<div class="ambient-shimmer"></div>
-
-<header>
-  <div class="logo">HOWLERS BACKYARD</div>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="join.html">Join</a>
-    <a href="signin.html">Sign‑In</a>
-    <a href="dashboard.html">Dashboard</a>
-  </nav>
-</header>
-
-<main>
-<section class="add-dog-card">
-
-<div>
-  <div class="add-dog-header">
-    <h1 class="add-dog-title">Add a dog</h1>
-    <p class="add-dog-subtitle">
-      Create a profile for your dog so you can manage visits, track health notes, and keep their routine consistent.
-    </p>
-  </div>
-
-  <div class="profile-photo-wrap">
-    <img id="profilePhoto" src="images/dogs/sample-dog.jpg" alt="Dog photo">
-  </div>
-
-  <input type="file" id="photoUpload" accept="image/*" class="upload-input">
-</div>
-
-<div>
-<form id="addDogForm" class="add-dog-form">
-
-<div class="form-group">
-  <label for="dogName">Dog name</label>
-  <input type="text" id="dogName" required />
-</div>
-
-<div class="form-group">
-  <label for="breed">Breed</label>
-  <input type="text" id="breed" required />
-</div>
-
-<div class="form-group">
-  <label for="age">Age (years)</label>
-  <input type="number" id="age" min="0" required />
-</div>
-
-<div class="form-group">
-  <label for="sex">Sex</label>
-  <select id="sex" required>
-    <option value="">Select</option>
-    <option value="Female">Female</option>
-    <option value="Male">Male</option>
-    <option value="Unknown">Unknown</option>
-  </select>
-</div>
-
-<div class="form-group">
-  <label for="weight">Weight (lbs)</label>
-  <input type="number" id="weight" min="0" />
-</div>
-
-<div class="form-group">
-  <label for="birthday">Birthday</label>
-  <input type="date" id="birthday" />
-</div>
-
-<div class="form-group form-full-width">
-  <label for="healthConcerns">Health concerns</label>
-  <textarea id="healthConcerns" placeholder="Allergies, injuries, chronic conditions..."></textarea>
-</div>
-
-<div class="form-group">
-  <label for="vaccinationStatus">Vaccination status</label>
-  <select id="vaccinationStatus">
-    <option value="">Select</option>
-    <option value="Up to date">Up to date</option>
-    <option value="Needs update soon">Needs update soon</option>
-    <option value="Unknown">Unknown</option>
-  </select>
-</div>
-
-<div class="form-group">
-  <label for="temperament">Temperament</label>
-  <input type="text" id="temperament" placeholder="Energetic, shy, confident..." />
-</div>
-
-<div class="form-group form-full-width">
-  <label for="tags">Tags</label>
-  <input type="text" id="tags" placeholder="Zoomies Champion, Treat Connoisseur, Loves Tug Toys" />
-</div>
-
-<div class="form-group form-full-width">
-  <label for="notes">Notes</label>
-  <textarea id="notes" placeholder="Anything staff should know about your dog."></textarea>
-</div>
-
-<div class="form-group">
-  <label for="membershipTier">Membership tier</label>
-  <select id="membershipTier">
-    <option value="">Select</option>
-    <option value="Unlimited Howler">Unlimited Howler</option>
-    <option value="Weekend Warrior">Weekend Warrior</option>
-    <option value="Day Pass Regular">Day Pass Regular</option>
-    <option value="Puppy Pack">Puppy Pack</option>
-  </select>
-</div>
-
-<div class="form-full-width actions-row">
-  <button type="submit" class="btn-primary">Save dog</button>
-  <button type="button" class="btn-secondary" onclick="window.location.href='dashboard.html'">
-    Cancel
-  </button>
-</div>
-
-</form>
-</div>
-
-</section>
-</main>
-
-<footer>
-  <p>© 2026 Howlers Backyard</p>
-  <a href="dashboard.html">Back to Dashboard</a>
-</footer>
-
-<script>
-// ⭐ PHOTO PREVIEW (unchanged)
-const photoInput = document.getElementById("photoUpload");
-const photoImg = document.getElementById("profilePhoto");
-
-photoInput.addEventListener("change", function (event) {
-  const file = event.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = function (e) {
-    photoImg.src = e.target.result;
-  };
-  reader.readAsDataURL(file);
-});
-</script>
-
-<!-- ⭐ FIRESTORE DOG SAVING (REPLACES LOCALSTORAGE VERSION) -->
-<script>
-document.getElementById("addDogForm").addEventListener("submit", async function (e) {
-  e.preventDefault();
-
-  const user = auth.currentUser;
-  if (!user) {
-    alert("You must be logged in to add a dog.");
-    return;
-  }
-
-  // Read form fields
-  const name = document.getElementById("dogName").value.trim();
-  const breed = document.getElementById("breed").value.trim();
-  const age = document.getElementById("age").value.trim();
-  const sex = document.getElementById("sex").value;
-  const weight = document.getElementById("weight").value.trim();
-  const birthday = document.getElementById("birthday").value;
-  const healthConcerns = document.getElementById("healthConcerns").value.trim();
-  const vaccinationStatus = document.getElementById("vaccinationStatus").value;
-  const temperament = document.getElementById("temperament").value.trim();
-  const tags = document.getElementById("tags").value.trim();
-  const notes = document.getElementById("notes").value.trim();
-  const membershipTier = document.getElementById("membershipTier").value;
-
-  // Photo file
-  const file = document.getElementById("photoUpload").files[0];
-  let photoURL = "images/dogs/sample-dog.jpg";
-
-  try {
-    // ⭐ Upload photo to Firebase Storage
-    if (file) {
-      const storageRef = storage.ref(`users/${user.uid}/dogs/${name}.jpg`);
-      await storageRef.put(file);
-      photoURL = await storageRef.getDownloadURL();
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add Dog | Howlers Backyard</title>
+
+  <style>
+    :root {
+      --bg-charcoal: #0b0d10;
+      --text-offwhite: #f5f5f7;
+      --accent-cyan: #35e5ff;
+      --accent-green: #5bff7a;
+      --accent-pink: #ff5fd1;
+      --accent-orange: #ffb347;
     }
 
-    // ⭐ Save dog to Firestore
-    await db.collection("users")
-      .doc(user.uid)
-      .collection("dogs")
-      .doc(name)
-      .set({
-        name,
-        breed,
-        age,
-        sex,
-        weight,
-        birthday,
-        healthConcerns,
-        vaccinationStatus,
-        temperament,
-        tags,
-        notes,
-        membershipTier,
-        photo: photoURL,
-        createdAt: new Date().toISOString()
-      });
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    alert(`${name} has been added!`);
-    window.location.href = "dashboard.html";
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #14171d 0, var(--bg-charcoal) 55%, #050608 100%);
+      color: var(--text-offwhite);
+      background-attachment: fixed;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
+    }
 
-  } catch (error) {
-    console.error("Error saving dog:", error);
-    alert("There was an error saving your dog. Please try again.");
-  }
-});
-</script>
+    /* Rottweiler watermark */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("assets/images/rottweiler-stencil.png");
+      background-size: 900px auto;
+      background-repeat: no-repeat;
+      background-position: center 20%;
+      opacity: 0.06;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js"></script>
+    /* Grain overlay */
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.12;
+      mix-blend-mode: soft-light;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='no'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 1;
+    }
 
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyDDXcYuZSeQUs85mEy61t474J9QXjOw84k",
-  authDomain: "howlers-backyard.firebaseapp.com",
-  projectId: "howlers-backyard",
-  storageBucket: "howlers-backyard.firebasestorage.app",
-  messagingSenderId: "588898134350",
-  appId: "1:588898134350:web:7aa05d2c7db871ba18561f"
-};
+    /* Ambient shimmer */
+    .ambient-shimmer {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background:
+        radial-gradient(circle at 20% 40%, rgba(53,229,255,0.15), transparent 70%),
+        radial-gradient(circle at 80% 60%, rgba(255,95,209,0.15), transparent 70%);
+      background-size: 200% 200%;
+      animation: shimmerFlow 12s ease-in-out infinite;
+      z-index: 2;
+      pointer-events: none;
+    }
 
-firebase.initializeApp(firebaseConfig);
+    @keyframes shimmerFlow {
+      0% { background-position: 0% 50%; opacity: 0.4; }
+      50% { background-position: 100% 50%; opacity: 0.6; }
+      100% { background-position: 0% 50%; opacity: 0.4; }
+    }
 
-const auth = firebase.auth();
-const db = firebase.firestore();
-const storage = firebase.storage();
-</script>
+    header {
+      padding: 1.5rem 6vw 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #a4a8b3;
+      position: relative;
+      z-index: 4;
+    }
 
+    header .logo {
+      font-weight: 700;
+      color: var(--text-offwhite);
+    }
+
+    header nav a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      color: #a4a8b3;
+      transition: color 0.2s ease;
+    }
+
+    header nav a:hover {
+      color: var(--accent-cyan);
+    }
+
+    main {
+      position: relative;
+      z-index: 3;
+      padding: 2.5rem 6vw 3rem;
+    }
+
+    /* Add Dog Card */
+    .add-dog-card {
+      max-width: 900px;
+      margin: 0 auto;
+      background: radial-gradient(circle at top left, #1b1b2f 0%, #0b0b12 45%, #050509 100%);
+      border-radius: 18px;
+      border: 1px solid rgba(120, 255, 255, 0.35);
+      box-shadow:
+        0 0 18px rgba(0, 255, 255, 0.35),
+        0 0 40px rgba(180, 0, 255, 0.35);
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+      gap: 2rem;
+    }
+
+    .add-dog-header {
+      margin-bottom: 1rem;
+    }
+
+    .add-dog-title {
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-cyan);
+    }
+
+    .add-dog-subtitle {
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+      color: #c3c7d3;
+    }
+
+    .profile-photo-wrap {
+      width: 180px;
+      height: 180px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 2px solid rgba(0, 255, 255, 0.7);
+      margin-bottom: 0.9rem;
+    }
+
+    #profilePhoto {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .upload-input {
+      margin-top: 0.5rem;
+      color: #35e5ff;
+      background: rgba(255,255,255,0.05);
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: 1px solid rgba(120,255,255,0.35);
+      font-size: 0.85rem;
+    }
+
+    .add-dog-form {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1rem 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.85rem;
+      color: #c3c7d3;
+    }
+
+    .form-group label {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.75rem;
+      color: #8b90a0;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      padding: 0.45rem 0.6rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(5,7,10,0.85);
+      color: var(--text-offwhite);
+      font-size: 0.85rem;
+    }
+
+    .form-group textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .form-full-width {
+      grid-column: 1 / -1;
+    }
+
+    .actions-row {
+      margin-top: 1.5rem;
+      display: flex;
+      gap: 0.8rem;
+    }
+
+    .btn-primary {
+      padding: 0.6rem 1.4rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: linear-gradient(120deg, var(--accent-cyan), var(--accent-green));
+      color: #020305;
+      box-shadow: 0 0 24px rgba(53,229,255,0.45);
+    }
+
+    .btn-secondary {
+      padding: 0.6rem 1.4rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: rgba(5,7,10,0.7);
+      color: #d5d8e4;
+    }
+
+    footer {
+      padding: 1.8rem 6vw 2.2rem;
+      font-size: 0.8rem;
+      color: #8b90a0;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    footer a {
+      color: #a4a8b3;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--accent-cyan);
+    }
+
+    @media (max-width: 900px) {
+      .add-dog-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Auth gate -->
+  <script>
+    // This will run AFTER Firebase is initialized (see bottom),
+    // but we keep it here for layout; it uses 'auth' defined later.
+    document.addEventListener("DOMContentLoaded", () => {
+      if (typeof auth !== "undefined") {
+        auth.onAuthStateChanged(user => {
+          if (!user) {
+            window.location.href = "signin.html";
+          }
+        });
+      }
+    });
+  </script>
+
+  <div class="grain"></div>
+  <div class="ambient-shimmer"></div>
+
+  <header>
+    <div class="logo">HOWLERS BACKYARD</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="join.html">Join</a>
+      <a href="signin.html">Sign‑In</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="add-dog-card">
+      <!-- LEFT: Photo + intro -->
+      <div>
+        <div class="add-dog-header">
+          <h1 class="add-dog-title">Add a dog</h1>
+          <p class="add-dog-subtitle">
+            Create a profile for your dog so you can manage visits, track health notes, and keep their routine consistent.
+          </p>
+        </div>
+
+        <div class="profile-photo-wrap">
+          <img id="profilePhoto" src="images/dogs/sample-dog.jpg" alt="Dog photo">
+        </div>
+
+        <input type="file" id="photoUpload" accept="image/*" class="upload-input">
+      </div>
+
+      <!-- RIGHT: Form fields -->
+      <div>
+        <form id="addDogForm" class="add-dog-form">
+          <!-- Identity -->
+          <div class="form-group">
+            <label for="dogName">Dog name</label>
+            <input type="text" id="dogName" required />
+          </div>
+
+          <div class="form-group">
+            <label for="breed">Breed</label>
+            <input type="text" id="breed" required />
+          </div>
+
+          <div class="form-group">
+            <label for="age">Age (years)</label>
+            <input type="number" id="age" min="0" required />
+          </div>
+
+          <div class="form-group">
+            <label for="sex">Sex</label>
+            <select id="sex" required>
+              <option value="">Select</option>
+              <option value="Female">Female</option>
+              <option value="Male">Male</option>
+              <option value="Unknown">Unknown</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="weight">Weight (lbs)</label>
+            <input type="number" id="weight" min="0" />
+          </div>
+
+          <div class="form-group">
+            <label for="birthday">Birthday</label>
+            <input type="date" id="birthday" />
+          </div>
+
+          <!-- Health -->
+          <div class="form-group form-full-width">
+            <label for="healthConcerns">Health concerns</label>
+            <textarea id="healthConcerns" placeholder="Allergies, injuries, chronic conditions..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="vaccinationStatus">Vaccination status</label>
+            <select id="vaccinationStatus">
+              <option value="">Select</option>
+              <option value="Up to date">Up to date</option>
+              <option value="Needs update soon">Needs update soon</option>
+              <option value="Unknown">Unknown</option>
+            </select>
+          </div>
+
+          <!-- Behavior -->
+          <div class="form-group">
+            <label for="temperament">Temperament</label>
+            <input type="text" id="temperament" placeholder="Energetic, shy, confident..." />
+          </div>
+
+          <div class="form-group form-full-width">
+            <label for="tags">Tags</label>
+            <input
+              type="text"
+              id="tags"
+              placeholder="Zoomies Champion, Treat Connoisseur, Loves Tug Toys"
+            />
+          </div>
+
+          <div class="form-group form-full-width">
+            <label for="notes">Notes</label>
+            <textarea id="notes" placeholder="Anything staff should know about your dog."></textarea>
+          </div>
+
+          <!-- Membership -->
+          <div class="form-group">
+            <label for="membershipTier">Membership tier</label>
+            <select id="membershipTier">
+              <option value="">Select</option>
+              <option value="Unlimited Howler">Unlimited Howler</option>
+              <option value="Weekend Warrior">Weekend Warrior</option>
+              <option value="Day Pass Regular">Day Pass Regular</option>
+              <option value="Puppy Pack">Puppy Pack</option>
+            </select>
+          </div>
+
+          <!-- Actions -->
+          <div class="form-full-width actions-row">
+            <button type="submit" class="btn-primary">Save dog</button>
+            <button type="button" class="btn-secondary" onclick="window.location.href='dashboard.html'">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Howlers Backyard</p>
+    <a href="dashboard.html">Back to Dashboard</a>
+  </footer>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js"></script>
+
+  <script>
+    // Firebase config + init
+    const firebaseConfig = {
+      apiKey: "AIzaSyDDXcYuZSeQUs85mEy61t474J9QXjOw84k",
+      authDomain: "howlers-backyard.firebaseapp.com",
+      projectId: "howlers-backyard",
+      storageBucket: "howlers-backyard.firebasestorage.app",
+      messagingSenderId: "588898134350",
+      appId: "1:588898134350:web:7aa05d2c7db871ba18561f"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const storage = firebase.storage();
+  </script>
+
+  <script>
+    // Photo preview
+    const photoInput = document.getElementById("photoUpload");
+    const photoImg = document.getElementById("profilePhoto");
+
+    photoInput.addEventListener("change", function (event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        photoImg.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // SAVE DOG — Firestore + Storage
+    document.getElementById("addDogForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      try {
+        const user = auth.currentUser;
+        if (!user) {
+          alert("You must be logged in to add a dog.");
+          return;
+        }
+
+        // Read form fields
+        const name = document.getElementById("dogName").value.trim();
+        const breed = document.getElementById("breed").value.trim();
+        const age = document.getElementById("age").value.trim();
+        const sex = document.getElementById("sex").value;
+        const weight = document.getElementById("weight").value.trim();
+        const birthday = document.getElementById("birthday").value;
+        const healthConcerns = document.getElementById("healthConcerns").value.trim();
+        const vaccinationStatus = document.getElementById("vaccinationStatus").value;
+        const temperament = document.getElementById("temperament").value.trim();
+        const tags = document.getElementById("tags").value.trim();
+        const notes = document.getElementById("notes").value.trim();
+        const membershipTier = document.getElementById("membershipTier").value;
+
+        if (!name) {
+          alert("Please enter a dog name.");
+          return;
+        }
+
+        // Check if dog with same name already exists in Firestore
+        const existingDoc = await db
+          .collection("users")
+          .doc(user.uid)
+          .collection("dogs")
+          .doc(name)
+          .get();
+
+        if (existingDoc.exists) {
+          alert("A dog with this name already exists. Please choose a different name.");
+          return;
+        }
+
+        // Handle photo upload
+        let photoURL = "images/dogs/sample-dog.jpg";
+        const file = document.getElementById("photoUpload").files[0];
+
+        if (file) {
+          const storageRef = storage.ref().child(`dogs/${user.uid}/${name}-${Date.now()}`);
+          const snapshot = await storageRef.put(file);
+          photoURL = await snapshot.ref.getDownloadURL();
+        }
+
+        // Save dog to Firestore
+        await db
+          .collection("users")
+          .doc(user.uid)
+          .collection("dogs")
+          .doc(name)
+          .set({
+            name,
+            breed,
+            age,
+            sex,
+            weight,
+            birthday,
+            healthConcerns,
+            vaccinationStatus,
+            temperament,
+            tags,
+            notes,
+            membershipTier,
+            photo: photoURL,
+            createdAt: new Date().toISOString()
+          });
+
+        alert(`${name} has been added!`);
+        window.location.href = "dashboard.html";
+      } catch (error) {
+        console.error("Error saving dog:", error);
+        alert("There was an error saving your dog. Please try again.");
+      }
+    });
+  </script>
 </body>
 </html>
