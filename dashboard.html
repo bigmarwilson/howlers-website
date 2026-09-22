@@ -1231,6 +1231,38 @@ auth.onAuthStateChanged(async user => {
   const storage = firebase.storage();
 </script>
 
+  <script>
+  function loadDogs() {
+    const dogs = JSON.parse(localStorage.getItem("dogs")) || [];
+    const container = document.getElementById("dynamicDogCards");
+
+    container.innerHTML = "";
+
+    dogs.forEach(dog => {
+      const card = document.createElement("div");
+      card.className = "dog-card";
+
+      card.innerHTML = `
+        <div class="dog-card-photo-wrap">
+          <img src="${dog.photo}" class="dog-card-photo">
+        </div>
+
+        <div class="dog-card-header">
+          <h2 class="dog-card-name">${dog.name}</h2>
+          <p class="dog-card-subtitle">${dog.age} years • ${dog.breed}</p>
+        </div>
+
+        <div class="dog-card-badges">
+          <span class="dog-card-badge">${dog.membershipTier}</span>
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+  }
+
+  loadDogs();
+</script>
 
 </body>
 </html>
