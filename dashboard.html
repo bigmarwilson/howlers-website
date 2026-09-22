@@ -1136,39 +1136,32 @@ auth.onAuthStateChanged(async user => {
       const card = document.createElement("div");
       card.className = "dog-card";
 
-      card.innerHTML = `
-        <div class="dog-card-photo-wrap">
-          <img src="${dog.photo}" class="dog-card-photo">
-        </div>
+     card.innerHTML = `
+  <div class="dog-card-photo-wrap">
+    <img src="${dog.photo}" class="dog-card-photo">
+  </div>
 
-        <div class="dog-card-header">
-          <h2 class="dog-card-name">${dog.name}</h2>
-          <p class="dog-card-subtitle">${dog.age} years • ${dog.breed}</p>
-        </div>
+  <div class="dog-card-content">
+    <h3 class="dog-card-name">${dog.name}</h3>
+    <p class="dog-card-breed">${dog.breed}</p>
 
-        <div class="dog-card-badges">
-          <span class="dog-card-badge dog-card-badge-temperament">${dog.temperament || "Temperament"}</span>
-          <span class="dog-card-badge dog-card-badge-tier">${dog.membershipTier || "Tier"}</span>
-        </div>
+    <div class="dog-card-details">
+      <p><strong>Age:</strong> ${dog.age}</p>
+      <p><strong>Sex:</strong> ${dog.sex}</p>
+      <p><strong>Weight:</strong> ${dog.weight} lbs</p>
+      <p><strong>Temperament:</strong> ${dog.temperament}</p>
+      <p><strong>Tags:</strong> ${dog.tags}</p>
+    </div>
 
-        <div class="dog-card-tags">
-          ${
-            dog.tags
-              ? dog.tags.split(",").map(tag => `<span class="dog-card-tag">${tag.trim()}</span>`).join("")
-              : ""
-          }
-        </div>
+    <div class="dog-card-badges">
+      <span class="dog-card-badge">${dog.membershipTier}</span>
+    </div>
 
-        <div class="dog-card-meta">
-          <div class="dog-card-vax-status">✔ ${dog.vaccinationStatus || "Vaccination status"}</div>
-        </div>
-
-        <div class="dog-card-actions">
-          <button class="dog-card-btn" onclick="window.location.href='profile.html?dog=${dog.name}'">Edit Profile</button>
-          <button class="dog-card-btn">View History</button>
-          <button class="dog-card-btn dog-card-btn-secondary">Add Note</button>
-        </div>
-      `;
+    <button class="dog-edit-btn" onclick="window.location.href='edit-dog.html?name=${dog.name}'">
+      Edit Profile
+    </button>
+  </div>
+`;
 
       container.appendChild(card);
     });
