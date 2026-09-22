@@ -405,6 +405,32 @@
       return;
     }
 
+    const dog = {
+      name,
+      breed: document.getElementById("breed").value.trim(),
+      age: document.getElementById("age").value.trim(),
+      sex: document.getElementById("sex").value,
+      weight: document.getElementById("weight").value.trim(),
+      birthday: document.getElementById("birthday").value,
+      healthConcerns: document.getElementById("healthConcerns").value.trim(),
+      vaccinationStatus: document.getElementById("vaccinationStatus").value,
+      temperament: document.getElementById("temperament").value.trim(),
+      tags: document.getElementById("tags").value.trim(),
+      notes: document.getElementById("notes").value.trim(),
+      membershipTier: document.getElementById("membershipTier").value,
+      photo: document.getElementById("profilePhoto").src
+    };
+
+    const dogs = JSON.parse(localStorage.getItem("dogs")) || [];
+
+    if (dogs.some(d => d.name.toLowerCase() === name.toLowerCase())) {
+      alert("A dog with this name already exists.");
+      return;
+    }
+
+    dogs.push(dog);
+    localStorage.setItem("dogs", JSON.stringify(dogs));
+
     alert(`${name} has been added!`);
     window.location.href = "dashboard.html";
   });
