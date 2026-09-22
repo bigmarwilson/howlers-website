@@ -1248,9 +1248,17 @@ auth.onAuthStateChanged(async user => {
         </div>
 
         <div class="dog-card-header">
-          <h2 class="dog-card-name">${dog.name}</h2>
-          <p class="dog-card-subtitle">${dog.age} years • ${dog.breed}</p>
-        </div>
+  <h2 class="dog-card-name">${dog.name}</h2>
+  <p class="dog-card-subtitle">${dog.age} years • ${dog.breed}</p>
+</div>
+
+<div class="dog-card-info">
+  <p><strong>Sex:</strong> ${dog.sex}</p>
+  <p><strong>Weight:</strong> ${dog.weight} lbs</p>
+  <p><strong>Birthday:</strong> ${dog.birthday || "N/A"}</p>
+  <p><strong>Temperament:</strong> ${dog.temperament || "N/A"}</p>
+  <p><strong>Tags:</strong> ${dog.tags || "None"}</p>
+</div>
 
         <div class="dog-card-badges">
           <span class="dog-card-badge">${dog.membershipTier}</span>
