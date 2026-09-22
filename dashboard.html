@@ -1260,6 +1260,13 @@ auth.onAuthStateChanged(async user => {
   <p><strong>Tags:</strong> ${dog.tags || "None"}</p>
 </div>
 
+<div class="dog-card-actions">
+  <button class="dog-edit-btn" onclick="window.location.href='edit-dog.html?name=${dog.name}'">
+    Edit
+  </button>
+</div>
+
+
         <div class="dog-card-badges">
           <span class="dog-card-badge">${dog.membershipTier}</span>
         </div>
