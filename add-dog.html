@@ -262,7 +262,7 @@
 <main>
   <section class="add-dog-card">
 
-    <!-- LEFT SIDE — PHOTO + INTRO -->
+    <!-- LEFT SIDE -->
     <div>
       <div class="add-dog-header">
         <h1 class="add-dog-title">Add a dog</h1>
@@ -279,11 +279,10 @@
       <input type="file" id="photoUpload" accept="image/*" class="upload-input">
     </div>
 
-    <!-- RIGHT SIDE — FORM -->
+    <!-- RIGHT SIDE -->
     <div>
       <form id="addDogForm" class="add-dog-form">
 
-        <!-- Identity -->
         <div class="form-group">
           <label for="dogName">Dog name</label>
           <input type="text" id="dogName" required />
@@ -319,10 +318,9 @@
           <input type="date" id="birthday" />
         </div>
 
-        <!-- Health -->
         <div class="form-group form-full-width">
           <label for="healthConcerns">Health concerns</label>
-          <textarea id="healthConcerns" placeholder="Allergies, injuries, chronic conditions..."></textarea>
+          <textarea id="healthConcerns"></textarea>
         </div>
 
         <div class="form-group">
@@ -335,23 +333,21 @@
           </select>
         </div>
 
-        <!-- Behavior -->
         <div class="form-group">
           <label for="temperament">Temperament</label>
-          <input type="text" id="temperament" placeholder="Energetic, shy, confident..." />
+          <input type="text" id="temperament" />
         </div>
 
         <div class="form-group form-full-width">
           <label for="tags">Tags</label>
-          <input type="text" id="tags" placeholder="Zoomies Champion, Treat Connoisseur, Loves Tug Toys" />
+          <input type="text" id="tags" />
         </div>
 
         <div class="form-group form-full-width">
           <label for="notes">Notes</label>
-          <textarea id="notes" placeholder="Anything staff should know about your dog."></textarea>
+          <textarea id="notes"></textarea>
         </div>
 
-        <!-- Membership -->
         <div class="form-group">
           <label for="membershipTier">Membership tier</label>
           <select id="membershipTier">
@@ -363,7 +359,6 @@
           </select>
         </div>
 
-        <!-- Actions -->
         <div class="form-full-width actions-row">
           <button type="submit" class="btn-primary">Save dog</button>
           <button type="button" class="btn-secondary" onclick="window.location.href='dashboard.html'">
@@ -382,28 +377,6 @@
   <a href="dashboard.html">Back to Dashboard</a>
 </footer>
 
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
-
-<!-- Firebase Initialization -->
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyDDXcYuZSeQUs85mEy61t474J9QXjOw84k",
-    authDomain: "howlers-backyard.firebaseapp.com",
-    projectId: "howlers-backyard",
-    storageBucket: "howlers-backyard.appspot.com",
-    messagingSenderId: "588898134350",
-    appId: "1:588898134350:web:7aa05d2c7db871ba18561f"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-</script>
-
 <!-- Photo Preview -->
 <script>
   const photoInput = document.getElementById("photoUpload");
@@ -421,84 +394,21 @@
   });
 </script>
 
-<!-- SAVE DOG (must be LAST so auth & db exist) -->
+<!-- SAVE DOG (Firebase-free) -->
 <script>
-  document.getElementById("addDogForm").addEventListener("submit", async function (e) {
+  document.getElementById("addDogForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
-    try {
-      const user = auth.currentUser;
-
-      if (!user) {
-        alert("You must be logged in to add a dog.");
-        return;
-      }
-
-      const name = document.getElementById("dogName").value.trim();
-      const breed = document.getElementById("breed").value.trim();
-      const age = document.getElementById("age").value.trim();
-      const sex = document.getElementById("sex").value;
-      const weight = document.getElementById("weight").value.trim();
-      const birthday = document.getElementById("birthday").value;
-      const healthConcerns = document.getElementById("healthConcerns").value.trim();
-      const vaccinationStatus = document.getElementById("vaccinationStatus").value;
-      const temperament = document.getElementById("temperament").value.trim();
-      const tags = document.getElementById("tags").value.trim();
-      const notes = document.getElementById("notes").value.trim();
-      const membershipTier = document.getElementById("membershipTier").value;
-
-      if (!name) {
-        alert("Please enter a dog name.");
-        return;
-      }
-
-      const existingDoc = await db
-        .collection("users")
-        .doc(user.uid)
-        .collection("dogs")
-        .doc(name)
-        .get();
-
-      if (existingDoc.exists) {
-        alert("A dog with this name already exists.");
-        return;
-      }
-
-      let photoURL = "images/dogs/sample-dog.jpg";
-
-      await db
-        .collection("users")
-        .doc(user.uid)
-        .collection("dogs")
-        .doc(name)
-        .set({
-          name,
-          breed,
-          age,
-          sex,
-          weight,
-          birthday,
-          healthConcerns,
-          vaccinationStatus,
-          temperament,
-          tags,
-          notes,
-          membershipTier,
-          photo: photoURL,
-          createdAt: new Date().toISOString()
-        });
-
-      alert(`${name} has been added!`);
-      window.location.href = "dashboard.html";
-
-    } catch (error) {
-      console.error("Error saving dog:", error);
-      alert("There was an error saving your dog. Please try again.");
+    const name = document.getElementById("dogName").value.trim();
+    if (!name) {
+      alert("Please enter a dog name.");
+      return;
     }
+
+    alert(`${name} has been added!`);
+    window.location.href = "dashboard.html";
   });
 </script>
 
 </body>
 </html>
-
-
