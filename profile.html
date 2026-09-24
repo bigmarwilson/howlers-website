@@ -445,7 +445,9 @@
       dog.birthday = document.getElementById("birthday").value;
 
 
-      dogs[dogName] = dog;
+      const index = dogs.findIndex(d => d.name === dogName);
+dogs[index] = dog;
+
       localStorage.setItem("dogs", JSON.stringify(dogs));
 
       alert("Dog profile updated!");
