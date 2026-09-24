@@ -360,7 +360,7 @@
 
     // Load dogs
     let dogs = JSON.parse(localStorage.getItem("dogs")) || {};
-    let dog = dogs[dogName];
+    let dog = dogs.find(d => d.name === dogName);
 
     if (!dog) {
       alert("Dog not found.");
