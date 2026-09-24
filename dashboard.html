@@ -1110,29 +1110,6 @@ setInterval(updateNoticeboard, 6000);
 </script>
 
   <script>
-// ⭐ LOAD DOGS FROM FIRESTORE INSTEAD OF LOCALSTORAGE ⭐
-
-
-  const container = document.getElementById("dynamicDogCards");
-  container.innerHTML = ""; // Clear existing cards
-
-  try {
-    const snapshot = await db
-      .collection("users")
-      .doc(user.uid)
-      .collection("dogs")
-      .get();
-
-    if (snapshot.empty) {
-      container.innerHTML = "<p style='color:#c3c7d3;'>No dogs added yet.</p>";
-      return;
-    }
-
-    snapshot.forEach(doc => {
-      const dog = doc.data();
-
-      const card = document.createElement("div");
-      card.className = "dog-card";
 
      card.innerHTML = `
   <div class="dog-card-top">
