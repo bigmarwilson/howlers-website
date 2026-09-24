@@ -442,6 +442,8 @@
       dog.membershipTier = document.getElementById("membershipTier").value;
 
       dog.photo = document.getElementById("profilePhoto").src;
+      dog.birthday = document.getElementById("birthday").value;
+
 
       dogs[dogName] = dog;
       localStorage.setItem("dogs", JSON.stringify(dogs));
