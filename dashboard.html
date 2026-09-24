@@ -1198,34 +1198,24 @@ setInterval(updateNoticeboard, 6000);
       card.className = "dog-card";
 
       card.innerHTML = `
-        <div class="dog-card-photo-wrap">
-          <img src="${dog.photo}" class="dog-card-photo">
-        </div>
+  <img src="${dog.photo}" class="dog-card-photo">
 
-        <div class="dog-card-header">
-  <h2 class="dog-card-name">${dog.name}</h2>
-  <p class="dog-card-subtitle">${dog.age} years • ${dog.breed}</p>
-</div>
+  <div class="dog-card-info">
+    <h3 class="neon-dog-name">${dog.name}</h3>
+    <p>${dog.breed}</p>
+    <p>${dog.age} years • ${dog.sex}</p>
+    <p>${dog.weight} lbs</p>
+    <p>${dog.temperament}</p>
+    <p>${dog.tags}</p>
+  </div>
 
-<div class="dog-card-info">
-  <p><strong>Sex:</strong> ${dog.sex}</p>
-  <p><strong>Weight:</strong> ${dog.weight} lbs</p>
-  <p><strong>Birthday:</strong> ${dog.birthday || "N/A"}</p>
-  <p><strong>Temperament:</strong> ${dog.temperament || "N/A"}</p>
-  <p><strong>Tags:</strong> ${dog.tags || "None"}</p>
-</div>
-
-<div class="dog-card-actions">
-  <button class="dog-edit-btn" onclick="window.location.href='edit-dog.html?name=${dog.name}'">
-    Edit
-  </button>
-</div>
-
-
-        <div class="dog-card-badges">
-          <span class="dog-card-badge">${dog.membershipTier}</span>
-        </div>
-      `;
+  <div class="dog-card-bottom">
+    <span class="dog-card-badge">${dog.membershipTier}</span>
+    <button class="dog-card-edit-btn" onclick="window.location.href='edit-dog.html?name=${dog.name}'">
+      Edit
+    </button>
+  </div>
+`;
 
       container.appendChild(card);
     });
