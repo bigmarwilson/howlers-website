@@ -1109,36 +1109,7 @@ setInterval(updateNoticeboard, 6000);
 
 </script>
 
-  <script>
-
-     card.innerHTML = `
-  <div class="dog-card-top">
-    <img src="${dog.photo}" class="dog-card-photo">
-    <div class="dog-card-info">
-      <h3 class="neon-dog-name">${dog.name}</h3>
-      <p>${dog.breed}</p>
-      <p>${dog.age} years • ${dog.sex}</p>
-      <p>${dog.weight} lbs</p>
-      <p>${dog.temperament}</p>
-      <p>${dog.tags}</p>
-    </div>
-  </div>
-
-  <div class="dog-card-bottom">
-    <span class="dog-card-badge">${dog.membershipTier}</span>
-    <button class="dog-card-edit-btn" onclick="window.location.href='edit-dog.html?name=${dog.name}'">
-      Edit
-    </button>
-  </div>
-`;
-
-      container.appendChild(card);
-    ;
-
-   
-  ;
-</script>
-
+  
    <script>
   function loadDogs() {
     const dogs = JSON.parse(localStorage.getItem("dogs")) || [];
