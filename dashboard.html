@@ -393,13 +393,15 @@ header nav a:hover {
 
 .token-icon-wrap {
   width: 150px;
-  height: 150px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.6rem; /* tighter spacing */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .token-icon {
   width: 100%;
-  height: 100%;
+  height: auto; /* removes top/bottom empty space */
   object-fit: contain;
   filter: drop-shadow(0 0 12px rgba(255, 200, 0, 0.8));
 }
