@@ -1187,6 +1187,31 @@ setInterval(updateNoticeboard, 6000);
 
   
    <script>
+
+     function calculateAge(birthdateString) {
+  if (!birthdateString) return "";
+
+  const birthdate = new Date(birthdateString);
+  const today = new Date();
+
+  let years = today.getFullYear() - birthdate.getFullYear();
+  let months = today.getMonth() - birthdate.getMonth();
+  let days = today.getDate() - birthdate.getDate();
+
+  if (days < 0) {
+    months--;
+    const previousMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+    days += previousMonth.getDate();
+  }
+
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  return `${years} years, ${months} months, ${days} days`;
+}
+
   function loadDogs() {
     const dogs = JSON.parse(localStorage.getItem("dogs")) || [];
     const container = document.getElementById("dynamicDogCards");
