@@ -1166,33 +1166,7 @@ setInterval(updateNoticeboard, 6000);
 });
 </script>
 
-  <script>
-auth.onAuthStateChanged(async user => {
-  if (!user) return;
-
-  try {
-    // Load user profile from Firestore
-    const doc = await db.collection("users").doc(user.uid).get();
-
-    if (doc.exists) {
-      const data = doc.data();
-
-      // Insert name into welcome block
-      const welcomeTitle = document.querySelector(".welcome-title");
-      welcomeTitle.innerHTML = `Welcome back, <span>${data.fullName}</span>`;
-
-      // OPTIONAL: Insert dog info later
-      // const dogSection = document.querySelector(".dog-section h2");
-      // dogSection.textContent = `${data.dogName}'s Profile`;
-    }
-
-  } catch (error) {
-    console.error("Error loading user profile:", error);
-  }
-});
-</script>
-
-  <script>
+   <script>
   function loadDogs() {
     const dogs = JSON.parse(localStorage.getItem("dogs")) || [];
     const container = document.getElementById("dynamicDogCards");
