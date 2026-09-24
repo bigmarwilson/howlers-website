@@ -401,6 +401,11 @@
     document.getElementById("sex").value = dog.sex;
     document.getElementById("birthday").value = dog.birthday;
 
+    document.getElementById("birthday").addEventListener("change", () => {
+  const newBirthday = document.getElementById("birthday").value;
+  document.getElementById("age").value = calculateAge(newBirthday);
+});
+
     document.getElementById("weight").value = dog.weight;
     document.getElementById("healthConcerns").value = dog.healthConcerns;
     document.getElementById("vaccinationStatus").value = dog.vaccinationStatus;
