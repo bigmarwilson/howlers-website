@@ -367,6 +367,33 @@
       window.location.href = "dashboard.html";
     }
 
+    function calculateAge(birthdateString) {
+  if (!birthdateString) return "";
+
+  const birthdate = new Date(birthdateString);
+  const today = new Date();
+
+  let years = today.getFullYear() - birthdate.getFullYear();
+  let months = today.getMonth() - birthdate.getMonth();
+  let days = today.getDate() - birthdate.getDate();
+
+  // Fix negative days (borrow from previous month)
+  if (days < 0) {
+    months--;
+    const previousMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+    days += previousMonth.getDate();
+  }
+
+  // Fix negative months (borrow from previous year)
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  return `${years} years, ${months} months, ${days} days`;
+}
+   
+
     // Fill fields
     document.getElementById("dogName").value = dog.name;
     document.getElementById("breed").value = dog.breed;
