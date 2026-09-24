@@ -777,7 +777,26 @@ footer a:hover {
     0 0 8px rgba(53,229,255,0.7),
     0 0 16px rgba(53,229,255,0.5);
 }
+.dog-card-edit-btn:hover {
+  background: var(--accent-cyan);
+  color: #000;
+  box-shadow: 0 0 8px rgba(53,229,255,0.7), 0 0 16px rgba(53,229,255,0.5);
+}
 
+/* ⭐ Wiggle animation */
+@keyframes wiggle {
+  0%   { transform: rotate(0deg); }
+  25%  { transform: rotate(6deg); }
+  50%  { transform: rotate(-6deg); }
+  75%  { transform: rotate(4deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* ⭐ Wiggle trigger */
+.token-card:hover .token-icon {
+  animation: wiggle 0.4s ease-in-out;
+  transform-origin: center;
+}
 </style>
 </head>
 
